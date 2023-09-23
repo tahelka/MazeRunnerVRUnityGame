@@ -665,8 +665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NodePrefab: {fileID: 4178226955375866962, guid: 99bc1b2b917e9fa48a530b847940bb10,
     type: 3}
-  m_Rows: 5
-  m_Cols: 5
+  m_Rows: 10
+  m_Cols: 10
 --- !u!1001 &309612341
 PrefabInstance:
   m_ObjectHideFlags: 0

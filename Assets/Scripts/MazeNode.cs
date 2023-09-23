@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum NodeState
@@ -11,10 +9,8 @@ public enum NodeState
 
 public class MazeNode : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] m_Walls;
-    [SerializeField]
-    private MeshRenderer m_Floor; 
+    [SerializeField] private GameObject[] m_Walls;
+    [SerializeField] private MeshRenderer m_Floor; 
 
     public void SetState(NodeState i_State)
     {
