@@ -6,12 +6,20 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-public enum WallDirections
+public enum eDirections
 {
-    PosX = 1,
-    NegX = 2,
-    PosZ = 3,
-    NegZ = 4
+    RightDirections = 1, // PosX
+    LeftDirections = 2, // NegX
+    UpDirections = 3, // PosZ
+    DownDirections = 4  // NegZ
+}
+
+public enum eWall
+{
+    RightWall = 0,
+    LeftWall = 1,
+    UpWall = 2,
+    DownWall = 3
 }
 
 public class MazeGenerator : MonoBehaviour
@@ -75,7 +83,7 @@ public class MazeGenerator : MonoBehaviour
                 if (!completedNodes.Contains(nodes[currentNodeIndex + m_Rows])
                    && !currentPath.Contains(nodes[currentNodeIndex + m_Rows]))
                 {
-                    possibleDirections.Add((int)WallDirections.PosX);
+                    possibleDirections.Add((int)eDirections.RightDirections);
                     possibleNextNodes.Add(currentNodeIndex + m_Rows);
                 }
             }
@@ -87,7 +95,7 @@ public class MazeGenerator : MonoBehaviour
                 if (!completedNodes.Contains(nodes[currentNodeIndex - m_Rows])
                     && !currentPath.Contains(nodes[currentNodeIndex - m_Rows]))
                 {
-                    possibleDirections.Add((int)WallDirections.NegX);
+                    possibleDirections.Add((int)eDirections.LeftDirections);
                     possibleNextNodes.Add(currentNodeIndex - m_Rows);
                 }
             }
@@ -99,7 +107,7 @@ public class MazeGenerator : MonoBehaviour
                 if (!completedNodes.Contains(nodes[currentNodeIndex + 1])
                     && !currentPath.Contains(nodes[currentNodeIndex + 1]))
                 {
-                    possibleDirections.Add((int)WallDirections.PosZ);
+                    possibleDirections.Add((int)eDirections.UpDirections);
                     possibleNextNodes.Add(currentNodeIndex + 1);
                 }
             }
@@ -111,7 +119,7 @@ public class MazeGenerator : MonoBehaviour
                 if (!completedNodes.Contains(nodes[currentNodeIndex - 1])
                     && !currentPath.Contains(nodes[currentNodeIndex - 1]))
                 {
-                    possibleDirections.Add((int)WallDirections.NegZ);
+                    possibleDirections.Add((int)eDirections.DownDirections);
                     possibleNextNodes.Add(currentNodeIndex - 1);
                 }
             }
@@ -122,6 +130,26 @@ public class MazeGenerator : MonoBehaviour
                 int chosenDirection = Random.Range(0, possibleDirections.Count);
                 MazeNode chosenNode = nodes[possibleNextNodes[chosenDirection]];
 
+                switch (possibleDirections[chosenDirection])
+                {
+                    case (int)eDirections.RightDirections:
+                        chosenNode.RemoveWall((int)eWall.LeftWall); // Remove the left wall of the chosen node
+                        currentPath[currentPath.Count - 1].RemoveWall((int)eWall.RightWall); // Remove the right wall of the current node
+                        break;
+                    case (int)eDirections.LeftDirections:
+                        chosenNode.RemoveWall((int)eWall.RightWall); // Remove the right wall of the chosen node
+                        currentPath[currentPath.Count - 1].RemoveWall((int)eWall.LeftWall); // Remove the left wall of the current node
+                        break;
+                    case (int)eDirections.UpDirections:
+                        chosenNode.RemoveWall((int)eWall.DownWall); // Remove the down wall of the chosen node
+                        currentPath[currentPath.Count - 1].RemoveWall((int)eWall.UpWall); // Remove the up wall of the current node
+                        break;
+                    case (int)eDirections.DownDirections:
+                        chosenNode.RemoveWall((int)eWall.UpWall); // Remove the up wall of the chosen node
+                        currentPath[currentPath.Count - 1].RemoveWall((int)eWall.DownWall); // Remove the down wall of the current node
+                        break;
+                }
+                
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(NodeState.Current);
             }

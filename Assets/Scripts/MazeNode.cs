@@ -14,7 +14,7 @@ public class MazeNode : MonoBehaviour
     [SerializeField]
     private GameObject[] m_Walls;
     [SerializeField]
-    private MeshRenderer m_Floor;
+    private MeshRenderer m_Floor; 
 
     public void SetState(NodeState i_State)
     {
@@ -27,5 +27,10 @@ public class MazeNode : MonoBehaviour
             case NodeState.Completed:
                 m_Floor.material.color = Color.blue; break;
         }
+    }
+
+    public void RemoveWall(int i_WallToRemove)
+    {
+        m_Walls[i_WallToRemove].gameObject.SetActive(false);
     }
 }
