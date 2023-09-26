@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 190234451}
   - component: {fileID: 190234450}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Maze Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -575,8 +575,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190234449}
-  m_LocalRotation: {x: -0.36706346, y: -0.016179156, z: 0.006249425, w: -0.9300343}
-  m_LocalPosition: {x: -5.151968, y: 45.23008, z: -34.508167}
+  m_LocalRotation: {x: 0.0075571164, y: -0.7373262, z: 0.6754313, w: 0.009251284}
+  m_LocalPosition: {x: 0.2922522, y: 62.819504, z: 19.294708}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 262091431}
   - component: {fileID: 262091432}
   m_Layer: 0
-  m_Name: Maze Generator
+  m_Name: Maze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -813,6 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NodePrefab: {fileID: 4178226955375866962, guid: 99bc1b2b917e9fa48a530b847940bb10,
     type: 3}
+  m_MazeYValue: 0
   m_Rows: 5
   m_Cols: 5
 --- !u!1001 &309612341
