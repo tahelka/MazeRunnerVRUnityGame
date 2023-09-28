@@ -25,11 +25,11 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeNode m_NodePrefab;
     [SerializeField] private int m_MazeYValue;
-    /*[SerializeField] private int m_Rows;
-    [SerializeField] private int m_Cols;*/
     private readonly int r_NodeDiameter = 5;
     private Vector2Int m_MazeSize;
-    
+    public MazeNode StartNode { get; private set; }
+    public MazeNode EndNode { get; private set; }
+
     /*private void Start()
     {
         m_MazeSize = new Vector2Int(m_Cols * r_NodeDiameter, m_Rows * r_NodeDiameter);
@@ -61,10 +61,10 @@ public class MazeGenerator : MonoBehaviour
 
         // Choose starting node
         int firstNodeIndex = Random.Range(0, nodes.Count);
-        MazeNode startNode = nodes[firstNodeIndex];
-        currentPath.Add(startNode); // Add the first node to the current path
-        longestPath.Add(startNode); // Add the first node to the longest path
-        startNode.SetState(NodeState.Start); // Mark the Start node
+        StartNode = nodes[firstNodeIndex];
+        currentPath.Add(StartNode); // Add the first node to the current path
+        longestPath.Add(StartNode); // Add the first node to the longest path
+        StartNode.SetState(NodeState.Start); // Mark the Start node
         maxPathLength++;
 
         Debug.Log($"First node: {firstNodeIndex}");
@@ -179,10 +179,19 @@ public class MazeGenerator : MonoBehaviour
         // Set the farthest node from the Start node to be the End node
         if (longestPath.Count > 0)
         {
-            MazeNode endNode = longestPath[^1]; // Get the last node of the longest path
-            // MazeNode endNode = FindFarthestEndNode(nodes, startNode);
-            endNode.SetState(NodeState.End); // Mark the End node
+            EndNode = longestPath[^1]; // Get the last node of the longest path
+            EndNode.SetState(NodeState.End); // Mark the End node
         }
+    }
+
+    private void setObstaclesLevel()
+    {
+
+    }
+
+    private void setEnemiesLevel()
+    {
+
     }
 
     /*private IEnumerator generateMaze(Vector2Int i_Size)

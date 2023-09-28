@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
-
-
 public enum eGameState
 {
     Idle,
@@ -55,15 +53,11 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentGameState == eGameState.Idle)
         {
-
-            // according to game level:
-            //  set maze size
-            //  set number of obstacles
-            //  set number of enemies
-
             setGameStateToPlaying();
-
+            //m_Player.position = Vector3.zero;
             // teleport to the START node
+
+
             // 3 seconds count down
             // timer appear in the sky
         }
