@@ -8,6 +8,7 @@ public class MazeManager : MonoBehaviour
 {
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Transform m_Player;
+    [SerializeField] private GameObject m_StarterRoom;
     private List<GameLevel> m_GameLevels;
     private MazeNode m_StartNode;
     private MazeNode m_EndNode;
@@ -30,7 +31,7 @@ public class MazeManager : MonoBehaviour
             if (i_Name == gameLevel.Name)
             {
                 currentGameLevel = gameLevel;
-                gamePreparation();
+                mazePreparation();
                 GameManager.Instance.StartGame();
                 return;
             }
@@ -75,15 +76,20 @@ public class MazeManager : MonoBehaviour
                 }
             }
 
-            gamePreparation();
+            mazePreparation();
             GameManager.Instance.StartGame();
         }
     }
 
-    private void gamePreparation()
+    private void mazePreparation()
     {
         m_MazeGenerator.GenerateMazeInstant(currentGameLevel.Rows, currentGameLevel.Cols); // should also include obstacles and enemies
         m_StartNode = m_MazeGenerator.StartNode;
         m_Player.position = m_StartNode.transform.position;
+    }
+
+    public void EndTriggerEntered()
+    {
+        m_Player.position = m_StarterRoom.transform.position;
     }
 }
