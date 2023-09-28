@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 
-
 public enum eGameState
 {
     Idle,
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game state: Idle");
     }
 
-    public void setGameStateToPlaying()
+    private void setGameStateToPlaying()
     {
         CurrentGameState = eGameState.Playing;
         Debug.Log("Game state: Playing");
@@ -55,15 +54,7 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentGameState == eGameState.Idle)
         {
-
-            // according to game level:
-            //  set maze size
-            //  set number of obstacles
-            //  set number of enemies
-
             setGameStateToPlaying();
-
-            // teleport to the START node
             // 3 seconds count down
             // timer appear in the sky
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -18,18 +19,21 @@ public enum eWall
     RightWall = 0,
     LeftWall = 1,
     UpWall = 2,
-    DownWall = 3
+    DownWall = 3,
+    Amount = 4
 }
 
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeNode m_NodePrefab;
+    [SerializeField] private MazeNode m_StartNodePrefab;
+    [SerializeField] private MazeNode m_EndNodePrefab;
     [SerializeField] private int m_MazeYValue;
-    /*[SerializeField] private int m_Rows;
-    [SerializeField] private int m_Cols;*/
     private readonly int r_NodeDiameter = 5;
     private Vector2Int m_MazeSize;
-    
+    public MazeNode StartNode { get; private set; }
+    public MazeNode EndNode { get; private set; }
+
     /*private void Start()
     {
         m_MazeSize = new Vector2Int(m_Cols * r_NodeDiameter, m_Rows * r_NodeDiameter);
@@ -61,10 +65,10 @@ public class MazeGenerator : MonoBehaviour
 
         // Choose starting node
         int firstNodeIndex = Random.Range(0, nodes.Count);
-        MazeNode startNode = nodes[firstNodeIndex];
-        currentPath.Add(startNode); // Add the first node to the current path
-        longestPath.Add(startNode); // Add the first node to the longest path
-        startNode.SetState(NodeState.Start); // Mark the Start node
+        StartNode = nodes[firstNodeIndex];
+        currentPath.Add(StartNode); // Add the first node to the current path
+        longestPath.Add(StartNode); // Add the first node to the longest path
+        //StartNode.SetState(NodeState.Start); // Mark the Start node
         maxPathLength++;
 
         Debug.Log($"First node: {firstNodeIndex}");
@@ -179,10 +183,82 @@ public class MazeGenerator : MonoBehaviour
         // Set the farthest node from the Start node to be the End node
         if (longestPath.Count > 0)
         {
-            MazeNode endNode = longestPath[^1]; // Get the last node of the longest path
-            // MazeNode endNode = FindFarthestEndNode(nodes, startNode);
-            endNode.SetState(NodeState.End); // Mark the End node
+            EndNode = longestPath[^1]; // Get the last node of the longest path
+            EndNode.SetState(NodeState.End); // Mark the End node
         }
+        
+        replaceNodeWithStartNode(nodes);
+        replaceNodeWithEndNode(nodes);
+    }
+
+    private void replaceNodeWithStartNode(List<MazeNode> i_Nodes)
+    {
+        if (StartNode != null && m_StartNodePrefab != null)
+        {
+            // Create a new StartNode using the StartNodePrefab
+            Vector3 nodePos = StartNode.transform.position;
+            MazeNode newStartNode = Instantiate(m_StartNodePrefab, nodePos, Quaternion.identity, transform);
+
+            // Remove the same walls from the new START node
+            bool[] startNodeRemovedWalls = StartNode.GetRemovedWalls();
+            for (int wallIndex = 0; wallIndex < (int)eWall.Amount; wallIndex++)
+            {
+                if(startNodeRemovedWalls[wallIndex])
+                {
+                    newStartNode.RemoveWall(wallIndex);
+                }
+            }
+
+            // Remove the current node from the list of nodes and destroy it
+            i_Nodes.Remove(StartNode);
+            Destroy(StartNode.gameObject);
+
+            // Update the StartNode reference to the new StartNode
+            StartNode = newStartNode;
+
+            // Set the state of the new StartNode
+            StartNode.SetState(NodeState.Start);
+        }
+    }
+
+    private void replaceNodeWithEndNode(List<MazeNode> i_Nodes)
+    {
+        if (EndNode != null && m_EndNodePrefab != null)
+        {
+            // Create a new EndNode using the EndNodePrefab
+            Vector3 nodePos = EndNode.transform.position;
+            MazeNode newEndNode = Instantiate(m_EndNodePrefab, nodePos, Quaternion.identity, transform);
+
+            // Remove the same walls from the new END node
+            bool[] endNodeRemovedWalls = EndNode.GetRemovedWalls();
+            for (int wallIndex = 0; wallIndex < (int)eWall.Amount; wallIndex++)
+            {
+                if (endNodeRemovedWalls[wallIndex])
+                {
+                    newEndNode.RemoveWall(wallIndex);
+                }
+            }
+
+            // Remove the current node from the list of nodes and destroy it
+            i_Nodes.Remove(EndNode);
+            Destroy(EndNode.gameObject);
+
+            // Update the EndNode reference to the new EndNode
+            EndNode = newEndNode;
+
+            // Set the state of the new EndNode
+            EndNode.SetState(NodeState.End);
+        }
+    }
+
+    private void setObstaclesLevel()
+    {
+
+    }
+
+    private void setEnemiesLevel()
+    {
+
     }
 
     /*private IEnumerator generateMaze(Vector2Int i_Size)
