@@ -25,20 +25,20 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeNode m_NodePrefab;
     [SerializeField] private int m_MazeYValue;
-    [SerializeField] private int m_Rows;
-    [SerializeField] private int m_Cols;
+    /*[SerializeField] private int m_Rows;
+    [SerializeField] private int m_Cols;*/
     private readonly int r_NodeDiameter = 5;
     private Vector2Int m_MazeSize;
-
-    private void Start()
+    
+    /*private void Start()
     {
         m_MazeSize = new Vector2Int(m_Cols * r_NodeDiameter, m_Rows * r_NodeDiameter);
 
         generateMazeInstant(m_MazeSize);
         // StartCoroutine(generateMaze(m_MazeSize));
-    }
+    }*/
 
-    private void generateMazeInstant(Vector2Int i_Size)
+    public void GenerateMazeInstant(int i_Rows, int i_Cols)
     {
         List<MazeNode> nodes = new List<MazeNode>();
         List<MazeNode> currentPath = new List<MazeNode>();
@@ -46,12 +46,14 @@ public class MazeGenerator : MonoBehaviour
         List<MazeNode> longestPath = new List<MazeNode>();
         int maxPathLength = 0;
 
+        m_MazeSize = new Vector2Int(i_Cols * r_NodeDiameter, i_Rows * r_NodeDiameter);
+
         // Create all maze nodes
-        for (int x = 0; x < i_Size.x; x += 5)
+        for (int x = 0; x < m_MazeSize.x; x += 5)
         {
-            for(int y = 0; y < i_Size.y; y += 5)
+            for(int y = 0; y < m_MazeSize.y; y += 5)
             {
-                Vector3 nodePos = new(x - (i_Size.x / 2f), m_MazeYValue, y - (i_Size.y / 2f));
+                Vector3 nodePos = new(x - (m_MazeSize.x / 2f), m_MazeYValue, y - (m_MazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform);
                 nodes.Add(newNode);
             }
@@ -66,8 +68,8 @@ public class MazeGenerator : MonoBehaviour
         maxPathLength++;
 
         Debug.Log($"First node: {firstNodeIndex}");
-        Debug.Log($"currentNodeX: {firstNodeIndex / m_Rows}");
-        Debug.Log($"currentNodeY: {firstNodeIndex % m_Rows}");
+        Debug.Log($"currentNodeX: {firstNodeIndex / i_Rows}");
+        Debug.Log($"currentNodeY: {firstNodeIndex % i_Rows}");
 
         // Run DFS and create paths in the maze
         while (completedNodes.Count < nodes.Count)
@@ -77,20 +79,20 @@ public class MazeGenerator : MonoBehaviour
 
             int currentNodeIndex = nodes.IndexOf(currentPath[^1]); // Get the index of the last node in the current path
             Debug.Log($"currentNodeIndex: {currentNodeIndex}");
-            int currentNodeX = currentNodeIndex / m_Rows;
+            int currentNodeX = currentNodeIndex / i_Rows;
             Debug.Log($"currentNodeX: {currentNodeX}");
-            int currentNodeY = currentNodeIndex % m_Rows;
+            int currentNodeY = currentNodeIndex % i_Rows;
             Debug.Log($"currentNodeY: {currentNodeY}");
 
             // Check if from the current node it's possible to go RIGHT
-            if (currentNodeX < m_Cols - 1)
+            if (currentNodeX < i_Cols - 1)
             {
                 // Check node to the right of the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex + m_Rows])
-                   && !currentPath.Contains(nodes[currentNodeIndex + m_Rows]))
+                if (!completedNodes.Contains(nodes[currentNodeIndex + i_Rows])
+                   && !currentPath.Contains(nodes[currentNodeIndex + i_Rows]))
                 {
                     possibleDirections.Add((int)eDirections.RightDirections);
-                    possibleNextNodes.Add(currentNodeIndex + m_Rows);
+                    possibleNextNodes.Add(currentNodeIndex + i_Rows);
                 }
             }
 
@@ -98,16 +100,16 @@ public class MazeGenerator : MonoBehaviour
             if (currentNodeX > 0)
             {
                 // Check node to the left of the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex - m_Rows])
-                    && !currentPath.Contains(nodes[currentNodeIndex - m_Rows]))
+                if (!completedNodes.Contains(nodes[currentNodeIndex - i_Rows])
+                    && !currentPath.Contains(nodes[currentNodeIndex - i_Rows]))
                 {
                     possibleDirections.Add((int)eDirections.LeftDirections);
-                    possibleNextNodes.Add(currentNodeIndex - m_Rows);
+                    possibleNextNodes.Add(currentNodeIndex - i_Rows);
                 }
             }
 
             // Check if from the current node it's possible to go UP
-            if (currentNodeY < m_Rows - 1)
+            if (currentNodeY < i_Rows - 1)
             {
                 // Check node above the current node
                 if (!completedNodes.Contains(nodes[currentNodeIndex + 1])
@@ -183,28 +185,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    // Add this method to your MazeGenerator class to find the farthest end node from the start node
-    private MazeNode FindFarthestEndNode(List<MazeNode> allNodes, MazeNode startNode)
-    {
-        MazeNode farthestNode = null;
-        float maxDistance = 0f;
-
-        foreach (MazeNode node in allNodes)
-        {
-            // Calculate the distance between the start and current node
-            float distance = Vector3.Distance(startNode.transform.position, node.transform.position);
-
-            if (distance > maxDistance)
-            {
-                maxDistance = distance;
-                farthestNode = node;
-            }
-        }
-
-        return farthestNode;
-    }
-
-    private IEnumerator generateMaze(Vector2Int i_Size)
+    /*private IEnumerator generateMaze(Vector2Int i_Size)
     {
         List<MazeNode> nodes = new List<MazeNode>();
 
@@ -330,5 +311,5 @@ public class MazeGenerator : MonoBehaviour
 
             yield return new WaitForSeconds(0.05f);
         }
-    }
+    }*/
 }
