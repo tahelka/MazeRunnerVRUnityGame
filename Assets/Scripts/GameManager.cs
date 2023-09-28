@@ -14,6 +14,7 @@ public enum eGameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    [SerializeField] private MazeManager m_MazeManager;
     public eGameState CurrentGameState { get; private set; }
 
     private void Awake()
@@ -58,5 +59,10 @@ public class GameManager : MonoBehaviour
             // 3 seconds count down
             // timer appear in the sky
         }
+    }
+
+    public void EndGame()
+    {
+        m_MazeManager.EndTriggerEntered();
     }
 }
