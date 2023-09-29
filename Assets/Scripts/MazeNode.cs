@@ -27,10 +27,8 @@ public class MazeNode : MonoBehaviour
             case NodeState.Completed:
                 m_Floor.material.color = Color.blue; break;
             case NodeState.Start:
-                //m_Floor.material.color = Color.green; 
                 break;
             case NodeState.End:
-                //m_Floor.material.color = Color.red; 
                 break;
         }
     }

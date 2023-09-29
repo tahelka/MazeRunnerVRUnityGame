@@ -8,7 +8,7 @@ public class MazeManager : MonoBehaviour
 {
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Transform m_Player;
-    [SerializeField] private GameObject m_StarterRoom;
+    [SerializeField] private Vector3 m_PlayerSpawnPosition;
     private List<GameLevel> m_GameLevels;
     private MazeNode m_StartNode;
     private MazeNode m_EndNode;
@@ -90,6 +90,7 @@ public class MazeManager : MonoBehaviour
 
     public void EndTriggerEntered()
     {
-        m_Player.position = m_StarterRoom.transform.position;
+        m_Player.position = m_PlayerSpawnPosition;
+        // player.feet = spawnPosition
     }
 }

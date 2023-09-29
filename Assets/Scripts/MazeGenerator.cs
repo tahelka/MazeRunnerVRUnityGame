@@ -68,7 +68,6 @@ public class MazeGenerator : MonoBehaviour
         StartNode = nodes[firstNodeIndex];
         currentPath.Add(StartNode); // Add the first node to the current path
         longestPath.Add(StartNode); // Add the first node to the longest path
-        //StartNode.SetState(NodeState.Start); // Mark the Start node
         maxPathLength++;
 
         Debug.Log($"First node: {firstNodeIndex}");
@@ -184,14 +183,14 @@ public class MazeGenerator : MonoBehaviour
         if (longestPath.Count > 0)
         {
             EndNode = longestPath[^1]; // Get the last node of the longest path
-            EndNode.SetState(NodeState.End); // Mark the End node
         }
         
-        replaceNodeWithStartNode(nodes);
-        replaceNodeWithEndNode(nodes);
+        // Replace START and END node with the dedicated nodes
+        replaceNodeWithStartNodePrefab(nodes);
+        replaceNodeWithEndNodePrefab(nodes);
     }
 
-    private void replaceNodeWithStartNode(List<MazeNode> i_Nodes)
+    private void replaceNodeWithStartNodePrefab(List<MazeNode> i_Nodes)
     {
         if (StartNode != null && m_StartNodePrefab != null)
         {
@@ -221,7 +220,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void replaceNodeWithEndNode(List<MazeNode> i_Nodes)
+    private void replaceNodeWithEndNodePrefab(List<MazeNode> i_Nodes)
     {
         if (EndNode != null && m_EndNodePrefab != null)
         {
