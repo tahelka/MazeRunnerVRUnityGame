@@ -8,7 +8,7 @@ public class MazeManager : MonoBehaviour
 {
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Transform m_Player;
-    [SerializeField] private Vector3 m_PlayerSpawnPosition;
+    [SerializeField] private Transform m_StarterRoom;
     private List<GameLevel> m_GameLevels;
     private MazeNode m_StartNode;
     private MazeNode m_EndNode;
@@ -83,14 +83,20 @@ public class MazeManager : MonoBehaviour
 
     private void mazePreparation()
     {
-        m_MazeGenerator.GenerateMazeInstant(currentGameLevel.Rows, currentGameLevel.Cols); // should also include obstacles and enemies
+        Vector3 offset = new Vector3(0f, 0.5f, 0f);
+
+        // Generate the maze
+        m_MazeGenerator.GenerateMazeInstant(currentGameLevel ,currentGameLevel.Rows, currentGameLevel.Cols); // should also include obstacles and enemies
+        
+        // Move player to the start of the maze
         m_StartNode = m_MazeGenerator.StartNode;
-        m_Player.position = m_StartNode.transform.position;
+        m_Player.position = m_StartNode.transform.position + offset;
     }
 
     public void EndTriggerEntered()
     {
-        m_Player.position = m_PlayerSpawnPosition;
+        m_Player.position = m_StarterRoom.transform.position;
+        m_MazeGenerator.DeleteMaze();
         // player.feet = spawnPosition
     }
 }
