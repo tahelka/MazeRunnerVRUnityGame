@@ -28,28 +28,30 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeNode m_NodePrefab;
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
+    [SerializeField] private MazeNode m_Obstacle1NodePrefab;
     [SerializeField] private int m_MazeYValue;
     private readonly int r_NodeDiameter = 5;
+    private List<MazeNode> m_Nodes;
+    private List<MazeNode> m_CurrentPath;
+    private List<MazeNode> m_CompletedNodes;
+    private List<MazeNode> m_LongestPath;
+    private int m_MaxPathLength;
     private Vector2Int m_MazeSize;
+
     public MazeNode StartNode { get; private set; }
     public MazeNode EndNode { get; private set; }
 
-    /*private void Start()
+    public void Awake()
     {
-        m_MazeSize = new Vector2Int(m_Cols * r_NodeDiameter, m_Rows * r_NodeDiameter);
+        m_Nodes = new List<MazeNode>();
+        m_CurrentPath = new List<MazeNode>();
+        m_CompletedNodes = new List<MazeNode>();
+        m_LongestPath = new List<MazeNode>();
+        m_MaxPathLength = 0;
+    }
 
-        generateMazeInstant(m_MazeSize);
-        // StartCoroutine(generateMaze(m_MazeSize));
-    }*/
-
-    public void GenerateMazeInstant(int i_Rows, int i_Cols)
+    public void GenerateMazeInstant(GameLevel i_Level, int i_Rows, int i_Cols)
     {
-        List<MazeNode> nodes = new List<MazeNode>();
-        List<MazeNode> currentPath = new List<MazeNode>();
-        List<MazeNode> completedNodes = new List<MazeNode>();
-        List<MazeNode> longestPath = new List<MazeNode>();
-        int maxPathLength = 0;
-
         m_MazeSize = new Vector2Int(i_Cols * r_NodeDiameter, i_Rows * r_NodeDiameter);
 
         // Create all maze nodes
@@ -59,28 +61,28 @@ public class MazeGenerator : MonoBehaviour
             {
                 Vector3 nodePos = new(x - (m_MazeSize.x / 2f), m_MazeYValue, y - (m_MazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform);
-                nodes.Add(newNode);
+                m_Nodes.Add(newNode);
             }
         }
 
         // Choose starting node
-        int firstNodeIndex = Random.Range(0, nodes.Count);
-        StartNode = nodes[firstNodeIndex];
-        currentPath.Add(StartNode); // Add the first node to the current path
-        longestPath.Add(StartNode); // Add the first node to the longest path
-        maxPathLength++;
+        int firstNodeIndex = Random.Range(0, m_Nodes.Count);
+        StartNode = m_Nodes[firstNodeIndex];
+        m_CurrentPath.Add(StartNode); // Add the first node to the current path
+        m_LongestPath.Add(StartNode); // Add the first node to the longest path
+        m_MaxPathLength++;
 
         Debug.Log($"First node: {firstNodeIndex}");
         Debug.Log($"currentNodeX: {firstNodeIndex / i_Rows}");
         Debug.Log($"currentNodeY: {firstNodeIndex % i_Rows}");
 
         // Run DFS and create paths in the maze
-        while (completedNodes.Count < nodes.Count)
+        while (m_CompletedNodes.Count < m_Nodes.Count)
         {
             List<int> possibleNextNodes = new();
             List<int> possibleDirections = new();
 
-            int currentNodeIndex = nodes.IndexOf(currentPath[^1]); // Get the index of the last node in the current path
+            int currentNodeIndex = m_Nodes.IndexOf(m_CurrentPath[^1]); // Get the index of the last node in the current path
             Debug.Log($"currentNodeIndex: {currentNodeIndex}");
             int currentNodeX = currentNodeIndex / i_Rows;
             Debug.Log($"currentNodeX: {currentNodeX}");
@@ -91,8 +93,8 @@ public class MazeGenerator : MonoBehaviour
             if (currentNodeX < i_Cols - 1)
             {
                 // Check node to the right of the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex + i_Rows])
-                   && !currentPath.Contains(nodes[currentNodeIndex + i_Rows]))
+                if (!m_CompletedNodes.Contains(m_Nodes[currentNodeIndex + i_Rows])
+                   && !m_CurrentPath.Contains(m_Nodes[currentNodeIndex + i_Rows]))
                 {
                     possibleDirections.Add((int)eDirections.RightDirections);
                     possibleNextNodes.Add(currentNodeIndex + i_Rows);
@@ -103,8 +105,8 @@ public class MazeGenerator : MonoBehaviour
             if (currentNodeX > 0)
             {
                 // Check node to the left of the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex - i_Rows])
-                    && !currentPath.Contains(nodes[currentNodeIndex - i_Rows]))
+                if (!m_CompletedNodes.Contains(m_Nodes[currentNodeIndex - i_Rows])
+                    && !m_CurrentPath.Contains(m_Nodes[currentNodeIndex - i_Rows]))
                 {
                     possibleDirections.Add((int)eDirections.LeftDirections);
                     possibleNextNodes.Add(currentNodeIndex - i_Rows);
@@ -115,8 +117,8 @@ public class MazeGenerator : MonoBehaviour
             if (currentNodeY < i_Rows - 1)
             {
                 // Check node above the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex + 1])
-                    && !currentPath.Contains(nodes[currentNodeIndex + 1]))
+                if (!m_CompletedNodes.Contains(m_Nodes[currentNodeIndex + 1])
+                    && !m_CurrentPath.Contains(m_Nodes[currentNodeIndex + 1]))
                 {
                     possibleDirections.Add((int)eDirections.UpDirections);
                     possibleNextNodes.Add(currentNodeIndex + 1);
@@ -127,8 +129,8 @@ public class MazeGenerator : MonoBehaviour
             if (currentNodeY > 0)
             {
                 // Check node below the current node
-                if (!completedNodes.Contains(nodes[currentNodeIndex - 1])
-                    && !currentPath.Contains(nodes[currentNodeIndex - 1]))
+                if (!m_CompletedNodes.Contains(m_Nodes[currentNodeIndex - 1])
+                    && !m_CurrentPath.Contains(m_Nodes[currentNodeIndex - 1]))
                 {
                     possibleDirections.Add((int)eDirections.DownDirections);
                     possibleNextNodes.Add(currentNodeIndex - 1);
@@ -139,55 +141,61 @@ public class MazeGenerator : MonoBehaviour
             if (possibleDirections.Count > 0)
             {
                 int chosenDirection = Random.Range(0, possibleDirections.Count);
-                MazeNode chosenNode = nodes[possibleNextNodes[chosenDirection]];
+                MazeNode chosenNode = m_Nodes[possibleNextNodes[chosenDirection]];
 
                 switch (possibleDirections[chosenDirection])
                 {
                     case (int)eDirections.RightDirections:
                         chosenNode.RemoveWall((int)eWall.LeftWall); // Remove the left wall of the chosen node
-                        currentPath[^1].RemoveWall((int)eWall.RightWall); // Remove the right wall of the current node
+                        m_CurrentPath[^1].RemoveWall((int)eWall.RightWall); // Remove the right wall of the current node
                         break;
                     case (int)eDirections.LeftDirections:
                         chosenNode.RemoveWall((int)eWall.RightWall); // Remove the right wall of the chosen node
-                        currentPath[^1].RemoveWall((int)eWall.LeftWall); // Remove the left wall of the current node
+                        m_CurrentPath[^1].RemoveWall((int)eWall.LeftWall); // Remove the left wall of the current node
                         break;
                     case (int)eDirections.UpDirections:
                         chosenNode.RemoveWall((int)eWall.DownWall); // Remove the down wall of the chosen node
-                        currentPath[^1].RemoveWall((int)eWall.UpWall); // Remove the up wall of the current node
+                        m_CurrentPath[^1].RemoveWall((int)eWall.UpWall); // Remove the up wall of the current node
                         break;
                     case (int)eDirections.DownDirections:
                         chosenNode.RemoveWall((int)eWall.UpWall); // Remove the up wall of the chosen node
-                        currentPath[^1].RemoveWall((int)eWall.DownWall); // Remove the down wall of the current node
+                        m_CurrentPath[^1].RemoveWall((int)eWall.DownWall); // Remove the down wall of the current node
                         break;
                 }
                 
-                currentPath.Add(chosenNode);
+                m_CurrentPath.Add(chosenNode);
             }
             else
             {
                 // check if the current path is the longest path so far
-                if (currentPath.Count > maxPathLength)
+                if (m_CurrentPath.Count > m_MaxPathLength)
                 {
                     // Copy the elements from currentPath to longestPath
-                    longestPath.Clear(); // Clear longestPath if it has any previous data
-                    longestPath.AddRange(currentPath); // Copy elements from currentPath to longestPath
-                    maxPathLength = currentPath.Count;
+                    m_LongestPath.Clear(); // Clear longestPath if it has any previous data
+                    m_LongestPath.AddRange(m_CurrentPath); // Copy elements from currentPath to longestPath
+                    m_MaxPathLength = m_CurrentPath.Count;
                 }
 
-                completedNodes.Add(currentPath[^1]);
-                currentPath.RemoveAt(currentPath.Count - 1);
+                m_CompletedNodes.Add(m_CurrentPath[^1]);
+                m_CurrentPath.RemoveAt(m_CurrentPath.Count - 1);
             }
         }
 
         // Set the farthest node from the Start node to be the End node
-        if (longestPath.Count > 0)
+        if (m_LongestPath.Count > 0)
         {
-            EndNode = longestPath[^1]; // Get the last node of the longest path
+            EndNode = m_LongestPath[^1]; // Get the last node of the longest path
         }
         
         // Replace START and END node with the dedicated nodes
-        replaceNodeWithStartNodePrefab(nodes);
-        replaceNodeWithEndNodePrefab(nodes);
+        replaceNodeWithStartNodePrefab(m_Nodes);
+        replaceNodeWithEndNodePrefab(m_Nodes);
+
+        // Adding obstacles to the maze
+        addObstacles(i_Level, m_Nodes);
+
+        // Adding enemies to the maze
+        addEnemies(i_Level, m_Nodes);
     }
 
     private void replaceNodeWithStartNodePrefab(List<MazeNode> i_Nodes)
@@ -250,15 +258,58 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void setObstaclesLevel()
+    private void addObstacles(GameLevel i_Level, List<MazeNode> i_Nodes)
     {
-
+        if (i_Level.Name == "Medium")
+        {
+            // Add obstacles
+        }
+        else if (i_Level.Name == "Hard")
+        {
+            // Add obstacles
+        }
+        else
+        {
+            Debug.Log("No obstacles are added at level: " + i_Level);
+        }
     }
 
-    private void setEnemiesLevel()
+    private void addEnemies(GameLevel i_Level, List<MazeNode> i_Nodes)
     {
-
+        if (i_Level.Name == "Hard")
+        {
+            // Add enemies
+        }
+        else
+        {
+            Debug.Log("No enemies are added at level: " + i_Level);
+        }
     }
+
+    public void DeleteMaze()
+    {
+        // Destroy all maze nodes
+        foreach (MazeNode node in m_Nodes)
+        {
+            Destroy(node.gameObject);
+        }
+
+        // Destroy the START and END nodes
+        Destroy(StartNode.gameObject);
+        Destroy(EndNode.gameObject);
+
+        // Clear lists and references
+        m_Nodes.Clear();
+        m_CurrentPath.Clear();
+        m_CompletedNodes.Clear();
+        m_LongestPath.Clear();
+        m_MaxPathLength = 0;
+
+        // Clear StartNode and EndNode references
+        StartNode = null;
+        EndNode = null;
+    }
+
 
     /*private IEnumerator generateMaze(Vector2Int i_Size)
     {
