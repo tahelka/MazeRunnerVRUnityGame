@@ -10,8 +10,7 @@ public class MazeManager : MonoBehaviour
     [SerializeField] private Transform m_Player;
     [SerializeField] private Transform m_StarterRoom;
     private List<GameLevel> m_GameLevels;
-    private MazeNode m_StartNode;
-    private MazeNode m_EndNode;
+
     public GameLevel currentGameLevel { get; private set; }
 
     public void Awake()
@@ -83,20 +82,33 @@ public class MazeManager : MonoBehaviour
 
     private void mazePreparation()
     {
+        // Generate the maze
+        m_MazeGenerator.GenerateMazeInstant(currentGameLevel ,currentGameLevel.Rows, currentGameLevel.Cols);
+
+        // Move player to the start of the maze
+        movePlayerToStartNode();
+    }
+
+    private void movePlayerToStartNode()
+    {
         Vector3 offset = new Vector3(0f, 0.5f, 0f);
 
-        // Generate the maze
-        m_MazeGenerator.GenerateMazeInstant(currentGameLevel ,currentGameLevel.Rows, currentGameLevel.Cols); // should also include obstacles and enemies
-        
-        // Move player to the start of the maze
-        m_StartNode = m_MazeGenerator.StartNode;
-        m_Player.position = m_StartNode.transform.position + offset;
+        // m_Player.position = Vector3.zero;
+        m_Player.position = m_MazeGenerator.StartNode.transform.position + offset;
     }
 
     public void EndTriggerEntered()
     {
-        m_Player.position = m_StarterRoom.transform.position;
+        // Move player to the starter room
+        movePlayerToStarterRoom();
+
+        // Delete the maze
         m_MazeGenerator.DeleteMaze();
-        // player.feet = spawnPosition
+    }
+
+    private void movePlayerToStarterRoom()
+    {
+        m_Player.position = Vector3.zero;
+        m_Player.position = m_StarterRoom.transform.position;
     }
 }
