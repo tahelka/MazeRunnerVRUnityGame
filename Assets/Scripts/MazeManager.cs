@@ -108,7 +108,25 @@ public class MazeManager : MonoBehaviour
 
     private void movePlayerToStarterRoom()
     {
-        m_Player.position = Vector3.zero;
-        m_Player.position = m_StarterRoom.transform.position;
+        if (m_Player != null)
+        {
+            // Retrieve the script component attached to the "m_Player" game object
+            PlayerController playerControllerScript = m_Player.GetComponent<PlayerController>();
+
+            if (playerControllerScript != null)
+            {
+                // Call the method on the script component
+                Transform starterPointOfPlayer = m_StarterRoom.Find("StarterPointOfPlayer");
+                playerControllerScript.ResetPosition(starterPointOfPlayer);
+            }
+            else
+            {
+                Debug.LogWarning("Player Controller script component not found on the m_Player game object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("m_Player game object not found.");
+        }
     }
 }
