@@ -13,8 +13,8 @@ public enum eGameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
     [SerializeField] private MazeManager m_MazeManager;
+    public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
 
     private void Awake()
