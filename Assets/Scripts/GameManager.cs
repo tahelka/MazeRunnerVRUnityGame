@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MazeManager m_MazeManager;
     public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
+    public string PlayerName { get; private set; }
 
     private void Awake()
     {
@@ -64,5 +65,14 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         m_MazeManager.EndTriggerEntered();
+    }
+
+    public void SetPlayerName(string name)
+    {
+        if (name != string.Empty)
+        {
+            PlayerName = name;
+            Debug.Log($"Player name set to: {PlayerName}");
+        }
     }
 }
