@@ -7,20 +7,42 @@ public class EnemiesSpawnerManager : MonoBehaviour
     [SerializeField] private int m_EnemyDuplicationCount = 3;
     [SerializeField] private List<GameObject> m_EasyEnemiesToSpawn;
     [SerializeField] private List<GameObject> m_AdvancedEnemiesToSpawn;
+    [SerializeField] private Transform m_PointToSpawnEnemies;
+    [SerializeField] private int m_MaxEnemyCount = 2;
+    [SerializeField] private float m_SecondsToWaitBetweenSpawningEnemies = 5;
+    private int m_EnemyCount;
     private List<GameObject> m_EasyEnemiesToSpawnStorage = new List<GameObject>();
     private List<GameObject> m_AdvancedEnemiesToSpawnStorage = new List<GameObject>();
+
 
     // Start is called before the first frame update
     void Start()
     {
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
+
+        //m_PointToSpawnEnemies = GameObject.Find("Maze Generator").GetComponent<MazeGenerator>().StartNode.transform.Find("StarterPointOfPlayer");
+        //StartCoroutine(SpawnEnemyOnStartMaze(m_EasyEnemiesToSpawnStorage));
+        //StartCoroutine(SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage));
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         
+    }
+
+    IEnumerator SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
+    {
+        while(m_EnemyCount < m_MaxEnemyCount)
+        {
+            // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
+            int randomIndex = Random.Range(0, i_EnemyStorage.Count);
+            i_EnemyStorage[randomIndex].transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
+            i_EnemyStorage[randomIndex].SetActive(true);
+            yield return new WaitForSeconds(m_SecondsToWaitBetweenSpawningEnemies);
+            m_EnemyCount++;
+        }
     }
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
