@@ -91,11 +91,6 @@ public class MazeManager : MonoBehaviour
 
     private void movePlayerToStartNode()
     {
-        //Vector3 offset = new Vector3(0f, 0.5f, 0f);
-
-        //// m_Player.position = Vector3.zero;
-        //m_Player.position = m_MazeGenerator.StartNode.transform.position + offset;
-
         if (m_Player != null)
         {
             // Retrieve the script component attached to the "m_Player" game object
