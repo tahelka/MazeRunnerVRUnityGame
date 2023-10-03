@@ -2006,6 +2006,8 @@ MonoBehaviour:
   - {fileID: 1705849404070370923, guid: 3af956640595c6e4cb9436f0f4545ffd, type: 3}
   m_AdvancedEnemiesToSpawn:
   - {fileID: 8688803186435683820, guid: fd02805ee801de64a828e8190cac7784, type: 3}
+  m_MaxEnemyCount: 2
+  m_SecondsToWaitBetweenSpawningEnemies: 5
 --- !u!4 &734323176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3726740952248020482, guid: 5fbfbee0f9885764383291c4c5e18668,
@@ -4408,6 +4410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MazeManager: {fileID: 1719033034}
+  m_EnemiesAndObsticlesManager: {fileID: 1750323664}
 --- !u!4 &1426073274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8209778948206908569, guid: 5062c1312f2beb14694d90a058d444e4,
@@ -4704,7 +4707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750323665}
   m_Layer: 0
-  m_Name: EnemiesAndObsticlesSpawner
+  m_Name: Enemies And Obsticles Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
