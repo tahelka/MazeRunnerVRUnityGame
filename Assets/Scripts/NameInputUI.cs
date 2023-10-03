@@ -14,7 +14,7 @@ public class NameInputUI : MonoBehaviour
     {
         Debug.Log("Name saved");
         string playerName = InputField.text; // Get the text from the input field
-        GameManager.Instance.SetPlayerName(playerName); // Call the GameManager's SetPlayerName method
+        GameManager.Instance.SetPlayerName(playerName); // Set player's name
     }
 
     public void UpdateNameFieldToPlayerName()
