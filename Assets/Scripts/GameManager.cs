@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     private void spawnEnemiesOnMaze()
     {
         EnemiesSpawnerManager enemiesSpawnerManagerScript = m_EnemiesAndObsticlesManager.GetComponentInChildren<EnemiesSpawnerManager>();
-        Transform pointToSpawnEnemies = GameObject.Find("Maze Generator").GetComponent<MazeGenerator>().StartNode.transform.Find("StarterPointOfPlayer");
+        Transform pointToSpawnEnemies = m_MazeManager.GetComponentInChildren<MazeGenerator>().StartNode.transform.Find("StarterPointOfPlayer");
         // Start the coroutine with a 10-second delay before spawning enemies.
         StartCoroutine(executeAfterDelay(10.0f));
         StartCoroutine(enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies));
