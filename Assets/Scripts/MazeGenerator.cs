@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
-
+using UnityEngine.AI;
 public enum eDirections
 {
     RightDirections = 1, // PosX
@@ -29,6 +29,7 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
     [SerializeField] private MazeNode m_Obstacle1NodePrefab;
+    [SerializeField] private NavMeshSurface NavMeshSurfaceScript;
     [SerializeField] private int m_MazeYValue;
     private readonly int r_NodeDiameter = 5;
     private List<MazeNode> m_Nodes;
@@ -70,11 +71,20 @@ public class MazeGenerator : MonoBehaviour
         replaceNodeWithStartNodePrefab(m_Nodes);
         replaceNodeWithEndNodePrefab(m_Nodes);
 
+        // Add navMesh
+        addNavMeshToMaze();
+
         // Adding obstacles to the maze
         addObstacles(i_Level, m_Nodes);
 
         // Adding enemies to the maze
         addEnemies(i_Level, m_Nodes);
+    }
+
+    private void addNavMeshToMaze()
+    {
+        NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
+        navMeshBakerScript.BuildNavMeshSurfaces(m_Nodes);
     }
 
     private void setEndNode()
@@ -250,6 +260,9 @@ public class MazeGenerator : MonoBehaviour
             {
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform);
+                //
+                newNode.AddComponent<NavMeshSurface>();
+                //
                 m_Nodes.Add(newNode);
             }
         }
