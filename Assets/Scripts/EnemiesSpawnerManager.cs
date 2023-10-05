@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemiesSpawnerManager : MonoBehaviour
 {
@@ -21,6 +22,14 @@ public class EnemiesSpawnerManager : MonoBehaviour
     {
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
+    }
+
+    void Update()
+    {
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // do a list of all the active enemies instead of going through all enemies even of they are not active!!!!!!!!!!!!!!
+        UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
+        UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
     }
 
     public IEnumerator SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage, Transform i_PointToSpawnEnemies)
@@ -60,7 +69,19 @@ public class EnemiesSpawnerManager : MonoBehaviour
                 GameObject duplicatedEnemy = Instantiate(enemy);
                 duplicatedEnemy.SetActive(false);
                 duplicatedEnemy.transform.SetParent(StorageOfEnemiesToSpawn.transform);
+                duplicatedEnemy.AddComponent<NavMeshAgent>(); /////////////////////////////////////////////////////////////////////////
                 i_EnemyToSpawnListStorage.Add(duplicatedEnemy);
+            }
+        }
+    }
+
+    public void UpdateEnemyPositionToMainCamera(List<GameObject> i_Enemies)
+    {
+        foreach (GameObject enemy in i_Enemies)
+        {
+            if(enemy.active)
+            {
+                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
