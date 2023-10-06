@@ -11,7 +11,7 @@ public class SliceObject : MonoBehaviour
     [SerializeField] private LayerMask m_SliceableLayer;
     [SerializeField] private VelocityEstimator m_VelocityEstimator;
     [SerializeField] private Material m_CrossSectionMaterial;
-    [SerializeField] private float m_CutForce = 1000;
+    [SerializeField] private float m_CutForce = 2000;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -47,6 +47,7 @@ public class SliceObject : MonoBehaviour
         Rigidbody rb = i_SlicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = i_SlicedObject.AddComponent<MeshCollider>();
         collider.convex = true;
+        i_SlicedObject.layer = LayerMask.NameToLayer("Sliceable");
         rb.AddExplosionForce(m_CutForce, i_SlicedObject.transform.position, 1);
     }
 }

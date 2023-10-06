@@ -25,7 +25,8 @@ namespace EzySlice {
             GameObject newObject = CreateUpperHull();
 
             if (newObject != null) {
-                newObject.transform.localPosition = original.transform.localPosition;
+                //newObject.transform.localPosition = original.transform.localPosition;
+                newObject.transform.localPosition = original.transform.position; // Creates the hull in the same hierarcy folder as the target
                 newObject.transform.localRotation = original.transform.localRotation;
                 newObject.transform.localScale = original.transform.localScale;
 
@@ -64,7 +65,8 @@ namespace EzySlice {
             GameObject newObject = CreateLowerHull();
 
             if (newObject != null) {
-                newObject.transform.localPosition = original.transform.localPosition;
+                //newObject.transform.localPosition = original.transform.localPosition;
+                newObject.transform.localPosition = original.transform.position; // Creates the hull in the same hierarcy folder as the target
                 newObject.transform.localRotation = original.transform.localRotation;
                 newObject.transform.localScale = original.transform.localScale;
 
