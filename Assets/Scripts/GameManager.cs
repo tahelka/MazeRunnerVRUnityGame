@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_EnemiesAndObsticlesManager;
     [SerializeField] private Timer m_Timer;
     [SerializeField] private HealthManager m_HealthManager;
+    [SerializeField] private GameOver m_GameOver;
     public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
     public string PlayerName { get; private set; }
@@ -35,10 +36,10 @@ public class GameManager : MonoBehaviour
 
         // Set the initial game state
         setGameStateToIdle();
-        gamePreparation();
+        GamePreparation();
     }
 
-    private void gamePreparation()
+    public void GamePreparation()
     {
         m_Timer.ResetTimer();
         m_HealthManager.ResetHealth();
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
         setGameStateToGameOver();
         m_MazeManager.EndTriggerEntered();
         m_Timer.StopTimer();
+        m_GameOver.DisplayGameOverMenu(m_HealthManager.GetHealth());
     }
 
     private void spawnEnemiesOnMaze()
