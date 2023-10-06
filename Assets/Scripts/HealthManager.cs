@@ -14,6 +14,11 @@ public class HealthManager : MonoBehaviour
         m_CurrentHealth = m_MaxHealth;
     }
 
+    public int GetHealth()
+    {
+        return m_CurrentHealth;
+    }
+
     public void TakeDamage(int i_DamagePoints)
     {
         m_CurrentHealth -= i_DamagePoints;
