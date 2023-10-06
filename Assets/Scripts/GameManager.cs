@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MazeManager m_MazeManager;
     [SerializeField] private GameObject m_EnemiesAndObsticlesManager;
     [SerializeField] private Timer m_Timer;
+    [SerializeField] private HealthManager m_HealthManager;
     public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
     public string PlayerName { get; private set; }
@@ -34,6 +35,13 @@ public class GameManager : MonoBehaviour
 
         // Set the initial game state
         setGameStateToIdle();
+        gamePreparation();
+    }
+
+    private void gamePreparation()
+    {
+        m_Timer.ResetTimer();
+        m_HealthManager.ResetHealth();
     }
 
     private void setGameStateToIdle()
