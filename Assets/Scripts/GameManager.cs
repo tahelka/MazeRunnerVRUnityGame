@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private MazeManager m_MazeManager;
     [SerializeField] private GameObject m_EnemiesAndObsticlesManager;
+    [SerializeField] private Timer m_Timer;
     public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
     public string PlayerName { get; private set; }
@@ -58,16 +59,19 @@ public class GameManager : MonoBehaviour
         if (CurrentGameState == eGameState.Idle)
         {
             setGameStateToPlaying();
-            // 3 seconds count down
-            // timer appear in the sky
+            // Start the timer
+            m_Timer.StartTimer();
         }
 
-        spawnEnemiesOnMaze();
+        // spawnEnemiesOnMaze();
     }
+
 
     public void EndGame()
     {
+        setGameStateToGameOver();
         m_MazeManager.EndTriggerEntered();
+        m_Timer.StopTimer();
     }
 
     private void spawnEnemiesOnMaze()
