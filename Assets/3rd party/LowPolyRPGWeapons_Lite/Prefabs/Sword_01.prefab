@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 355312524381552382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0, y: 0, z: -0.047}
+  m_LocalScale: {x: 0.6805, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9184780543632546498}
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_VelocityEstimator: {fileID: 6687320728866713450}
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
-  m_CutForce: 1000
+  m_CutForce: 2000
 --- !u!1 &403318768464006365
 GameObject:
   m_ObjectHideFlags: 0

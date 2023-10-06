@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 2195502213869805347}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.289, y: 0.588, z: 0}
+  m_LocalPosition: {x: -0.236, y: 0.588, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -140,8 +140,8 @@ Transform:
   m_GameObject: {fileID: 8203073568141072114}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0561}
+  m_LocalScale: {x: 0.7857, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5627055433741562453}
@@ -420,4 +420,4 @@ MonoBehaviour:
   m_VelocityEstimator: {fileID: 7237090763490522653}
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
-  m_CutForce: 1000
+  m_CutForce: 5
