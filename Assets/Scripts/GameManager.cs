@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Timer m_Timer;
     [SerializeField] private HealthManager m_HealthManager;
     [SerializeField] private GameOver m_GameOver;
+    [SerializeField] private LeaderboardManager m_LeaderboardManager;
+    private const string k_DefaultPlayerName = "Player";
+
     public static GameManager Instance { get; private set; }
     public eGameState CurrentGameState { get; private set; }
     public string PlayerName { get; private set; }
@@ -39,8 +42,14 @@ public class GameManager : MonoBehaviour
         GamePreparation();
     }
 
+    private void Start()
+    {
+        SetPlayerName(k_DefaultPlayerName);
+    }
+
     public void GamePreparation()
     {
+        setGameStateToIdle();
         m_Timer.ResetTimer();
         m_HealthManager.ResetHealth();
     }
@@ -81,6 +90,8 @@ public class GameManager : MonoBehaviour
         setGameStateToGameOver();
         m_MazeManager.EndTriggerEntered();
         m_Timer.StopTimer();
+        m_LeaderboardManager.SetPlayerScore();
+        m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.m_PlayerScore));
         m_GameOver.DisplayGameOverMenu(m_HealthManager.GetHealth());
     }
 
