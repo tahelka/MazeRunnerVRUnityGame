@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_TimerText;
     private float m_ElapsedTime;
+    public float m_CurrentElapsedTime;
     private string m_CurrentTimeValue;
     private bool isTimerRunning = false;
 
@@ -49,11 +50,17 @@ public class Timer : MonoBehaviour
         int minutes = Mathf.FloorToInt(m_ElapsedTime / 60);
         int seconds = Mathf.FloorToInt(m_ElapsedTime % 60);
         m_CurrentTimeValue = string.Format("{0:00}:{1:00}", minutes, seconds);
+        m_CurrentElapsedTime = m_ElapsedTime;
     }
 
     public string GetCurrentTimerValue()
     {
         return m_CurrentTimeValue;
+    }
+    
+    public float GetCurrentElapsedTime()
+    {
+        return m_CurrentElapsedTime;
     }
 
     public void Pause()
