@@ -6,6 +6,7 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 using UnityEngine.AI;
+
 public enum eDirections
 {
     RightDirections = 1, // PosX
@@ -28,11 +29,15 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeNode m_NodePrefab;
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
-    [SerializeField] private MazeNode m_Obstacle1NodePrefab;
+    [SerializeField] private List<MazeNode> m_ObstacleNodesPrefabs;
     [SerializeField] private NavMeshSurface NavMeshSurfaceScript;
     [SerializeField] private int m_MazeYValue;
-    private readonly int r_NodeDiameter = 5;
+    private const int k_NodeDiameter = 5;
+    private const int k_ObstaclesLevelEasy = 1;
+    private const int k_ObstaclesLevelMedium = 2;
+    private const int k_ObstaclesLevelHard = 3;
     private List<MazeNode> m_Nodes;
+    private List<MazeNode> m_ObstaclesNodes;
     private List<MazeNode> m_CurrentPath;
     private List<MazeNode> m_CompletedNodes;
     private List<MazeNode> m_LongestPath;
@@ -41,9 +46,11 @@ public class MazeGenerator : MonoBehaviour
     public MazeNode StartNode { get; private set; }
     public MazeNode EndNode { get; private set; }
 
+
     public void Awake()
     {
         m_Nodes = new List<MazeNode>();
+        m_ObstaclesNodes = new List<MazeNode>();
         m_CurrentPath = new List<MazeNode>();
         m_CompletedNodes = new List<MazeNode>();
         m_LongestPath = new List<MazeNode>();
@@ -68,17 +75,17 @@ public class MazeGenerator : MonoBehaviour
         setEndNode();
         
         // Replace START and END node with the dedicated nodes
-        replaceNodeWithStartNodePrefab(m_Nodes);
-        replaceNodeWithEndNodePrefab(m_Nodes);
+        replaceNodeWithStartNodePrefab();
+        replaceNodeWithEndNodePrefab();
 
         // Add navMesh
         addNavMeshToMaze();
 
         // Adding obstacles to the maze
-        addObstacles(i_Level, m_Nodes);
+        addObstacles(i_Level);
 
         // Adding enemies to the maze
-        addEnemies(i_Level, m_Nodes);
+        addEnemies(i_Level);
     }
 
     private void addNavMeshToMaze()
@@ -100,6 +107,7 @@ public class MazeGenerator : MonoBehaviour
         int firstNodeIndex = Random.Range(0, m_Nodes.Count);
 
         StartNode = m_Nodes[firstNodeIndex];
+        StartNode.SetState(eNodeState.Start);
     }
 
     private void createPathsViaDFS(int i_Rows, int i_Cols)
@@ -252,7 +260,7 @@ public class MazeGenerator : MonoBehaviour
 
     private void createMazeNodes(int i_Rows, int i_Cols)
     {
-        Vector2Int mazeSize = new(i_Cols * r_NodeDiameter, i_Rows * r_NodeDiameter);
+        Vector2Int mazeSize = new(i_Cols * k_NodeDiameter, i_Rows * k_NodeDiameter);
 
         for (int x = 0; x < mazeSize.x; x += 5)
         {
@@ -268,7 +276,7 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void replaceNodeWithStartNodePrefab(List<MazeNode> i_Nodes)
+    private void replaceNodeWithStartNodePrefab()
     {
         if (StartNode != null && m_StartNodePrefab != null)
         {
@@ -287,18 +295,18 @@ public class MazeGenerator : MonoBehaviour
             }
 
             // Remove the current node from the list of nodes and destroy it
-            i_Nodes.Remove(StartNode);
+            m_Nodes.Remove(StartNode);
             Destroy(StartNode.gameObject);
 
             // Update the StartNode reference to the new StartNode
             StartNode = newStartNode;
 
             // Set the state of the new StartNode
-            StartNode.SetState(NodeState.Start);
+            StartNode.SetState(eNodeState.Start);
         }
     }
 
-    private void replaceNodeWithEndNodePrefab(List<MazeNode> i_Nodes)
+    private void replaceNodeWithEndNodePrefab()
     {
         if (EndNode != null && m_EndNodePrefab != null)
         {
@@ -317,26 +325,63 @@ public class MazeGenerator : MonoBehaviour
             }
 
             // Remove the current node from the list of nodes and destroy it
-            i_Nodes.Remove(EndNode);
+            m_Nodes.Remove(EndNode);
             Destroy(EndNode.gameObject);
 
             // Update the EndNode reference to the new EndNode
             EndNode = newEndNode;
 
             // Set the state of the new EndNode
-            EndNode.SetState(NodeState.End);
+            EndNode.SetState(eNodeState.End);
         }
     }
 
-    private void addObstacles(GameLevel i_Level, List<MazeNode> i_Nodes)
+    private void replaceNodeWithObstacleNodePrefab(MazeNode i_ChosenObstacleNode)
     {
-        if (i_Level.Name == "Medium")
+        int nodeIndex = Random.Range(0, m_ObstacleNodesPrefabs.Count);
+        MazeNode obstacleNodePrefab = m_ObstacleNodesPrefabs[nodeIndex];
+
+        if (obstacleNodePrefab != null)
         {
-            // Add obstacles
+            // Create a new EndNode using the EndNodePrefab
+            Vector3 chosenNodePos = i_ChosenObstacleNode.transform.position;
+            MazeNode obstacleNode = Instantiate(obstacleNodePrefab, chosenNodePos, Quaternion.identity, transform);
+
+            // Remove the same walls from the new END node
+            bool[] chosenObstacleNodeRemovedWalls = i_ChosenObstacleNode.GetRemovedWalls();
+            for (int wallIndex = 0; wallIndex < (int)eWall.Amount; wallIndex++)
+            {
+                if (chosenObstacleNodeRemovedWalls[wallIndex])
+                {
+                    obstacleNode.RemoveWall(wallIndex);
+                }
+            }
+
+            // Remove the current node from the list of nodes and destroy it
+            m_Nodes.Remove(i_ChosenObstacleNode);
+            Destroy(i_ChosenObstacleNode.gameObject);
+
+            // Add the new obstacle node to the obstacle node list
+            m_ObstaclesNodes.Add(obstacleNode);
+
+            // Set the state of the new EndNode
+            obstacleNode.SetState(eNodeState.End);
+        }
+    }
+
+    private void addObstacles(GameLevel i_Level)
+    {
+        if (i_Level.Name == "Easy")
+        {
+            addObstaclesToMazePath(k_ObstaclesLevelEasy);
+        }
+        else if (i_Level.Name == "Medium")
+        {
+            addObstaclesToMazePath(k_ObstaclesLevelMedium);
         }
         else if (i_Level.Name == "Hard")
         {
-            // Add obstacles
+            addObstaclesToMazePath(k_ObstaclesLevelHard);
         }
         else
         {
@@ -344,7 +389,25 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void addEnemies(GameLevel i_Level, List<MazeNode> i_Nodes)
+    private void addObstaclesToMazePath(int i_ObstaclesAmount)
+    {
+        for(int i = 0; i < i_ObstaclesAmount; i++)
+        {
+            int nodeIndex;
+
+            do
+            {
+                // Choose random normal node on the longest path that:
+                nodeIndex = Random.Range(0, m_LongestPath.Count);
+            }
+            while (m_LongestPath[nodeIndex].GetNodeState() != eNodeState.Normal);
+
+            // Replace that node with a random obstacle node
+            replaceNodeWithObstacleNodePrefab(m_LongestPath[nodeIndex]);
+        }
+    }
+
+    private void addEnemies(GameLevel i_Level)
     {
         if (i_Level.Name == "Hard")
         {
@@ -364,6 +427,11 @@ public class MazeGenerator : MonoBehaviour
             Destroy(node.gameObject);
         }
 
+        foreach (MazeNode node in m_ObstaclesNodes)
+        {
+            Destroy(node.gameObject);
+        }
+
         // Destroy the START and END nodes
         Destroy(StartNode.gameObject);
         Destroy(EndNode.gameObject);
@@ -372,6 +440,7 @@ public class MazeGenerator : MonoBehaviour
         m_Nodes.Clear();
         m_CurrentPath.Clear();
         m_CompletedNodes.Clear();
+        m_ObstaclesNodes.Clear();
         m_LongestPath.Clear();
         m_MaxPathLength = 0;
 
@@ -380,7 +449,7 @@ public class MazeGenerator : MonoBehaviour
         EndNode = null;
     }
 
-
+    // Shows the way the maze is being created
     /*private IEnumerator generateMaze(Vector2Int i_Size)
     {
         List<MazeNode> nodes = new List<MazeNode>();
