@@ -506,8 +506,8 @@ MonoBehaviour:
     type: 3}
   m_EndNodePrefab: {fileID: 4178226955375866962, guid: 069bdf0d9037967418fa322452d9e78d,
     type: 3}
-  m_Obstacle1NodePrefab: {fileID: 4178226955375866962, guid: ae9dbe5d77f06774d84477a3a5bff166,
-    type: 3}
+  m_ObstacleNodesPrefabs:
+  - {fileID: 4178226955375866962, guid: ae9dbe5d77f06774d84477a3a5bff166, type: 3}
   NavMeshSurfaceScript: {fileID: 0}
   m_MazeYValue: 10
 --- !u!1 &273112171
