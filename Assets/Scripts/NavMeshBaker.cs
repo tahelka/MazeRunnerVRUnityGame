@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NavMeshBaker : MonoBehaviour
 {
-    public List<MazeNode> m_NavMeshSurfaces = new List<MazeNode>();
+    public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class NavMeshBaker : MonoBehaviour
         foreach (MazeNode mazeNode in i_MazeNodes)
         {
             //mazeNode.AddComponent<NavMeshSurface>();
-            m_NavMeshSurfaces.Add(mazeNode);
+            m_NavMeshSurfaces.Add(mazeNode.transform.Find("Floor").GetComponent<NavMeshSurface>());
             mazeNode.GetComponent<NavMeshSurface>().BuildNavMesh();
         }
     }
