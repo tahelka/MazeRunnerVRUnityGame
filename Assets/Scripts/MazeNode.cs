@@ -1,13 +1,15 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum NodeState
+public enum eNodeState
 {
     Available,
     Current,
     Completed,
     Start,
-    End
+    End,
+    Obstacle,
+    Normal
 }
 
 public class MazeNode : MonoBehaviour
@@ -15,22 +17,33 @@ public class MazeNode : MonoBehaviour
     [SerializeField] private GameObject[] m_Walls;
     [SerializeField] private MeshRenderer m_Floor;
     private bool[] m_RemovedWalls = new bool[4]; // [false,false,false,false]
+    private eNodeState m_NodeState = eNodeState.Normal;
 
-    public void SetState(NodeState i_State)
+    public void SetState(eNodeState i_State)
     {
         switch(i_State)
         {
-            case NodeState.Available:
+            case eNodeState.Available:
                 m_Floor.material.color = Color.white; break;
-            case NodeState.Current:
+            case eNodeState.Current:
                 m_Floor.material.color = Color.yellow; break;
-            case NodeState.Completed:
+            case eNodeState.Completed:
                 m_Floor.material.color = Color.blue; break;
-            case NodeState.Start:
+            case eNodeState.Start:
+                m_NodeState = i_State;
                 break;
-            case NodeState.End:
+            case eNodeState.End:
+                m_NodeState = i_State;
+                break;
+            case eNodeState.Obstacle:
+                m_NodeState = i_State;
                 break;
         }
+    }
+
+    public eNodeState GetNodeState()
+    {
+        return m_NodeState;
     }
 
     public bool[] GetRemovedWalls()
