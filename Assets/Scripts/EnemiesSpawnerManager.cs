@@ -10,39 +10,50 @@ public class EnemiesSpawnerManager : MonoBehaviour
     [SerializeField] private List<GameObject> m_AdvancedEnemiesToSpawn;
     [SerializeField] private int m_MaxEnemyCount = 2;
     [SerializeField] private float m_SecondsToWaitBetweenSpawningEnemies = 5;
-    private int m_EnemyCount;
+    private int m_CurrEnemyCount;
+    private float m_NextSpawnTime;
     private List<GameObject> m_EasyEnemiesToSpawnStorage = new List<GameObject>();
     private List<GameObject> m_AdvancedEnemiesToSpawnStorage = new List<GameObject>();
 
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        
+    }
+
     void Start()
     {
+        GameManager.OnPlayModeStart += UpdateBeginTimeToSpawnEnemies;
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
     }
 
-    void Update()
+    public void UpdateBeginTimeToSpawnEnemies()
     {
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // do a list of all the active enemies instead of going through all enemies even of they are not active!!!!!!!!!!!!!!
-        UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
-        UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
     }
 
-    public IEnumerator SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage, Transform i_PointToSpawnEnemies)
+    void Update()
     {
-        while(m_EnemyCount < m_MaxEnemyCount)
+        if (GameManager.Instance.CurrentGameState == eGameState.Playing && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
         {
-            // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
-            int randomIndex = Random.Range(0, i_EnemyStorage.Count);
-            i_EnemyStorage[randomIndex].transform.SetPositionAndRotation(i_PointToSpawnEnemies.position, i_PointToSpawnEnemies.rotation);
-            i_EnemyStorage[randomIndex].SetActive(true);
-            yield return new WaitForSeconds(m_SecondsToWaitBetweenSpawningEnemies);
-            m_EnemyCount++;
-        }
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! tahel
+            // do a list of all the active enemies instead of going through all enemies even of they are not active!!!!!!!!!!!!!!
+            UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
+            UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+        }      
+    }
+
+    public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage, Transform i_PointToSpawnEnemies)
+    {
+        // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
+        int randomIndex = Random.Range(0, i_EnemyStorage.Count);
+        i_EnemyStorage[randomIndex].transform.SetPositionAndRotation(i_PointToSpawnEnemies.position, i_PointToSpawnEnemies.rotation);
+        i_EnemyStorage[randomIndex].SetActive(true);
+        m_CurrEnemyCount++;
+        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
     }
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
