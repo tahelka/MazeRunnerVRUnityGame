@@ -269,7 +269,7 @@ public class MazeGenerator : MonoBehaviour
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform);
                 //
-                newNode.AddComponent<NavMeshSurface>();
+                newNode.transform.Find("Floor").AddComponent<NavMeshSurface>();
                 //
                 m_Nodes.Add(newNode);
             }
