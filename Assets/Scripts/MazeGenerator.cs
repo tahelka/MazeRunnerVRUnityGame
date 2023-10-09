@@ -340,6 +340,7 @@ public class MazeGenerator : MonoBehaviour
     {
         int nodeIndex = Random.Range(0, m_ObstacleNodesPrefabs.Count);
         MazeNode obstacleNodePrefab = m_ObstacleNodesPrefabs[nodeIndex];
+        // obstacleNodePrefab = m_ObstacleNodesPrefabs[1]; // For testing obstacle2// ---------------------------------------
 
         if (obstacleNodePrefab != null)
         {
@@ -398,7 +399,7 @@ public class MazeGenerator : MonoBehaviour
             do
             {
                 // Choose random normal node on the longest path that:
-                nodeIndex = Random.Range(0, m_LongestPath.Count);
+                nodeIndex = Random.Range(1, m_LongestPath.Count - 1);
             }
             while (m_LongestPath[nodeIndex].GetNodeState() != eNodeState.Normal);
 
