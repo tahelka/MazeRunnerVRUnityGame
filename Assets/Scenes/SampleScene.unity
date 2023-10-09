@@ -2889,7 +2889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LocomotionProvider: {fileID: 977861768}
-  m_MinHeight: 2
+  m_MinHeight: 1
   m_MaxHeight: 3
 --- !u!143 &977861766
 CharacterController:
@@ -2916,7 +2916,7 @@ CharacterController:
   m_StepOffset: 0.2
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &977861767
 MonoBehaviour:
   m_ObjectHideFlags: 0

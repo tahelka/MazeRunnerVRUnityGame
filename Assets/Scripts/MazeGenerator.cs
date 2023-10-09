@@ -340,6 +340,7 @@ public class MazeGenerator : MonoBehaviour
     {
         int nodeIndex = Random.Range(0, m_ObstacleNodesPrefabs.Count);
         MazeNode obstacleNodePrefab = m_ObstacleNodesPrefabs[nodeIndex];
+        // obstacleNodePrefab = m_ObstacleNodesPrefabs[0]; // For testing obstacle1 // 
         // obstacleNodePrefab = m_ObstacleNodesPrefabs[1]; // For testing obstacle2 // 
         // obstacleNodePrefab = m_ObstacleNodesPrefabs[2]; // For testing obstacle3 //
 
