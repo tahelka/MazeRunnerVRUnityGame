@@ -66,12 +66,6 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = eGameState.Playing;
         Debug.Log("Game state: Playing");
-
-        // Trigger the action when play mode starts
-        if (OnPlayModeStart != null)
-        {
-            OnPlayModeStart.Invoke();
-        }
     }
 
     private void setGameStateToGameOver()
@@ -89,7 +83,11 @@ public class GameManager : MonoBehaviour
             m_Timer.StartTimer();
         }
 
-        // spawnEnemiesOnMaze();
+        // Trigger the action when play mode starts
+        if (OnPlayModeStart != null)
+        {
+            OnPlayModeStart.Invoke();
+        }
     }
 
 
@@ -103,14 +101,7 @@ public class GameManager : MonoBehaviour
         m_GameOver.DisplayGameOverMenu(m_HealthManager.GetHealth());
     }
 
-    private void spawnEnemiesOnMaze()
-    {
-        EnemiesSpawnerManager enemiesSpawnerManagerScript = m_EnemiesAndObsticlesManager.GetComponentInChildren<EnemiesSpawnerManager>();
-        Transform pointToSpawnEnemies = m_MazeManager.GetComponentInChildren<MazeGenerator>().StartNode.transform.Find("StarterPointOfPlayer");
-        // Start the coroutine with a 10-second delay before spawning enemies.
-        enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies);
-        enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, pointToSpawnEnemies);
-    }
+    
 
     private IEnumerator executeAfterDelay(float delay)
     {
