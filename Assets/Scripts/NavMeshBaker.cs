@@ -23,9 +23,29 @@ public class NavMeshBaker : MonoBehaviour
     {
         foreach (MazeNode mazeNode in i_MazeNodes)
         {
-            //mazeNode.AddComponent<NavMeshSurface>();
-            m_NavMeshSurfaces.Add(mazeNode.transform.Find("Floor").GetComponent<NavMeshSurface>());
-            mazeNode.GetComponent<NavMeshSurface>().BuildNavMesh();
+            Transform floor = mazeNode.transform.Find("Floor");
+
+            // Check if the "Floor" object exists
+            if (floor != null)
+            {
+                NavMeshSurface navMeshSurfaceComponent = floor.GetComponent<NavMeshSurface>();
+
+                // Check if NavMeshSurface component exists
+                if (navMeshSurfaceComponent != null)
+                {
+                    // NavMeshSurface component found
+                    navMeshSurfaceComponent.BuildNavMesh();
+                    m_NavMeshSurfaces.Add(navMeshSurfaceComponent);
+                }
+                else
+                {
+                    Debug.LogWarning("NavMeshSurface component not found on the 'Floor' object.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Child object 'Floor' not found under mazeNode.");
+            }
         }
     }
 }
