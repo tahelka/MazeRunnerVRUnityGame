@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SliceObject : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class SliceObject : MonoBehaviour
     {
         Rigidbody rb = i_SlicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = i_SlicedObject.AddComponent<MeshCollider>();
+        i_SlicedObject.AddComponent<XRGrabInteractable>();
         collider.convex = true;
         i_SlicedObject.layer = LayerMask.NameToLayer("Sliceable");
         rb.AddExplosionForce(m_CutForce, i_SlicedObject.transform.position, 1);
