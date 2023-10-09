@@ -509,6 +509,7 @@ MonoBehaviour:
   m_ObstacleNodesPrefabs:
   - {fileID: 4178226955375866962, guid: ae9dbe5d77f06774d84477a3a5bff166, type: 3}
   - {fileID: 4178226955375866962, guid: d9ecc3b81b5324a44bd2f7092d3d48b7, type: 3}
+  - {fileID: 4178226955375866962, guid: 7233050a6d6652d44bcc8656fb5d554b, type: 3}
   NavMeshSurfaceScript: {fileID: 0}
   m_MazeYValue: 10
 --- !u!1 &273112171
@@ -2911,8 +2912,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 25
+  m_StepOffset: 0.2
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
