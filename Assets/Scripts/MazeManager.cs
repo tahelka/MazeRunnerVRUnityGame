@@ -11,7 +11,7 @@ public class MazeManager : MonoBehaviour
     [SerializeField] private Transform m_StarterRoom;
     private List<GameLevel> m_GameLevels;
 
-    public GameLevel currentGameLevel { get; private set; }
+    public GameLevel CurrentGameLevel { get; private set; }
 
     public void Awake()
     {
@@ -29,7 +29,7 @@ public class MazeManager : MonoBehaviour
         {
             if (i_Name == gameLevel.Name)
             {
-                currentGameLevel = gameLevel;
+                CurrentGameLevel = gameLevel;
                 mazePreparation();
                 GameManager.Instance.StartGame();
                 return;
@@ -71,7 +71,7 @@ public class MazeManager : MonoBehaviour
             {
                 if (i_Name == gameLevel.Name)
                 {
-                    currentGameLevel = gameLevel;
+                    CurrentGameLevel = gameLevel;
                 }
             }
 
@@ -83,7 +83,7 @@ public class MazeManager : MonoBehaviour
     private void mazePreparation()
     {
         // Generate the maze
-        m_MazeGenerator.GenerateMazeInstant(currentGameLevel ,currentGameLevel.Rows, currentGameLevel.Cols);
+        m_MazeGenerator.GenerateMazeInstant(CurrentGameLevel ,CurrentGameLevel.Rows, CurrentGameLevel.Cols);
 
         // Move player to the start of the maze
         movePlayerToStartNode();

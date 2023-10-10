@@ -80,8 +80,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
                 GameObject duplicatedEnemy = Instantiate(enemy);
                 duplicatedEnemy.SetActive(false);
                 duplicatedEnemy.transform.SetParent(StorageOfEnemiesToSpawn.transform);
-                NavMeshAgent navMeshAgent = duplicatedEnemy.AddComponent<NavMeshAgent>();
-                //////
                 i_EnemyToSpawnListStorage.Add(duplicatedEnemy);
             }
         }

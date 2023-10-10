@@ -7,18 +7,6 @@ public class NavMeshBaker : MonoBehaviour
 {
     public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void BuildNavMeshSurfaces(List<MazeNode> i_MazeNodes)
     {
         foreach (MazeNode mazeNode in i_MazeNodes)
@@ -46,6 +34,14 @@ public class NavMeshBaker : MonoBehaviour
             {
                 Debug.LogWarning("Child object 'Floor' not found under mazeNode.");
             }
+        }
+    }
+
+    public void AddNavMeshAgent(List<GameObject> i_Enemies)
+    {
+        foreach (GameObject enemy in i_Enemies)
+        {
+            enemy.AddComponent<NavMeshAgent>();
         }
     }
 }

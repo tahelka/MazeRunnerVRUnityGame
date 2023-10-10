@@ -85,7 +85,7 @@ public class MazeGenerator : MonoBehaviour
         addObstacles(i_Level);
 
         // Adding enemies to the maze
-        spawnEnemies(i_Level);
+        spawnEnemiesWithNavMeshAgent(i_Level);
     }
 
 
@@ -409,26 +409,27 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void spawnEnemies(GameLevel i_Level)
+    private void spawnEnemiesWithNavMeshAgent(GameLevel i_Level)
     {
         EnemiesSpawnerManager enemiesSpawnerManagerScript = GameObject.Find("Enemies And Obsticles Manager").GetComponentInChildren<EnemiesSpawnerManager>();
         Transform pointToSpawnEnemies = StartNode.transform.Find("StarterPointOfPlayer");
+        NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
 
-        if(i_Level.Name == "Medium")
+        if (i_Level.Name == "Medium")
         {
             enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage);
         }
         else if (i_Level.Name == "Hard")
         {
             enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage);
         }
         else
         {
             Debug.Log("No enemies are added at level: " + i_Level);
         }
     }
-
-   
 
     public void DeleteMaze()
     {
