@@ -10,7 +10,6 @@ public class MazeManager : MonoBehaviour
     [SerializeField] private Transform m_Player;
     [SerializeField] private Transform m_StarterRoom;
     private List<GameLevel> m_GameLevels;
-
     public GameLevel CurrentGameLevel { get; private set; }
 
     public void Awake()
