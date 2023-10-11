@@ -14,7 +14,6 @@ public enum eGameState
 public class GameManager : MonoBehaviour
 {
     public static event System.Action OnPlayModeStart;
-
     [SerializeField] private MazeManager m_MazeManager;
     [SerializeField] private GameObject m_EnemiesAndObsticlesManager;
     [SerializeField] private Timer m_Timer;

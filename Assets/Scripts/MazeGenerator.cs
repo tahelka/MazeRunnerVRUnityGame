@@ -26,6 +26,7 @@ public enum eWall
 
 public class MazeGenerator : MonoBehaviour
 {
+    private const int m_SpiderNavMeshAgentIndex = 1;
     [SerializeField] private MazeNode m_NodePrefab;
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
@@ -78,21 +79,25 @@ public class MazeGenerator : MonoBehaviour
         replaceNodeWithStartNodePrefab();
         replaceNodeWithEndNodePrefab();
 
-        // Add navMesh
-        addNavMeshToMaze();
+        if(i_Level.Name == "Medium" || i_Level.Name == "Hard")
+        {
+            // Adding enemies to the maze
+            addNavMeshAgentToEnemies(i_Level);
+
+            // Add navMesh
+            addNavMeshToMaze();
+        }
+
 
         // Adding obstacles to the maze
         addObstacles(i_Level);
-
-        // Adding enemies to the maze
-        spawnEnemies(i_Level);
     }
 
 
     private void addNavMeshToMaze()
     {
         NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
-        navMeshBakerScript.BuildNavMeshSurfaces(m_Nodes);
+        navMeshBakerScript.BuildNavMeshSurfaces(transform.Find("MazeNodes").transform);
     }
 
     private void setEndNode()
@@ -268,8 +273,8 @@ public class MazeGenerator : MonoBehaviour
             for(int y = 0; y < mazeSize.y; y += 5)
             {
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
-                MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform);
-                newNode.transform.Find("Floor").AddComponent<NavMeshSurface>(); // add NavMeshSurface component to the Floor of mazeNode
+                MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
+                newNode.transform.Find("Floor").AddComponent<NavMeshSurface>().agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID; // add NavMeshSurface component to the Floor of mazeNode
                 m_Nodes.Add(newNode);
             }
         }
@@ -281,7 +286,8 @@ public class MazeGenerator : MonoBehaviour
         {
             // Create a new StartNode using the StartNodePrefab
             Vector3 nodePos = StartNode.transform.position;
-            MazeNode newStartNode = Instantiate(m_StartNodePrefab, nodePos, Quaternion.identity, transform);
+            MazeNode newStartNode = Instantiate(m_StartNodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
+            newStartNode.transform.Find("Floor").AddComponent<NavMeshSurface>().agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID; // add NavMeshSurface component to the Floor of mazeNode
 
             // Remove the same walls from the new START node
             bool[] startNodeRemovedWalls = StartNode.GetRemovedWalls();
@@ -311,7 +317,8 @@ public class MazeGenerator : MonoBehaviour
         {
             // Create a new EndNode using the EndNodePrefab
             Vector3 nodePos = EndNode.transform.position;
-            MazeNode newEndNode = Instantiate(m_EndNodePrefab, nodePos, Quaternion.identity, transform);
+            MazeNode newEndNode = Instantiate(m_EndNodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
+            newEndNode.transform.Find("Floor").AddComponent<NavMeshSurface>().agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID; // add NavMeshSurface component to the Floor of mazeNode
 
             // Remove the same walls from the new END node
             bool[] endNodeRemovedWalls = EndNode.GetRemovedWalls();
@@ -409,26 +416,26 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    private void spawnEnemies(GameLevel i_Level)
+    private void addNavMeshAgentToEnemies(GameLevel i_Level)
     {
         EnemiesSpawnerManager enemiesSpawnerManagerScript = GameObject.Find("Enemies And Obsticles Manager").GetComponentInChildren<EnemiesSpawnerManager>();
         Transform pointToSpawnEnemies = StartNode.transform.Find("StarterPointOfPlayer");
+        NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
 
-        if(i_Level.Name == "Medium")
+        enemiesSpawnerManagerScript.PrepareToSpawnEnemies(pointToSpawnEnemies);
+        if (i_Level.Name == "Medium")
         {
-            enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies);
         }
         else if (i_Level.Name == "Hard")
         {
-            enemiesSpawnerManagerScript.SpawnEnemyOnStartMaze(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, pointToSpawnEnemies);
         }
         else
         {
             Debug.Log("No enemies are added at level: " + i_Level);
         }
     }
-
-   
 
     public void DeleteMaze()
     {

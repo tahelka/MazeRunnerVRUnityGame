@@ -14,17 +14,15 @@ public class EnemiesSpawnerManager : MonoBehaviour
     private float m_NextSpawnTime;
     private List<GameObject> m_EasyEnemiesToSpawnStorage = new List<GameObject>();
     private List<GameObject> m_AdvancedEnemiesToSpawnStorage = new List<GameObject>();
+    private MazeManager m_MazeManager;
+    private Transform m_PointToSpawnEnemies;
 
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
 
-    private void Awake()
-    {
-        
-    }
-
     void Start()
     {
+        m_MazeManager = GameObject.Find("Maze Manager").GetComponent<MazeManager>();
         GameManager.OnPlayModeStart += UpdateBeginTimeToSpawnEnemies;
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
@@ -37,20 +35,45 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CurrentGameState == eGameState.Playing && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+        if (GameManager.Instance.CurrentGameState == eGameState.Playing)
         {
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! tahel
-            // do a list of all the active enemies instead of going through all enemies even of they are not active!!!!!!!!!!!!!!
-            UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
-            UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
-        }      
+            // Update active enemies's position on maze
+            switch (m_MazeManager.CurrentGameLevel.Name)
+            {
+                case "Medium":
+                    UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
+                    if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+                    {
+                        // Spawn more enemies
+                        SpawnEnemyOnStartMaze(m_EasyEnemiesToSpawnStorage);
+                    }
+                    break;
+
+                case "Hard":
+                    UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                    if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+                    {
+                        // Spawn more enemies
+                        SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);
+                    }
+                    break;
+
+                default:
+                    Debug.Log("This level doesn't include enemy to spawn");
+                    break;
+            }                  
+        }                 
     }
 
-    public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage, Transform i_PointToSpawnEnemies)
+    public void PrepareToSpawnEnemies(Transform i_PointToSpawnEnemies)
+    {
+        m_PointToSpawnEnemies = i_PointToSpawnEnemies;
+    }
+
+    public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
         // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
-        i_EnemyStorage[randomIndex].transform.SetPositionAndRotation(i_PointToSpawnEnemies.position, i_PointToSpawnEnemies.rotation);
         i_EnemyStorage[randomIndex].SetActive(true);
         m_CurrEnemyCount++;
         m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
@@ -80,8 +103,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
                 GameObject duplicatedEnemy = Instantiate(enemy);
                 duplicatedEnemy.SetActive(false);
                 duplicatedEnemy.transform.SetParent(StorageOfEnemiesToSpawn.transform);
-                NavMeshAgent navMeshAgent = duplicatedEnemy.AddComponent<NavMeshAgent>();
-                //////
                 i_EnemyToSpawnListStorage.Add(duplicatedEnemy);
             }
         }
@@ -91,11 +112,11 @@ public class EnemiesSpawnerManager : MonoBehaviour
     {
         foreach (GameObject enemy in i_Enemies)
         {
-            if(enemy.active)
+            if (enemy.active)
             {
                 enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
-        }
+        }   
     }
 
     private void setStorageOfEasyEnemiesToSpawn()

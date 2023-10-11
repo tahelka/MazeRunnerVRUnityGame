@@ -7,23 +7,11 @@ public class NavMeshBaker : MonoBehaviour
 {
     public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
 
-    // Start is called before the first frame update
-    void Start()
+    public void BuildNavMeshSurfaces(Transform i_ParentOfNodeMazes)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void BuildNavMeshSurfaces(List<MazeNode> i_MazeNodes)
-    {
-        foreach (MazeNode mazeNode in i_MazeNodes)
+        for (int i = 0; i < i_ParentOfNodeMazes.childCount; i++)
         {
-            Transform floor = mazeNode.transform.Find("Floor");
+            Transform floor = i_ParentOfNodeMazes.GetChild(i).transform.Find("Floor");
 
             // Check if the "Floor" object exists
             if (floor != null)
@@ -46,6 +34,16 @@ public class NavMeshBaker : MonoBehaviour
             {
                 Debug.LogWarning("Child object 'Floor' not found under mazeNode.");
             }
+        }
+    }
+
+    public void AddNavMeshAgent(List<GameObject> i_Enemies, Transform i_PointToSpawnEnemiesOnSurface)
+    {
+        foreach (GameObject enemy in i_Enemies)
+        { 
+            // Place agent on the navMeshSurface and add to it navMeshAgent
+            enemy.transform.SetPositionAndRotation(i_PointToSpawnEnemiesOnSurface.position, i_PointToSpawnEnemiesOnSurface.rotation);
+            enemy.AddComponent<NavMeshAgent>();
         }
     }
 }
