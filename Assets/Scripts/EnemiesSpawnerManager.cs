@@ -103,7 +103,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
                 GameObject duplicatedEnemy = Instantiate(enemy);
                 duplicatedEnemy.SetActive(false);
                 duplicatedEnemy.transform.SetParent(StorageOfEnemiesToSpawn.transform);
-                duplicatedEnemy.transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
                 i_EnemyToSpawnListStorage.Add(duplicatedEnemy);
             }
         }
