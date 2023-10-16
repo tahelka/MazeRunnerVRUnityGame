@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3127502766680182471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0471, z: 0}
+  m_LocalPosition: {x: 0.1874, y: 0.4023, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,7 +72,7 @@ Transform:
   m_GameObject: {fileID: 3216806321216803941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.188, z: 0}
+  m_LocalPosition: {x: 0.1874, y: 0.5983, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 7246736389675969369}
   - component: {fileID: -870035919679389862}
   - component: {fileID: -5158440441235572744}
+  - component: {fileID: -1509590172595400139}
   m_Layer: 6
   m_Name: Hammer_01
   m_TagString: Untagged
@@ -399,3 +400,24 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-1509590172595400139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591273635324488586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb7247c379bdc440963e50e75c416b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StartSlicePoint: {fileID: 7187574721187060213}
+  m_EndSlicePoint: {fileID: 3064976361270144599}
+  m_SliceableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  m_VelocityEstimator: {fileID: 7598945472350694266}
+  m_CrossSectionMaterial: {fileID: 2100000, guid: c645926f4c717314ebe8becc86ec4cfe,
+    type: 2}
+  m_CutForce: 20

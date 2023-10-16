@@ -12,7 +12,7 @@ public class SliceObject : MonoBehaviour
     [SerializeField] private LayerMask m_SliceableLayer;
     [SerializeField] private VelocityEstimator m_VelocityEstimator;
     [SerializeField] private Material m_CrossSectionMaterial;
-    [SerializeField] private float m_CutForce = 2000;
+    [SerializeField] private float m_CutForce = 10;
 
     // Update is called once per frame
     void FixedUpdate()

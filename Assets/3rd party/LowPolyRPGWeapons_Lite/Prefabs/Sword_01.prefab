@@ -311,7 +311,7 @@ MonoBehaviour:
   m_VelocityEstimator: {fileID: 6687320728866713450}
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
-  m_CutForce: 2000
+  m_CutForce: 10
 --- !u!1 &403318768464006365
 GameObject:
   m_ObjectHideFlags: 0

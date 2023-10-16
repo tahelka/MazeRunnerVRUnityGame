@@ -420,4 +420,4 @@ MonoBehaviour:
   m_VelocityEstimator: {fileID: 7237090763490522653}
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
-  m_CutForce: 5
+  m_CutForce: 10
