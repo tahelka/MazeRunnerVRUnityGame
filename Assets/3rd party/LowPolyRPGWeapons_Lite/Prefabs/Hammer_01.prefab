@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &765381953904430837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7284696615213059812}
+  m_Layer: 6
+  m_Name: Start Slice Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7284696615213059812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765381953904430837}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1958, y: 0.5094, z: -0.095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8967095078329889072}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3127502766680182471
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 3127502766680182471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1874, y: 0.4023, z: 0}
+  m_LocalPosition: {x: 0.1958, y: 0.4023, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 3216806321216803941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1874, y: 0.5983, z: 0}
+  m_LocalPosition: {x: 0.1958, y: 0.5983, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,6 +140,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8967095078329889072}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &5609724227097739614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2461629090210097362}
+  - component: {fileID: 186790522223535936}
+  m_Layer: 6
+  m_Name: End Slice Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2461629090210097362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609724227097739614}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1958, y: 0.5094, z: 0.0906}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8967095078329889072}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &186790522223535936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609724227097739614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b521dc317b77e6a4880f05ceba515a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityAverageFrames: 5
+  angularVelocityAverageFrames: 11
+  estimateOnAwake: 1
 --- !u!1 &8591273635324488586
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +223,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7187574721187060213}
+  - {fileID: 7284696615213059812}
   - {fileID: 3064976361270144599}
+  - {fileID: 2461629090210097362}
   - {fileID: 90365193300652763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -412,11 +492,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb7247c379bdc440963e50e75c416b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartSlicePoint: {fileID: 7187574721187060213}
-  m_EndSlicePoint: {fileID: 3064976361270144599}
+  m_StartSlicePoints:
+  - {fileID: 7187574721187060213}
+  - {fileID: 7284696615213059812}
+  m_EndSlicePoints:
+  - {fileID: 3064976361270144599}
+  - {fileID: 2461629090210097362}
   m_SliceableLayer:
     serializedVersion: 2
     m_Bits: 512
+  m_SliceableLayerName: SliceableRock
   m_VelocityEstimator: {fileID: 7598945472350694266}
   m_CrossSectionMaterial: {fileID: 2100000, guid: c645926f4c717314ebe8becc86ec4cfe,
     type: 2}
