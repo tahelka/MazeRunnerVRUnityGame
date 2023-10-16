@@ -412,12 +412,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb7247c379bdc440963e50e75c416b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartSlicePoint: {fileID: 1219324156425225508}
-  m_EndSlicePoint: {fileID: 6208680333426305114}
+  m_StartSlicePoints:
+  - {fileID: 1219324156425225508}
+  m_EndSlicePoints:
+  - {fileID: 6208680333426305114}
   m_SliceableLayer:
     serializedVersion: 2
     m_Bits: 128
+  m_SliceableLayerName: SliceableWood
   m_VelocityEstimator: {fileID: 7237090763490522653}
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
-  m_CutForce: 5
+  m_CutForce: 10
