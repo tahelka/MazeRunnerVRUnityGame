@@ -452,9 +452,12 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // Destroy the START and END nodes
-        Destroy(StartNode.gameObject);
-        Destroy(EndNode.gameObject);
-
+        if(StartNode != null && EndNode != null)
+        {
+            Destroy(StartNode.gameObject);
+            Destroy(EndNode.gameObject);
+        }
+        
         // Clear lists and references
         m_Nodes.Clear();
         m_CurrentPath.Clear();

@@ -9,9 +9,9 @@ public class GameOver : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_TimerText;
     [SerializeField] private Timer m_Timer;
 
-    public void DisplayGameOverMenu(int i_PlayerHealth)
+    public void DisplayGameOverMenu(bool isPlayerWon)
     {
-        if (i_PlayerHealth > 0)
+        if (isPlayerWon)
         {
             displayWonMessage();
         }
@@ -37,7 +37,7 @@ public class GameOver : MonoBehaviour
     
     private void displayLostMessage()
     {
-        m_GameOverText.text = "YOU SUCK!";
+        m_GameOverText.text = "Better luck next time!";
     }
 
     private void displayTimer()

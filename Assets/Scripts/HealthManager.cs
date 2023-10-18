@@ -9,6 +9,8 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private int m_MaxHealth;
     private int m_CurrentHealth;
 
+    public event Action OnDeath;
+
     private void Awake()
     {
         m_HealthBar.SetMaxHealth(m_MaxHealth);
@@ -30,6 +32,11 @@ public class HealthManager : MonoBehaviour
         }
 
         m_HealthBar.SetHealth(m_CurrentHealth);
+
+        if(m_CurrentHealth == 0)
+        {
+            Die();
+        }
     }
 
     public void Heal(int i_HealthPoints)
@@ -48,5 +55,10 @@ public class HealthManager : MonoBehaviour
     {
         m_CurrentHealth = m_MaxHealth;
         m_HealthBar.SetHealth(m_MaxHealth);
+    }
+
+    private void Die()
+    {
+        OnDeath?.Invoke();
     }
 }

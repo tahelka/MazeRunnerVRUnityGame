@@ -3463,6 +3463,7 @@ GameObject:
   - component: {fileID: -4676434592006392318}
   - component: {fileID: 2623790855615623242}
   - component: {fileID: 8985458994761735415}
+  - component: {fileID: 6528995049118435189}
   m_Layer: 8
   m_Name: Black Widow
   m_TagString: Enemy
@@ -3575,6 +3576,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HealthBar: {fileID: 6622112868136126540}
   m_MaxHealth: 50
+--- !u!114 &6528995049118435189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688803186435683820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da04b1fadf44fe047bdfd800b57d29eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_healthManager: {fileID: 8985458994761735415}
 --- !u!1 &8756870369409294498
 GameObject:
   m_ObjectHideFlags: 0
