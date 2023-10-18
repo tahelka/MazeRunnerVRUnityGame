@@ -112,7 +112,7 @@ public class MazeManager : MonoBehaviour
         }
     }
 
-    public void EndTriggerEntered()
+    public void ExitMaze()
     {
         // Move player to the starter room
         movePlayerToStarterRoom();
