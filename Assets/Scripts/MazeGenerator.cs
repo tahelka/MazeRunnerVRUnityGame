@@ -349,6 +349,7 @@ public class MazeGenerator : MonoBehaviour
         // obstacleNodePrefab = m_ObstacleNodesPrefabs[0]; // For testing obstacle1 // 
         // obstacleNodePrefab = m_ObstacleNodesPrefabs[1]; // For testing obstacle2 // 
         // obstacleNodePrefab = m_ObstacleNodesPrefabs[2]; // For testing obstacle3 //
+        // obstacleNodePrefab = m_ObstacleNodesPrefabs[3]; // For testing obstacle4 //
 
         if (obstacleNodePrefab != null)
         {
