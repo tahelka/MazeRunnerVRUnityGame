@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: -131526872663185666}
   - component: {fileID: -1550193629889860881}
   - component: {fileID: 3178487609607499441}
+  - component: {fileID: 9033873190553106236}
+  - component: {fileID: 4920472439800205316}
   m_Layer: 6
   m_Name: Sword_01
   m_TagString: Untagged
@@ -315,6 +317,40 @@ MonoBehaviour:
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
   m_CutForce: 10
+--- !u!65 &9033873190553106236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355312524381552382}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.14585142, y: 0.87225497, z: 0.08148708}
+  m_Center: {x: 0.0001111538, y: 0.6143531, z: 0.000000048428774}
+--- !u!114 &4920472439800205316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355312524381552382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a65da71e0c85174a93c762a5da9f6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DamagePoints: 10
 --- !u!1 &403318768464006365
 GameObject:
   m_ObjectHideFlags: 0
