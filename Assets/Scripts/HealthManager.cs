@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,9 +36,9 @@ public class HealthManager : MonoBehaviour
     {
         m_CurrentHealth += i_HealthPoints;
 
-        if (m_CurrentHealth > 100)
+        if (m_CurrentHealth > m_MaxHealth)
         {
-            m_CurrentHealth = 100;
+            m_CurrentHealth = m_MaxHealth;
         }
 
         m_HealthBar.SetHealth(m_CurrentHealth);
@@ -46,5 +47,6 @@ public class HealthManager : MonoBehaviour
     public void ResetHealth()
     {
         m_CurrentHealth = m_MaxHealth;
+        m_HealthBar.SetHealth(m_MaxHealth);
     }
 }

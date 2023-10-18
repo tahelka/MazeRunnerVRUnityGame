@@ -1292,8 +1292,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.04060713, y: 0.035970747, z: 0.020816723}
-  m_Center: {x: -0.00028172255, y: -0.0016170322, z: -0.007487653}
+  m_Size: {x: 0.04060713, y: 0.027989104, z: 0.020816723}
+  m_Center: {x: -0.00028172255, y: -0.000007995367, z: -0.0074876533}
 --- !u!1 &2433615274414352106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,9 +3461,11 @@ GameObject:
   - component: {fileID: 8349397572283510614}
   - component: {fileID: -1735150714307341536}
   - component: {fileID: -4676434592006392318}
+  - component: {fileID: 2623790855615623242}
+  - component: {fileID: 8985458994761735415}
   m_Layer: 8
   m_Name: Black Widow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3504,7 +3506,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -3536,6 +3538,43 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &2623790855615623242
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688803186435683820}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.9314618
+  m_Height: 2.7018719
+  m_Direction: 2
+  m_Center: {x: 0.032444715, y: 0.86526203, z: 0.10763645}
+--- !u!114 &8985458994761735415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688803186435683820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe45b5dc00e7e3f40885eacd1b751493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthBar: {fileID: 6622112868136126540}
+  m_MaxHealth: 50
 --- !u!1 &8756870369409294498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,7 +3801,12 @@ PrefabInstance:
     - target: {fileID: 4485603595343112912, guid: 44e8ec1555a525e448f2b98015593b4f,
         type: 3}
       propertyPath: m_Value
-      value: 100
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485603595343112912, guid: 44e8ec1555a525e448f2b98015593b4f,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8749234365992999470, guid: 44e8ec1555a525e448f2b98015593b4f,
         type: 3}
@@ -3774,6 +3818,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44e8ec1555a525e448f2b98015593b4f, type: 3}
+--- !u!114 &6622112868136126540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1859610333864289260, guid: 44e8ec1555a525e448f2b98015593b4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4767290207872248736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b41cb4f31c15b4cbf41e6ea8afe40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7017062351357180746 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2542647200484495594, guid: 44e8ec1555a525e448f2b98015593b4f,
