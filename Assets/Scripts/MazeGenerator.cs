@@ -275,6 +275,8 @@ public class MazeGenerator : MonoBehaviour
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
                 newNode.transform.Find("Floor").AddComponent<NavMeshSurface>().agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID; // add NavMeshSurface component to the Floor of mazeNode
+                NavMeshBuildSettings buildSettings = NavMesh.GetSettingsByIndex(0);
+                // keep from here!!!!
                 m_Nodes.Add(newNode);
             }
         }
