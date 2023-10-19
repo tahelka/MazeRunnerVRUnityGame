@@ -43,7 +43,12 @@ public class NavMeshBaker : MonoBehaviour
         { 
             // Place agent on the navMeshSurface and add to it navMeshAgent
             enemy.transform.SetPositionAndRotation(i_PointToSpawnEnemiesOnSurface.position, i_PointToSpawnEnemiesOnSurface.rotation);
-            enemy.AddComponent<NavMeshAgent>();
+            NavMeshAgent navMeshAgentComponent = enemy.AddComponent<NavMeshAgent>();
+            //navMeshAgentComponent.autoBraking = false;
+            //avMeshAgentComponent.autoRepath = true;
+            //navMeshAgentComponent.destination = GameObject.Find("Main Camera").transform.position;
+            navMeshAgentComponent.speed = 2.5f;
+            //navMeshAgentComponent.radius = 2.5f;
         }
     }
 }
