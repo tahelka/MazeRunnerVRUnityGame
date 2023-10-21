@@ -37,7 +37,7 @@ public class MazeGenerator : MonoBehaviour
     private const int k_ObstaclesLevelEasy = 1;
     private const int k_ObstaclesLevelMedium = 2;
     private const int k_ObstaclesLevelHard = 3;
-    List<string> m_IncludedLayersInNavMeshSurface = new List<string>{ "TransparentFX", "Ignore Raycast", "Water", "UI", "Floor" };
+    List<string> m_NotIncludedLayersInNavMeshSurface = new List<string>{ "Enemy", "Interactable" };
     private List<MazeNode> m_Nodes;
     private List<MazeNode> m_ObstaclesNodes;
     private List<MazeNode> m_CurrentPath;
@@ -287,20 +287,20 @@ public class MazeGenerator : MonoBehaviour
                 // change navMeshSurface's agentType to spider
                 navMeshSurfaceComponent.agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID;
 
-                // Create a list of all layers that in m_IncludedLayersInNavMeshSurface list:
+                // Create a list of all layers that are not in m_NotIncludedLayersInNavMeshSurface list:
                 var layerNames = new string[32];  // Unity supports 32 layers
                 int index = 0;
                 for (int i = 0; i < 32; i++)
                 {
                     string layerName = LayerMask.LayerToName(i);
-                    if (!string.IsNullOrEmpty(layerName) && m_IncludedLayersInNavMeshSurface.Contains(layerName))
+                    if (!string.IsNullOrEmpty(layerName) && !m_NotIncludedLayersInNavMeshSurface.Contains(layerName))
                     {
                         layerNames[index] = layerName;
                         index++;
                     }
                 }
 
-                // Set the mask to include all layers that in m_IncludedLayersInNavMeshSurface list
+                // Set the mask to include all layers that in layerNames list
                 navMeshSurfaceComponent.layerMask = LayerMask.GetMask(layerNames);
                 m_Nodes.Add(newNode);
             }
