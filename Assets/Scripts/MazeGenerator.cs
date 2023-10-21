@@ -31,12 +31,13 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
     [SerializeField] private List<MazeNode> m_ObstacleNodesPrefabs;
-    [SerializeField] private NavMeshSurface NavMeshSurfaceScript;
+    //[SerializeField] private NavMeshSurface NavMeshSurfaceComp;
     [SerializeField] private int m_MazeYValue;
     private const int k_NodeDiameter = 5;
     private const int k_ObstaclesLevelEasy = 1;
     private const int k_ObstaclesLevelMedium = 2;
     private const int k_ObstaclesLevelHard = 3;
+    List<string> m_IncludedLayersInNavMeshSurface = new List<string>{ "TransparentFX", "Ignore Raycast", "Water", "UI", "Floor" };
     private List<MazeNode> m_Nodes;
     private List<MazeNode> m_ObstaclesNodes;
     private List<MazeNode> m_CurrentPath;
@@ -98,6 +99,13 @@ public class MazeGenerator : MonoBehaviour
     {
         NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
         navMeshBakerScript.BuildNavMeshSurfaces(transform.Find("MazeNodes").transform);
+        // build nav mesh differen way
+        //NavMeshSurface navMeshSurfaceComponent = GameObject.Find("NavMeshBaker").GetComponent<NavMeshSurface>();
+        //if (navMeshSurfaceComponent == null)
+        //{
+        //    Debug.Log("null !!!!");
+        //}    
+        //navMeshSurfaceComponent.BuildNavMesh();
     }
 
     private void setEndNode()
@@ -274,9 +282,26 @@ public class MazeGenerator : MonoBehaviour
             {
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
-                newNode.transform.Find("Floor").AddComponent<NavMeshSurface>().agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID; // add NavMeshSurface component to the Floor of mazeNode
-                NavMeshBuildSettings buildSettings = NavMesh.GetSettingsByIndex(0);
-                // keep from here!!!!
+                // add NavMeshSurface component to the Floor of mazeNode
+                NavMeshSurface navMeshSurfaceComponent = newNode.transform.Find("Floor").AddComponent<NavMeshSurface>();
+                // change navMeshSurface's agentType to spider
+                navMeshSurfaceComponent.agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID;
+
+                // Create a list of all layers that in m_IncludedLayersInNavMeshSurface list:
+                var layerNames = new string[32];  // Unity supports 32 layers
+                int index = 0;
+                for (int i = 0; i < 32; i++)
+                {
+                    string layerName = LayerMask.LayerToName(i);
+                    if (!string.IsNullOrEmpty(layerName) && m_IncludedLayersInNavMeshSurface.Contains(layerName))
+                    {
+                        layerNames[index] = layerName;
+                        index++;
+                    }
+                }
+
+                // Set the mask to include all layers that in m_IncludedLayersInNavMeshSurface list
+                navMeshSurfaceComponent.layerMask = LayerMask.GetMask(layerNames);
                 m_Nodes.Add(newNode);
             }
         }
