@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3846053775098481428}
   - component: {fileID: 4407003694198829911}
   - component: {fileID: 8322431483546347582}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pos X Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 324005206224679215}
   - component: {fileID: 8199908389217338079}
   - component: {fileID: 7577600594025997522}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pos Z Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3367560443513354892}
   - component: {fileID: 8973810128085944773}
   - component: {fileID: 3633421604955230803}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Neg Z Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 2250438345131604501}
   - component: {fileID: 2664727456112212273}
   - component: {fileID: 4722424248523958290}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Neg X Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
