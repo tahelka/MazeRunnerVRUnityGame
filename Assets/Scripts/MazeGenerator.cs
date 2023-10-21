@@ -31,7 +31,6 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeNode m_StartNodePrefab;
     [SerializeField] private MazeNode m_EndNodePrefab;
     [SerializeField] private List<MazeNode> m_ObstacleNodesPrefabs;
-    //[SerializeField] private NavMeshSurface NavMeshSurfaceComp;
     [SerializeField] private int m_MazeYValue;
     private const int k_NodeDiameter = 5;
     private const int k_ObstaclesLevelEasy = 1;
@@ -86,26 +85,18 @@ public class MazeGenerator : MonoBehaviour
             addNavMeshAgentToEnemies(i_Level);
 
             // Add navMesh
-            addNavMeshToMaze();
+            buildNavMeshSurfacesThatOnMazeNodes();
         }
-
 
         // Adding obstacles to the maze
         addObstacles(i_Level);
     }
 
 
-    private void addNavMeshToMaze()
+    private void buildNavMeshSurfacesThatOnMazeNodes()
     {
         NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
         navMeshBakerScript.BuildNavMeshSurfaces(transform.Find("MazeNodes").transform);
-        // build nav mesh differen way
-        //NavMeshSurface navMeshSurfaceComponent = GameObject.Find("NavMeshBaker").GetComponent<NavMeshSurface>();
-        //if (navMeshSurfaceComponent == null)
-        //{
-        //    Debug.Log("null !!!!");
-        //}    
-        //navMeshSurfaceComponent.BuildNavMesh();
     }
 
     private void setEndNode()
@@ -282,29 +273,34 @@ public class MazeGenerator : MonoBehaviour
             {
                 Vector3 nodePos = new(x - (mazeSize.x / 2f), m_MazeYValue, y - (mazeSize.y / 2f));
                 MazeNode newNode = Instantiate(m_NodePrefab, nodePos, Quaternion.identity, transform.Find("MazeNodes").transform);
-                // add NavMeshSurface component to the Floor of mazeNode
-                NavMeshSurface navMeshSurfaceComponent = newNode.transform.Find("Floor").AddComponent<NavMeshSurface>();
-                // change navMeshSurface's agentType to spider
-                navMeshSurfaceComponent.agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID;
-
-                // Create a list of all layers that are not in m_NotIncludedLayersInNavMeshSurface list:
-                var layerNames = new string[32];  // Unity supports 32 layers
-                int index = 0;
-                for (int i = 0; i < 32; i++)
-                {
-                    string layerName = LayerMask.LayerToName(i);
-                    if (!string.IsNullOrEmpty(layerName) && !m_NotIncludedLayersInNavMeshSurface.Contains(layerName))
-                    {
-                        layerNames[index] = layerName;
-                        index++;
-                    }
-                }
-
-                // Set the mask to include all layers that in layerNames list
-                navMeshSurfaceComponent.layerMask = LayerMask.GetMask(layerNames);
+                addNavMeshSurfaceToNode(newNode);
                 m_Nodes.Add(newNode);
             }
         }
+    }
+
+    private void addNavMeshSurfaceToNode(MazeNode i_Node)
+    {
+        // add NavMeshSurface component to the Floor of mazeNode
+        NavMeshSurface navMeshSurfaceComponent = i_Node.transform.Find("Floor").AddComponent<NavMeshSurface>();
+        // change navMeshSurface's agentType to spider
+        navMeshSurfaceComponent.agentTypeID = NavMesh.GetSettingsByIndex(m_SpiderNavMeshAgentIndex).agentTypeID;
+
+        // Create a list of all layers that are not in m_NotIncludedLayersInNavMeshSurface list:
+        var layerNames = new string[32];  // Unity supports 32 layers
+        int index = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            string layerName = LayerMask.LayerToName(i);
+            if (!string.IsNullOrEmpty(layerName) && !m_NotIncludedLayersInNavMeshSurface.Contains(layerName))
+            {
+                layerNames[index] = layerName;
+                index++;
+            }
+        }
+
+        // Set the layerMask to include all layers that in layerNames list
+        navMeshSurfaceComponent.layerMask = LayerMask.GetMask(layerNames);
     }
 
     private void replaceNodeWithStartNodePrefab()
