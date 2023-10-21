@@ -759,7 +759,6 @@ MonoBehaviour:
   - {fileID: 4178226955375866962, guid: d9ecc3b81b5324a44bd2f7092d3d48b7, type: 3}
   - {fileID: 4178226955375866962, guid: 7233050a6d6652d44bcc8656fb5d554b, type: 3}
   - {fileID: 4178226955375866962, guid: 12ae713a8f93ab84780a4114eaaeb5fe, type: 3}
-  NavMeshSurfaceScript: {fileID: 0}
   m_MazeYValue: 10
 --- !u!1 &273112171
 GameObject:
