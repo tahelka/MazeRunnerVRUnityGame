@@ -35,7 +35,7 @@ public class HealthManager : MonoBehaviour
 
         if(m_CurrentHealth == 0)
         {
-            Die();
+            die();
         }
     }
 
@@ -57,7 +57,7 @@ public class HealthManager : MonoBehaviour
         m_HealthBar.SetHealth(m_MaxHealth);
     }
 
-    private void Die()
+    private void die()
     {
         OnDeath?.Invoke();
     }
