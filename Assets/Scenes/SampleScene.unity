@@ -367,7 +367,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1249764946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HealthManager, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 3
@@ -1211,6 +1211,84 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6848993989892882220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &382340275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7519099812889110291, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519099812889110291, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0083833635
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.87766063
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349397572283510614, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688803186435683820, guid: fd02805ee801de64a828e8190cac7784,
+        type: 3}
+      propertyPath: m_Name
+      value: Black Widow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd02805ee801de64a828e8190cac7784, type: 3}
 --- !u!1001 &401480198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3412,8 +3490,9 @@ GameObject:
   - component: {fileID: 977861766}
   - component: {fileID: 977861765}
   - component: {fileID: 977861772}
+  - component: {fileID: 977861773}
   m_Layer: 0
-  m_Name: XR Origin (XR Rig)
+  m_Name: Player (XR Rig)
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3678,6 +3757,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 977861761}
   m_PlayerHead: {fileID: 2110147445}
+--- !u!114 &977861773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977861761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe45b5dc00e7e3f40885eacd1b751493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthBar: {fileID: 430288540}
+  m_MaxHealth: 100
 --- !u!4 &986878252
 Transform:
   m_ObjectHideFlags: 0
@@ -4026,7 +4119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1249764946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HealthManager, Assembly-CSharp
         m_MethodName: TakeDamage
         m_Mode: 3
@@ -4871,52 +4964,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236425645}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1249764944
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1249764945}
-  - component: {fileID: 1249764946}
-  m_Layer: 0
-  m_Name: Player Health Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1249764945
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249764944}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6597078, y: 1.139055, z: 0.4683671}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1249764946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249764944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe45b5dc00e7e3f40885eacd1b751493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HealthBar: {fileID: 430288540}
-  m_MaxHealth: 100
 --- !u!4 &1271206653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6062957040624609817, guid: 3c94a574020d3de429d0c295b3a83db4,
@@ -5540,7 +5587,7 @@ MonoBehaviour:
   m_MazeManager: {fileID: 1719033034}
   m_EnemiesAndObsticlesManager: {fileID: 1750323664}
   m_Timer: {fileID: 25619160}
-  m_HealthManager: {fileID: 1249764946}
+  m_HealthManager: {fileID: 977861773}
   m_GameOver: {fileID: 1740268555}
   m_LeaderboardManager: {fileID: 1890340310}
 --- !u!1 &1388049843 stripped
@@ -5638,7 +5685,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1249764946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HealthManager, Assembly-CSharp
         m_MethodName: ResetHealth
         m_Mode: 1
@@ -22457,9 +22504,9 @@ SceneRoots:
   - {fileID: 1370215418}
   - {fileID: 1890340308}
   - {fileID: 1719033033}
-  - {fileID: 1249764945}
   - {fileID: 7974426864696092700}
   - {fileID: 544687573}
   - {fileID: 977861764}
   - {fileID: 1750323665}
   - {fileID: 1451082691}
+  - {fileID: 382340275}

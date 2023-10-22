@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour
 {
-    [SerializeField] private int m_DamagePoints;
+    [SerializeField]
+    private int m_DamagePoints;
     // [SerializeField] private GameObject m_HitParticle;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag is "Enemy")
+        if (other.tag is "Enemy")
         {
             other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
             Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
@@ -24,6 +25,11 @@ public class AttackHandler : MonoBehaviour
                     other.transform.position.z),
                     other.transform.rotation);*/
 
+        }
+        else if(other.tag is "Player")
+        {
+            other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
+            Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
         }
     }
 }
