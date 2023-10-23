@@ -97,17 +97,14 @@ public class GameManager : MonoBehaviour
         m_MazeManager.ExitMaze();
         m_Timer.StopTimer();
 
-        // If player won
         if(isPlayerWon())
         {
             m_LeaderboardManager.SetPlayerScore();
-            m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.m_PlayerScore));
+            m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.GetPlayerScore()), m_MazeManager.CurrentGameLevel);
         }
 
         m_GameOver.DisplayGameOverMenu(isPlayerWon());
     }
-
-    
 
     private IEnumerator executeAfterDelay(float delay)
     {
