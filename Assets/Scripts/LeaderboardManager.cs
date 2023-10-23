@@ -7,20 +7,20 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    private ScoreData m_ScoresData;
-    public float m_PlayerScore;
-    public GameObject m_LeaderBoardContent;
+    private ScoreData m_EasyScoresData;
+    private ScoreData m_MediumScoresData;
+    private ScoreData m_HardScoresData;
+    private float m_PlayerScore;
+    public GameObject m_EasyLeaderBoardContent;
+    public GameObject m_MediumLeaderBoardContent;
+    public GameObject m_HardLeaderBoardContent;
     [SerializeField] private Timer m_Timer;
 
     void Awake()
     {
-        m_ScoresData = new ScoreData();
-
-       /* // get the highscore value from the data.
-        if (m_ScoresData != null && m_ScoresData.m_Scores.Count != 0)
-        {
-            m_HighScore = m_ScoresData.m_Scores.First().m_ElapsedTime;
-        }*/
+        m_EasyScoresData = new ScoreData();
+        m_MediumScoresData = new ScoreData();
+        m_HardScoresData = new ScoreData();
     }
 
     private void Start()
@@ -35,29 +35,46 @@ public class LeaderboardManager : MonoBehaviour
         m_PlayerScore = m_Timer.GetCurrentElapsedTime();
     }
 
+    public float GetPlayerScore()
+    {
+        return m_PlayerScore;
+    }
+
     private void resetPlayerScore()
     {
         m_PlayerScore = 0;
     }
 
     // This method returns a sorted leaderboard - the lowest m_ElapsedTime values, will be at the top of the leaderboard.
-    public IEnumerable<Score> SortedHighScoreLeaderBoard()
+    public IEnumerable<Score> SortedHighScoreLeaderBoard(ScoreData i_ScoresData)
     {
-        return m_ScoresData.m_Scores.OrderBy(x => x.m_ElapsedTime);
+        return i_ScoresData.m_Scores.OrderBy(x => x.m_ElapsedTime);
     }
 
-
     // this method adds a Score to leaderBoard
-    public void AddScoreToLeaderBoard(Score score)
+    public void AddScoreToLeaderBoard(Score i_Score, GameLevel i_CurrentGameLevel)
     {
-        m_ScoresData.m_Scores.Add(score);
-        this.GetComponent<LeaderboardScore>().PresentSortedLeaderBoard();
+        if(i_CurrentGameLevel.Name == "Easy")
+        {
+            m_EasyScoresData.m_Scores.Add(i_Score);
+            this.GetComponent<LeaderboardScore>().PresentSortedLeaderBoard(m_EasyScoresData, i_CurrentGameLevel);
+        }
+        else if(i_CurrentGameLevel.Name == "Medium")
+        {
+            m_MediumScoresData.m_Scores.Add(i_Score);
+            this.GetComponent<LeaderboardScore>().PresentSortedLeaderBoard(m_MediumScoresData, i_CurrentGameLevel);
+        }
+        else if(i_CurrentGameLevel.Name == "Hard")
+        {
+            m_HardScoresData.m_Scores.Add(i_Score);
+            this.GetComponent<LeaderboardScore>().PresentSortedLeaderBoard(m_HardScoresData, i_CurrentGameLevel);
+        }
     }
 
     // this method resets score array of the LeaderBoard
     public void ResetScoreLeaderBoard()
     {
-        m_ScoresData.m_Scores?.Clear();
+        m_EasyScoresData.m_Scores?.Clear();
         Debug.Log("Score Data was cleared");
     }
 }
