@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1027090182464138263}
   - component: {fileID: -1856533142572160065}
   - component: {fileID: -688727052615629934}
+  - component: {fileID: 2240528671575591283}
+  - component: {fileID: 1486212681511360786}
   m_Layer: 6
   m_Name: Bottle_05
   m_TagString: Untagged
@@ -287,3 +289,39 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!136 &2240528671575591283
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374151818356740834}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.077908665
+  m_Height: 0.25283694
+  m_Direction: 1
+  m_Center: {x: -0.0000000037252903, y: 0.12641847, z: 0}
+--- !u!114 &1486212681511360786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374151818356740834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252332214a2383d4e8838bb0151a36ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealPoints: 20
