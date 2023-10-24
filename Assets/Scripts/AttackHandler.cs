@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour
 {
-    [SerializeField]
-    private int m_DamagePoints;
+    [SerializeField] private int m_DamagePoints;
     // [SerializeField] private GameObject m_HitParticle;
 
     private void OnTriggerEnter(Collider other)
