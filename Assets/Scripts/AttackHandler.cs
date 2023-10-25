@@ -27,8 +27,15 @@ public class AttackHandler : MonoBehaviour
         }
         else if(other.tag is "Player")
         {
+            other.GetComponent<Animator>().SetTrigger("TakeDamage");
+
             other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
             Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
+
+            if(other.GetComponent<HealthManager>().GetHealth() <= 0)
+            {
+                other.GetComponent<Animator>().SetTrigger("Death");
+            }
         }
     }
 }
