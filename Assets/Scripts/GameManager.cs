@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         setGameStateToIdle();
         m_Timer.ResetTimer();
         m_HealthManager.ResetHealth();
-        m_HealthManager.OnDeath += EndGame;
+        m_HealthManager.OnDeath += lostGame;
     }
 
     private void setGameStateToIdle()
@@ -90,20 +90,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    public void EndGame()
+    public void EndGame(eGameOver i_EndGameReason)
     {
         setGameStateToGameOver();
         m_MazeManager.ExitMaze();
         m_Timer.StopTimer();
 
-        if(isPlayerWon())
+        if(i_EndGameReason == eGameOver.Win)
         {
             m_LeaderboardManager.SetPlayerScore();
             m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.GetPlayerScore()), m_MazeManager.CurrentGameLevel);
         }
 
-        m_GameOver.DisplayGameOverMenu(isPlayerWon());
+        m_GameOver.DisplayGameOverMenu(i_EndGameReason);
     }
 
     private IEnumerator executeAfterDelay(float delay)
@@ -135,10 +134,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool isPlayerWon()
+    private void lostGame()
     {
-        bool isWon = m_HealthManager.GetHealth() > 0;
+        EndGame(eGameOver.Lose);
+    }
 
-        return isWon;
+    public void QuitGame()
+    {
+        EndGame(eGameOver.Quit);
     }
 }
