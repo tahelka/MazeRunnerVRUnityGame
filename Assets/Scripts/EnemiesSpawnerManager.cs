@@ -41,7 +41,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             switch (m_MazeManager.CurrentGameLevel.Name)
             {
                 case "Medium":
-                    UpdateEnemyPositionToMainCamera(m_EasyEnemiesToSpawnStorage);
+                    UpdateEnemyAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
                     if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         // Spawn more enemies
@@ -50,7 +50,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
 
                 case "Hard":
-                    UpdateEnemyPositionToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                    UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
                     if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         // Spawn more enemies
@@ -74,9 +74,39 @@ public class EnemiesSpawnerManager : MonoBehaviour
     {
         // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
-        i_EnemyStorage[randomIndex].SetActive(true);
+        if(!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
+        {
+            if(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
+            {
+                // enemy was in the game already and died
+                bringEnemyBackToLive(i_EnemyStorage[randomIndex]);
+            }
+            i_EnemyStorage[randomIndex].SetActive(true);
+        }
         m_CurrEnemyCount++;
         m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+    }
+
+    public void MakeEnemyDead(GameObject enemy)
+    {
+        enemy.GetComponent<Animator>().SetBool("isDead", true);
+        // stop enemy to run after the player
+        enemy.GetComponent<NavMeshAgent>().isStopped = true;
+        m_CurrEnemyCount--;
+    }
+
+    public void MakeEnemyUnactive()
+    {
+        transform.parent.gameObject.SetActive(false);
+    }
+
+    private void bringEnemyBackToLive(GameObject enemy)
+    {
+        enemy.transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
+        enemy.GetComponent<Animator>().SetBool("isDead", false);
+        // keep enemy to run after the player
+        enemy.transform.GetComponent<NavMeshAgent>().isStopped = false;
+
     }
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
@@ -108,7 +138,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }
     }
 
-    public void UpdateEnemyPositionToMainCamera(List<GameObject> i_Enemies)
+    public void UpdateEnemyAgentDestinationToMainCamera(List<GameObject> i_Enemies)
     {
         foreach (GameObject enemy in i_Enemies)
         {
