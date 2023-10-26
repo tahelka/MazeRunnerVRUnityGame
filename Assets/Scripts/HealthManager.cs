@@ -59,6 +59,6 @@ public class HealthManager : MonoBehaviour
 
     private void die()
     {
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(); // Player lost
     }
 }

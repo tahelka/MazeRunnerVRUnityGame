@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum eGameOver
+{
+    Win,
+    Lose,
+    Quit
+}
+
 public class GameOver : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_GameOverText;
     [SerializeField] private TextMeshProUGUI m_TimerText;
     [SerializeField] private Timer m_Timer;
 
-    public void DisplayGameOverMenu(bool isPlayerWon)
+    public void DisplayGameOverMenu(eGameOver i_GameOverReason)
     {
-        if (isPlayerWon)
+        if (i_GameOverReason == eGameOver.Win)
         {
             displayWonMessage();
         }
-        else
+        else if (i_GameOverReason == eGameOver.Lose)
         {
             displayLostMessage();
+        }
+        else if (i_GameOverReason == eGameOver.Quit)
+        {
+            displayQuitMessage();
         }
 
         displayTimer();
@@ -38,6 +49,11 @@ public class GameOver : MonoBehaviour
     private void displayLostMessage()
     {
         m_GameOverText.text = "Better luck next time!";
+    }
+
+    private void displayQuitMessage()
+    {
+        m_GameOverText.text = "Maybe try an easier level";
     }
 
     private void displayTimer()
