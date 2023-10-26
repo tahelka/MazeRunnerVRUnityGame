@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AttackHandler : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class AttackHandler : MonoBehaviour
             if (other.GetComponent<HealthManager>().GetHealth() <= 0)
             {
                 other.GetComponent<Animator>().SetBool("isDead", true);
+                other.transform.GetComponent<NavMeshAgent>().isStopped = true;
                 //other.GetComponent<Animator>().SetTrigger("Death");
             }
 
