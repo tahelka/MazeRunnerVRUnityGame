@@ -11,6 +11,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (other.tag is "Enemy")
         {
+            other.GetComponent<Animator>().SetBool("isDamage", true);
             other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
             Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
             // other.GetComponent<Animator>().SetTrigger("Hit"); // Take damage animation
@@ -24,18 +25,21 @@ public class AttackHandler : MonoBehaviour
                     other.transform.position.z),
                     other.transform.rotation);*/
 
+            if (other.GetComponent<HealthManager>().GetHealth() <= 0)
+            {
+                other.GetComponent<Animator>().SetBool("isDead", true);
+                //other.GetComponent<Animator>().SetTrigger("Death");
+            }
+
         }
         else if(other.tag is "Player")
         {
-            other.GetComponent<Animator>().SetTrigger("TakeDamage");
+           
 
             other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
             Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
 
-            if(other.GetComponent<HealthManager>().GetHealth() <= 0)
-            {
-                other.GetComponent<Animator>().SetTrigger("Death");
-            }
+           
         }
     }
 }
