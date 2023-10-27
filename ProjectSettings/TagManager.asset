@@ -7,6 +7,7 @@ TagManager:
   - EndTrigger
   - Enemy
   - Weapon
+  - Ground
   layers:
   - Default
   - TransparentFX
