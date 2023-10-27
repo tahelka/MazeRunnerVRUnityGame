@@ -59,7 +59,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
 
                 default:
-                    Debug.Log("This level doesn't include enemy to spawn");
+                    // Debug.Log("This level doesn't include enemy to spawn");
                     break;
             }                  
         }                 
