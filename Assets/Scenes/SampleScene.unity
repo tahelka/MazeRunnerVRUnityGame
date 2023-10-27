@@ -6822,6 +6822,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword_01
       objectReference: {fileID: 0}
+    - target: {fileID: 681207172520438258, guid: b84d7ca3927758646a65731cc107aa76,
+        type: 3}
+      propertyPath: m_MaxVelocity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 681207172520438258, guid: b84d7ca3927758646a65731cc107aa76,
+        type: 3}
+      propertyPath: m_MinVelocity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 681207172520438258, guid: b84d7ca3927758646a65731cc107aa76,
+        type: 3}
+      propertyPath: m_DistanceThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 681207172520438258, guid: b84d7ca3927758646a65731cc107aa76,
+        type: 3}
+      propertyPath: m_VelocityThreshold
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1127450730860520516, guid: b84d7ca3927758646a65731cc107aa76,
         type: 3}
       propertyPath: m_LocalPosition.x
