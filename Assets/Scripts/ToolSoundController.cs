@@ -7,7 +7,7 @@ public class ToolSoundController : MonoBehaviour
     private AudioSource m_AudioSource;
     [SerializeField] private AudioClip m_AudioClip;
     [SerializeField] private bool m_UseVelocity = true;
-    [SerializeField] private float m_VelocityThreshold = 20f; // Adjust this value to control the velocity threshold.
+    [SerializeField] private float m_VelocityThreshold = 15f; // Adjust this value to control the velocity threshold.
     [SerializeField] private float m_DistanceThreshold = 1f; // Adjust this value to control the distance threshold.
     
     [SerializeField] private float m_MinVelocity = 15;

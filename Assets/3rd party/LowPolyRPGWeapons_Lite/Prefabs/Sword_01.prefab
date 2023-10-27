@@ -13,15 +13,15 @@ GameObject:
   - component: {fileID: 2300968513234132779}
   - component: {fileID: 2142021146967332986}
   - component: {fileID: -131526872663185666}
+  - component: {fileID: 9033873190553106236}
   - component: {fileID: -1550193629889860881}
   - component: {fileID: 3178487609607499441}
-  - component: {fileID: 9033873190553106236}
   - component: {fileID: 4920472439800205316}
   - component: {fileID: -5951885271043169026}
   - component: {fileID: 681207172520438258}
   m_Layer: 6
   m_Name: Sword_01
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +144,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &9033873190553106236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355312524381552382}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.14585142, y: 0.87225497, z: 0.08148708}
+  m_Center: {x: 0.0001111538, y: 0.6143531, z: 0.000000048428774}
 --- !u!114 &-1550193629889860881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,27 +341,6 @@ MonoBehaviour:
   m_CrossSectionMaterial: {fileID: 2100000, guid: d137375a281905e4cb2f3fc774420ac0,
     type: 2}
   m_CutForce: 10
---- !u!65 &9033873190553106236
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355312524381552382}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.14585142, y: 0.87225497, z: 0.08148708}
-  m_Center: {x: 0.0001111538, y: 0.6143531, z: 0.000000048428774}
 --- !u!114 &4920472439800205316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,9 +465,11 @@ MonoBehaviour:
   tipTransform: {fileID: 2750185884965708577}
   m_AudioClip: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
   m_UseVelocity: 1
-  m_MinVelocity: 0
-  m_MaxVelocity: 1
-  m_MinDistanceThreshold: 4
+  m_VelocityThreshold: 15
+  m_DistanceThreshold: 1
+  m_MinVelocity: 15
+  m_MaxVelocity: 30
+  m_MaxVolume: 1
 --- !u!1 &403318768464006365
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2750185884965708577}
   m_Layer: 6
-  m_Name: tip
+  m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
