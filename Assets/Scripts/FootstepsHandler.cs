@@ -19,7 +19,7 @@ public class FootstepsHandler : MonoBehaviour
         previousPosition = legsTransform.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Calculate the movement vector based on the position difference between frames.
         Vector3 movement = legsTransform.position - previousPosition;
