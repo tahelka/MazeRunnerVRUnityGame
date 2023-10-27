@@ -3577,7 +3577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthBar: {fileID: 6622112868136126540}
-  m_MaxHealth: 50
+  m_MaxHealth: 100
 --- !u!114 &6528995049118435189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3603,7 +3603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a65da71e0c85174a93c762a5da9f6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamagePoints: 10
+  m_DamagePoints: 20
 --- !u!95 &-8720158616706774094
 Animator:
   serializedVersion: 5
