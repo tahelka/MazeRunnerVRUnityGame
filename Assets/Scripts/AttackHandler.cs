@@ -10,12 +10,11 @@ public class AttackHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag is "Enemy")
+        if (tag == "Enemy" && other.tag is "Player") // if player got into the enemy's collider
         {
-            other.GetComponent<Animator>().SetTrigger("isDamage");
+            // take off health points from the player
             other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
             Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
-            // other.GetComponent<Animator>().SetTrigger("Hit"); // Take damage animation
 
             // Instantiate blood particles
             /*Instantiate(
@@ -26,16 +25,22 @@ public class AttackHandler : MonoBehaviour
                     other.transform.position.z),
                     other.transform.rotation);*/
 
-            if (other.GetComponent<HealthManager>().GetHealth() <= 0)
-            {
-                GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawnerManager>().MakeEnemyDead(other.gameObject);
-            }
-
         }
-        else if(other.tag is "Player")
-        {         
-            other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
-            Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");         
+        else if(tag == "Enemy" && other.tag == "Weapon") // if weapon got into enemy's collider
+        {
+            // do the taking damage animation of enemy
+            GetComponent<Animator>().SetTrigger("isDamage");
+
+            HealthManager healthManagerComponent = GetComponent<HealthManager>();
+            // take off health points from the enemy
+            healthManagerComponent.TakeDamage(m_DamagePoints);
+            Debug.Log($"{name} got hit ({m_DamagePoints} Damage)");
+
+            if (healthManagerComponent.GetHealth() <= 0)
+            {
+                // do the death animation of enemy
+                GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawnerManager>().MakeEnemyDead(gameObject);
+            }
         }
     }
 }
