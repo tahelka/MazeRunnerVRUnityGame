@@ -12,6 +12,12 @@ public class EnemyManager : MonoBehaviour
         m_healthManager.OnDeath += startDyingAnimation;
     }
 
+    public void MakeEnemyUnactive()
+    {
+        gameObject.SetActive(false);
+    }
+
+
     private void startDyingAnimation()
     {
         // start animation
