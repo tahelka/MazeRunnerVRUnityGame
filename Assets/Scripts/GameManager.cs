@@ -143,4 +143,9 @@ public class GameManager : MonoBehaviour
     {
         EndGame(eGameOver.Quit);
     }
+
+    public void PauseGame()
+    {
+        GameObject.Find("Pause Button").GetComponent<PauseGame>().PauseButtonPressed();
+    }
 }
