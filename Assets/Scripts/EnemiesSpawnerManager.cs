@@ -83,7 +83,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //    // enemy was in the game already and died
             //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
-            initEnemySettings(i_EnemyStorage[randomIndex]);
 
             i_EnemyStorage[randomIndex].SetActive(true);
             m_CurrEnemyCount++;
