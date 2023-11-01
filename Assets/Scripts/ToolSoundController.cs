@@ -39,8 +39,8 @@ public class ToolSoundController : MonoBehaviour
             {
                 float tipVelocityMagnitude = tipVelocity.magnitude;
                 float volume = Mathf.InverseLerp(m_MinVelocity, m_MaxVelocity, tipVelocityMagnitude) * m_MaxVolume;
-                Debug.Log($"tipVelocityMagnitude: {tipVelocityMagnitude}");
-                Debug.Log($"volume: {volume}");
+                //Debug.Log($"tipVelocityMagnitude: {tipVelocityMagnitude}");
+                //Debug.Log($"volume: {volume}");
 
                 // Check if the tool's velocity exceeds the velocity threshold.
                 if (tipVelocityMagnitude > m_VelocityThreshold)
