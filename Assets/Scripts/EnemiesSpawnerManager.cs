@@ -16,6 +16,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
     private List<GameObject> m_AdvancedEnemiesToSpawnStorage = new List<GameObject>();
     private MazeManager m_MazeManager;
     private Transform m_PointToSpawnEnemies;
+    private bool isFunctionRunning = false;
+
 
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
@@ -42,19 +44,23 @@ public class EnemiesSpawnerManager : MonoBehaviour
             {
                 case "Medium":
                     UpdateEnemyAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
-                    if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+                    if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
+                        isFunctionRunning = true;
                         // Spawn more enemies
                         SpawnEnemyOnStartMaze(m_EasyEnemiesToSpawnStorage);
+                        isFunctionRunning = false;
                     }
                     break;
 
                 case "Hard":
                     UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
-                    if (m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+                    if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
+                        isFunctionRunning = true;
                         // Spawn more enemies
                         SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);
+                        isFunctionRunning = false;
                     }
                     break;
 
@@ -76,7 +82,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
         {
-            //
             //Debug.Log(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"));
             //if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
             //{
@@ -87,7 +92,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
             i_EnemyStorage[randomIndex].SetActive(true);
             m_CurrEnemyCount++;
-            m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+            UpdateBeginTimeToSpawnEnemies();
         }    
     }
 
@@ -96,8 +101,13 @@ public class EnemiesSpawnerManager : MonoBehaviour
         enemy.GetComponent<Animator>().SetBool("isDead", true);
         // stop enemy to run after the player
         enemy.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void DecreaseEnemyCountByOne()
+    {
         m_CurrEnemyCount--;
     }
+
 
     private void initEnemySettings(GameObject enemy)
     {

@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour
     public void MakeEnemyUnactive()
     {
         gameObject.SetActive(false);
+        GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawnerManager>().DecreaseEnemyCountByOne();
     }
 
 
