@@ -72,6 +72,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
+        //
         // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
