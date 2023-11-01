@@ -72,19 +72,26 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
-        // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
-        int randomIndex = Random.Range(0, i_EnemyStorage.Count);
-        if(!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
+        bool didUnactiveEnemyFind = false;
+
+        while(!didUnactiveEnemyFind)
         {
-            if(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
+            // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
+            int randomIndex = Random.Range(0, i_EnemyStorage.Count);
+            if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
             {
-                // enemy was in the game already and died
-                bringEnemyBackToLive(i_EnemyStorage[randomIndex]);
-            }
-            i_EnemyStorage[randomIndex].SetActive(true);
-        }
-        m_CurrEnemyCount++;
-        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+                didUnactiveEnemyFind = true;
+                if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
+                {
+                    // enemy was in the game already and died
+                    initEnemySettings(i_EnemyStorage[randomIndex]);
+                }
+
+                i_EnemyStorage[randomIndex].SetActive(true);
+                m_CurrEnemyCount++;
+                m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+            }          
+        }       
     }
 
     public void MakeEnemyDead(GameObject enemy)
@@ -100,13 +107,13 @@ public class EnemiesSpawnerManager : MonoBehaviour
         transform.parent.gameObject.SetActive(false);
     }
 
-    private void bringEnemyBackToLive(GameObject enemy)
+    private void initEnemySettings(GameObject enemy)
     {
         enemy.transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
+        // make enemy run after the player 
+        transform.GetComponent<NavMeshAgent>().isStopped = false;
+        enemy.GetComponent<HealthManager>().ResetHealth();
         enemy.GetComponent<Animator>().SetBool("isDead", false);
-        // keep enemy to run after the player
-        enemy.transform.GetComponent<NavMeshAgent>().isStopped = false;
-
     }
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
