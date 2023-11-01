@@ -76,6 +76,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
         {
+            //
             //Debug.Log(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"));
             //if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
             //{
