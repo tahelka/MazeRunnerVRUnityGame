@@ -72,26 +72,28 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
-        bool didUnactiveEnemyFind = false;
+        //bool didUnactiveEnemyFind = false;
 
-        while(!didUnactiveEnemyFind)
+        // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
+        int randomIndex = Random.Range(0, i_EnemyStorage.Count);
+        if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
         {
-            // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
-            int randomIndex = Random.Range(0, i_EnemyStorage.Count);
-            if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
+            //didUnactiveEnemyFind = true;
+            if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
             {
-                didUnactiveEnemyFind = true;
-                if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
-                {
-                    // enemy was in the game already and died
-                    initEnemySettings(i_EnemyStorage[randomIndex]);
-                }
+                // enemy was in the game already and died
+                initEnemySettings(i_EnemyStorage[randomIndex]);
+            }
 
-                i_EnemyStorage[randomIndex].SetActive(true);
-                m_CurrEnemyCount++;
-                m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
-            }          
-        }       
+            i_EnemyStorage[randomIndex].SetActive(true);
+            m_CurrEnemyCount++;
+            m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+        }
+
+        //while (!didUnactiveEnemyFind)
+        //{
+            
+        //}       
     }
 
     public void MakeEnemyDead(GameObject enemy)
