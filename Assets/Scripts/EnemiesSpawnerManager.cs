@@ -92,7 +92,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
             i_EnemyStorage[randomIndex].SetActive(true);
             m_CurrEnemyCount++;
-            UpdateBeginTimeToSpawnEnemies();
         }    
     }
 
@@ -103,19 +102,17 @@ public class EnemiesSpawnerManager : MonoBehaviour
         enemy.GetComponent<NavMeshAgent>().isStopped = true;
     }
 
-    public void DecreaseEnemyCountByOne()
+    public void DecreaseEnemyCountByOneAndUpdateSpawnTimeNextEnemy()
     {
         m_CurrEnemyCount--;
+        UpdateBeginTimeToSpawnEnemies();
     }
 
 
     private void initEnemySettings(GameObject enemy)
     {
         enemy.transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
-        // make enemy run after the player 
-        enemy.GetComponent<NavMeshAgent>().isStopped = false;
         enemy.GetComponent<HealthManager>().ResetHealth();
-        enemy.GetComponent<Animator>().SetBool("isDead", false);
     }
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
