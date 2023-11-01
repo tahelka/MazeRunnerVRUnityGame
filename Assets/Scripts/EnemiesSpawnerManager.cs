@@ -76,11 +76,13 @@ public class EnemiesSpawnerManager : MonoBehaviour
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
         {
-            if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
-            {
-                // enemy was in the game already and died
-                initEnemySettings(i_EnemyStorage[randomIndex]);
-            }
+            //Debug.Log(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"));
+            //if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
+            //{
+            //    Debug.Log("enemy was dead");
+            //    // enemy was in the game already and died
+            //}
+            initEnemySettings(i_EnemyStorage[randomIndex]);
 
             i_EnemyStorage[randomIndex].SetActive(true);
             m_CurrEnemyCount++;
@@ -96,16 +98,11 @@ public class EnemiesSpawnerManager : MonoBehaviour
         m_CurrEnemyCount--;
     }
 
-    public void MakeEnemyUnactive()
-    {
-        transform.parent.gameObject.SetActive(false);
-    }
-
     private void initEnemySettings(GameObject enemy)
     {
         enemy.transform.SetPositionAndRotation(m_PointToSpawnEnemies.position, m_PointToSpawnEnemies.rotation);
         // make enemy run after the player 
-        transform.GetComponent<NavMeshAgent>().isStopped = false;
+        enemy.GetComponent<NavMeshAgent>().isStopped = false;
         enemy.GetComponent<HealthManager>().ResetHealth();
         enemy.GetComponent<Animator>().SetBool("isDead", false);
     }
