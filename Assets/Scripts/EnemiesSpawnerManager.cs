@@ -72,7 +72,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
-        //
         // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
@@ -83,6 +82,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //    Debug.Log("enemy was dead");
             //    // enemy was in the game already and died
             //}
+            initEnemySettings(i_EnemyStorage[randomIndex]);
             initEnemySettings(i_EnemyStorage[randomIndex]);
 
             i_EnemyStorage[randomIndex].SetActive(true);
