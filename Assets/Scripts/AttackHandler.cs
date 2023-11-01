@@ -6,7 +6,14 @@ using UnityEngine.AI;
 public class AttackHandler : MonoBehaviour
 {
     [SerializeField] private int m_DamagePoints;
+    private List<string> m_AttacksAnimations = new List<string>();
     // [SerializeField] private GameObject m_HitParticle;
+
+    private void Awake()
+    {
+        m_AttacksAnimations.Add("Attack1");
+        m_AttacksAnimations.Add("Attack2");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +25,7 @@ public class AttackHandler : MonoBehaviour
                 // take off health points from the player
                 other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
                 Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
+                doSpiderAttackAnimation();
 
                 // Instantiate blood particles
                 /*Instantiate(
@@ -47,5 +55,12 @@ public class AttackHandler : MonoBehaviour
             }
         }
            
+    }
+
+    private void doSpiderAttackAnimation()
+    {
+        // Get a random integer between 0 (inclusive) and m_AttacksAnimations.Count (exclusive).
+        int randomIndex = Random.Range(0, m_AttacksAnimations.Count);
+        GetComponent<Animator>().SetTrigger(m_AttacksAnimations[randomIndex]);
     }
 }
