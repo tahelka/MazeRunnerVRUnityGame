@@ -398,7 +398,7 @@ public class MazeGenerator : MonoBehaviour
             m_ObstaclesNodes.Add(obstacleNode);
 
             // Set the state of the new EndNode
-            obstacleNode.SetState(eNodeState.End);
+            obstacleNode.SetState(eNodeState.Obstacle);
         }
     }
 
