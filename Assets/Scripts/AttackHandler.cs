@@ -54,6 +54,11 @@ public class AttackHandler : MonoBehaviour
                     // do the taking damage animation of enemy
                     GetComponent<Animator>().SetTrigger("isDamage");
                 }
+            } 
+            else if (other.tag == "Wall") // if enemy got into a wall
+            {
+                // reset path
+                GetComponent<NavMeshAgent>().ResetPath();
             }
         }          
     }
