@@ -43,7 +43,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             switch (m_MazeManager.CurrentGameLevel.Name)
             {
                 case "Medium":
-                    UpdateEnemyAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
+                    //UpdateEnemyAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
                     if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         isFunctionRunning = true;
@@ -54,7 +54,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
 
                 case "Hard":
-                    UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                    //UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
                     if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         isFunctionRunning = true;
@@ -89,8 +89,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //    // enemy was in the game already and died
             //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
-
             i_EnemyStorage[randomIndex].SetActive(true);
+            UpdateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
             m_CurrEnemyCount++;
         }    
     }
@@ -144,15 +144,16 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }
     }
 
-    public void UpdateEnemyAgentDestinationToMainCamera(List<GameObject> i_Enemies)
+    public void UpdateEnemyAgentDestinationToMainCamera(GameObject enemy)
     {
-        foreach (GameObject enemy in i_Enemies)
-        {
-            if (enemy.active)
-            {
-                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
-            }
-        }   
+        enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+        //foreach (GameObject enemy in i_Enemies)
+        //{
+        //    if (enemy.active)
+        //    {
+        //        enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+        //    }
+        //}   
     }
 
     private void setStorageOfEasyEnemiesToSpawn()
