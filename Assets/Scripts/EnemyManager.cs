@@ -14,6 +14,15 @@ public class EnemyManager : MonoBehaviour
         m_healthManager.OnDeath += startDyingAnimation;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (tag == "Enemy" && !GetComponent<Animator>().GetBool("isDead") && other.tag == "Wall") // if its the enemy's collider and enemy isnt dead that gets into a wall
+        {
+            // reset path
+            GetComponent<NavMeshAgent>().ResetPath();
+        }
+    }
+
     public void MakeEnemyUnactive()
     {
         gameObject.SetActive(false);

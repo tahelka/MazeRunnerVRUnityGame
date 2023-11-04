@@ -8,7 +8,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
     [SerializeField] private int m_EnemyDuplicationCount = 3;
     [SerializeField] private List<GameObject> m_EasyEnemiesToSpawn;
     [SerializeField] private List<GameObject> m_AdvancedEnemiesToSpawn;
-    [SerializeField] private int m_MaxEnemyCount = 2;
+    [SerializeField] private int m_MaxEnemyCount = 1;
     [SerializeField] private float m_SecondsToWaitBetweenSpawningEnemies = 5;
     private int m_CurrEnemyCount;
     private float m_NextSpawnTime;
@@ -17,7 +17,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
     private MazeManager m_MazeManager;
     private Transform m_PointToSpawnEnemies;
     private bool isFunctionRunning = false;
-
 
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
@@ -55,11 +54,15 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
                 case "Hard":
                     //UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
-                    if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
+                    if (!isFunctionRunning /*&& m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime*/)
                     {
                         isFunctionRunning = true;
-                        // Spawn more enemies
-                        SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);
+                        if (m_CurrEnemyCount < 1 && Time.time > m_NextSpawnTime)
+                        {
+                            // Spawn more enemies                     
+                            SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);
+                        }
+
                         isFunctionRunning = false;
                     }
                     break;
