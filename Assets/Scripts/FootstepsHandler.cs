@@ -1,49 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FootstepsHandler : MonoBehaviour
 {
-    [SerializeField] private AudioSource footstepAudioSource;
-    [SerializeField] private AudioClip[] footstepClips;
-    [SerializeField] private float stepInterval = 0.5f;
-    [SerializeField] private float minMoveMagnitude = 0.1f; // Minimum movement magnitude to trigger footstep sounds.
+    [SerializeField] private AudioSource m_FootstepAudioSource;
+    [SerializeField] private AudioClip[] m_FootstepClips;
+    [SerializeField] private float m_StepInterval = 0.5f;
+    [SerializeField] private float m_MinMoveMagnitude = 0.03f; // Minimum movement magnitude to trigger footstep sounds.
 
-    private Transform legsTransform; // Reference to the "Legs" GameObject's transform.
-    private Vector3 previousPosition; // Store the previous position for magnitude calculation.
-    private float stepCooldown = 0f;
+    private Transform m_LegsTransform; // Reference to the "Legs" GameObject's transform.
+    private Vector3 m_PreviousPosition; // Store the previous position for magnitude calculation.
+    private float m_StepCooldown = 0f;
 
     private void Start()
     {
-        legsTransform = transform; // Cache the transform of the "Legs" GameObject.
-        previousPosition = legsTransform.position;
+        m_LegsTransform = transform; // Cache the transform of the "Legs" GameObject.
+        m_PreviousPosition = m_LegsTransform.position;
     }
 
     private void FixedUpdate()
     {
         // Calculate the movement vector based on the position difference between frames.
-        Vector3 movement = legsTransform.position - previousPosition;
+        Vector3 movement = m_LegsTransform.position - m_PreviousPosition;
         // Calculate the magnitude of movement (how far the "Legs" GameObject moved in one frame).
         float movementMagnitude = movement.magnitude;
 
-        if (movementMagnitude > minMoveMagnitude && Time.time > stepCooldown)
+        if (movementMagnitude > m_MinMoveMagnitude && Time.time > m_StepCooldown)
         {
-            PlayFootstepSound();
-            stepCooldown = Time.time + stepInterval;
+            playFootstepSound();
+            m_StepCooldown = Time.time + m_StepInterval;
         }
 
         // Update the previous position for the next frame.
-        previousPosition = legsTransform.position;
+        m_PreviousPosition = m_LegsTransform.position;
     }
 
-    private void PlayFootstepSound()
+    private void playFootstepSound()
     {
-        if (footstepClips.Length == 0 || footstepAudioSource == null)
+        if (m_FootstepClips.Length == 0 || m_FootstepAudioSource == null)
         {
             return;
         }
 
-        AudioClip randomClip = footstepClips[Random.Range(0, footstepClips.Length)];
-        footstepAudioSource.PlayOneShot(randomClip);
+        AudioClip randomClip = m_FootstepClips[Random.Range(0, m_FootstepClips.Length)];
+        m_FootstepAudioSource.PlayOneShot(randomClip);
     }
 }

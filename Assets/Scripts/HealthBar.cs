@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider m_Slider;
+
     private int m_MaxHealth;
 
     public void SetMaxHealth(int i_MaxHealth)
@@ -18,5 +16,4 @@ public class HealthBar : MonoBehaviour
     {
         m_Slider.value = (float)i_Health/m_MaxHealth;
     }
-
 }

@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField]
-    private HealthManager m_healthManager;
+    [SerializeField] private HealthManager m_healthManager;
 
     private void Awake()
     {
@@ -23,7 +19,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void MakeEnemyUnactive()
+    public void MakeEnemyDeactivate()
     {
         gameObject.SetActive(false);
         GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawnerManager>().DecreaseEnemyCountByOneAndUpdateSpawnTimeNextEnemy();

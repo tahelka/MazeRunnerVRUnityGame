@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] Transform m_ResetTransform;
     [SerializeField] GameObject m_Player;
     [SerializeField] Camera m_PlayerHead;
 

@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public enum eGameState
 {
@@ -80,7 +77,6 @@ public class GameManager : MonoBehaviour
         {
             setGameStateToPlaying();
             activatePauseAndQuitBands();
-            // Start the timer
             m_Timer.StartTimer();
         }
 
@@ -91,14 +87,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void activatePauseAndQuitBands()
     {
         GameObject.Find("LeftHand Controller").transform.Find("Quit Band").gameObject.SetActive(true);
         GameObject.Find("RightHand Controller").transform.Find("Pause Band").gameObject.SetActive(true);
     }
 
-    private void unactivatePauseAndQuitBands()
+    private void deactivatePauseAndQuitBands()
     {
         GameObject.Find("Quit Band").SetActive(false);
         GameObject.Find("Pause Band").SetActive(false);
@@ -107,7 +102,7 @@ public class GameManager : MonoBehaviour
     public void EndGame(eGameOver i_EndGameReason)
     {
         setGameStateToGameOver();
-        unactivatePauseAndQuitBands();
+        deactivatePauseAndQuitBands();
         m_MazeManager.ExitMaze();
         m_Timer.StopTimer();
 

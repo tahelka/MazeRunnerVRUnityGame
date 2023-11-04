@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class SliceObject : MonoBehaviour
@@ -15,7 +12,7 @@ public class SliceObject : MonoBehaviour
     [SerializeField] private Material m_CrossSectionMaterial;
     [SerializeField] private float m_CutForce = 10;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         for (int i = 0; i < m_StartSlicePoints.Length; i++)
         {
@@ -29,13 +26,14 @@ public class SliceObject : MonoBehaviour
         }
     }
 
-
-    public void Slice(GameObject i_Target, Transform startSlicePoint, Transform endSlicePoint)
+    public void Slice(GameObject i_Target, Transform i_StartSlicePoint, Transform i_EndSlicePoint)
     {
         Vector3 velocity = m_VelocityEstimator.GetVelocityEstimate();
-        Vector3 planeNormal = Vector3.Cross(endSlicePoint.position - startSlicePoint.position, velocity);
+        Vector3 planeNormal = Vector3.Cross(i_EndSlicePoint.position - i_StartSlicePoint.position, velocity);
+
         planeNormal.Normalize();
-        SlicedHull hull = i_Target.Slice(endSlicePoint.position, planeNormal);
+
+        SlicedHull hull = i_Target.Slice(i_EndSlicePoint.position, planeNormal);
 
         if (hull != null)
         {
@@ -47,11 +45,11 @@ public class SliceObject : MonoBehaviour
         }
     }
 
-
     private void setupSlicedComponent(GameObject i_SlicedObject)
     {
         Rigidbody rb = i_SlicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = i_SlicedObject.AddComponent<MeshCollider>();
+
         i_SlicedObject.AddComponent<XRGrabInteractable>();
         collider.convex = true;
         i_SlicedObject.layer = LayerMask.NameToLayer(m_SliceableLayerName);

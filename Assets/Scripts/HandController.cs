@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(ActionBasedController))]
 public class HandController : MonoBehaviour
 {
-    ActionBasedController controller;
-    
-    public Hand hand;
+    ActionBasedController m_Controller;
+    [SerializeField] private Hand m_Hand;
 
     void Start()
     {
-        controller = GetComponent<ActionBasedController>();
+        m_Controller = GetComponent<ActionBasedController>();
     }
 
     void Update()
     {
-        hand.SetGrip(controller.selectAction.action.ReadValue<float>());
-        hand.SetTrigger(controller.activateAction.action.ReadValue<float>());
+        m_Hand.SetGrip(m_Controller.selectAction.action.ReadValue<float>());
+        m_Hand.SetTrigger(m_Controller.activateAction.action.ReadValue<float>());
     }
 }

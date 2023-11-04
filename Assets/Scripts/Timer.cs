@@ -1,25 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_TimerText;
+    [SerializeField] private float m_CurrentElapsedTime;
+
     private float m_ElapsedTime;
-    public float m_CurrentElapsedTime;
     private string m_CurrentTimeValue;
-    private bool isTimerRunning = false;
+    private bool m_IsTimerRunning = false;
+
+    private void Update()
+    {
+        if (m_IsTimerRunning)
+        {
+            m_ElapsedTime += Time.deltaTime;
+            UpdateTimerDisplay();
+        }
+    }
 
     public void StartTimer()
     {
-        isTimerRunning = true;
+        m_IsTimerRunning = true;
         m_ElapsedTime = 0f;
     }
 
     public void StopTimer()
     {
-        isTimerRunning = false;
+        m_IsTimerRunning = false;
         setCurrentTimerValue();
     }
 
@@ -27,15 +35,6 @@ public class Timer : MonoBehaviour
     {
         m_ElapsedTime = 0f;
         UpdateTimerDisplay();
-    }
-
-    void Update()
-    {
-        if (isTimerRunning)
-        {
-            m_ElapsedTime += Time.deltaTime;
-            UpdateTimerDisplay();
-        }
     }
 
     private void UpdateTimerDisplay()

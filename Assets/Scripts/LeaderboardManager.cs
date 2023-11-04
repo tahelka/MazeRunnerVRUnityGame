@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class LeaderboardManager : MonoBehaviour
 {
+    [SerializeField] private Timer m_Timer;
+
     private ScoreData m_EasyScoresData;
     private ScoreData m_MediumScoresData;
     private ScoreData m_HardScoresData;
@@ -14,7 +14,6 @@ public class LeaderboardManager : MonoBehaviour
     public GameObject m_EasyLeaderBoardContent;
     public GameObject m_MediumLeaderBoardContent;
     public GameObject m_HardLeaderBoardContent;
-    [SerializeField] private Timer m_Timer;
 
     void Awake()
     {
@@ -78,7 +77,6 @@ public class LeaderboardManager : MonoBehaviour
         Debug.Log("Score Data was cleared");
     }
 }
-
 
 [Serializable]
 public class Score

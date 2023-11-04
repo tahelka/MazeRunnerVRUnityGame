@@ -1,24 +1,30 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
+
+public enum eLevelSize
+{
+    Easy = 5,
+    Medium = 7,
+    Hard = 10
+}
 
 public class MazeManager : MonoBehaviour
 {
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Transform m_Player;
     [SerializeField] private Transform m_StarterRoom;
+
     private List<GameLevel> m_GameLevels;
+
     public GameLevel CurrentGameLevel { get; private set; }
 
     public void Awake()
     {
         m_GameLevels = new List<GameLevel>
         {
-            new("Easy", 5, 5),
-            new("Medium", 7, 7),
-            new("Hard", 10, 10)
+            new("Easy", (int)eLevelSize.Easy, (int)eLevelSize.Easy),
+            new("Medium", (int)eLevelSize.Medium, (int)eLevelSize.Medium),
+            new("Hard", (int)eLevelSize.Hard, (int)eLevelSize.Hard)
         };
     }
 

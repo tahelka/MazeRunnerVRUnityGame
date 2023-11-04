@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,32 +16,39 @@ public class GameOver : MonoBehaviour
 
     public void DisplayGameOverMenu(eGameOver i_GameOverReason)
     {
-        if (i_GameOverReason == eGameOver.Win)
+        if(m_GameOverText != null)
         {
-            displayWonMessage();
+            if (i_GameOverReason == eGameOver.Win)
+            {
+                displayWonMessage();
+            }
+            else if (i_GameOverReason == eGameOver.Lose)
+            {
+                displayLostMessage();
+            }
+            else if (i_GameOverReason == eGameOver.Quit)
+            {
+                displayQuitMessage();
+            }
         }
-        else if (i_GameOverReason == eGameOver.Lose)
+        else
         {
-            displayLostMessage();
-        }
-        else if (i_GameOverReason == eGameOver.Quit)
-        {
-            displayQuitMessage();
+            Debug.Log("Gameover text is null");
         }
 
-        displayTimer();
+        if (m_TimerText != null)
+        {
+            displayTimer();
+        }
+        else
+        {
+            Debug.Log("Timer text is null");
+        }
     }
 
     private void displayWonMessage()
     {
-        if(m_GameOverText != null)
-        {
-            m_GameOverText.text = "GOOD JOB!";
-        }
-        else
-        {
-            Debug.Log("gameover text is null");
-        }
+        m_GameOverText.text = "GOOD JOB!";
     } 
     
     private void displayLostMessage()

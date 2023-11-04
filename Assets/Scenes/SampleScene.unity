@@ -8606,8 +8606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39c367912c5c7c43a5338fcafaa102b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NavMeshSurfaces:
-  - {fileID: 0}
 --- !u!1 &1451082687
 GameObject:
   m_ObjectHideFlags: 0
@@ -12745,11 +12743,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a0745dbf46fef48a1336805059d9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstepAudioSource: {fileID: 2003047797}
-  footstepClips:
+  m_FootstepAudioSource: {fileID: 2003047797}
+  m_FootstepClips:
   - {fileID: 8300000, guid: 85be70a1df126884b9993d5f6b8fe79e, type: 3}
-  stepInterval: 0.5
-  minMoveMagnitude: 0.03
+  m_StepInterval: 0.5
+  m_MinMoveMagnitude: 0.03
 --- !u!114 &2003047799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16258,7 +16256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae022c549a1fd3a40b724bc9c425a8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 4649044345574737693}
+  m_Hand: {fileID: 4649044345574737693}
 --- !u!1001 &1390132331727811482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20889,7 +20887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa65796309602f041a5e4c3dc4355a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  m_Speed: 10
 --- !u!222 &4679243313301734852
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21690,7 +21688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae022c549a1fd3a40b724bc9c425a8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 5532283159867091811}
+  m_Hand: {fileID: 5532283159867091811}
 --- !u!65 &5355073526433690192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22004,7 +22002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa65796309602f041a5e4c3dc4355a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  m_Speed: 10
 --- !u!1001 &5534358621635910887
 PrefabInstance:
   m_ObjectHideFlags: 0
