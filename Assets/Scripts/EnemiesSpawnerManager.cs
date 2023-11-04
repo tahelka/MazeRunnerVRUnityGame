@@ -54,15 +54,11 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
                 case "Hard":
                     //UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
-                    if (!isFunctionRunning /*&& m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime*/)
+                    if (!isFunctionRunning && m_CurrEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         isFunctionRunning = true;
-                        if (m_CurrEnemyCount < 1 && Time.time > m_NextSpawnTime)
-                        {
-                            // Spawn more enemies                     
-                            SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);
-                        }
-
+                        // Spawn more enemies                     
+                        SpawnEnemyOnStartMaze(m_AdvancedEnemiesToSpawnStorage);                  
                         isFunctionRunning = false;
                     }
                     break;
