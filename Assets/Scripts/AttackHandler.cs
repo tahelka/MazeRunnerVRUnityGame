@@ -55,11 +55,11 @@ public class AttackHandler : MonoBehaviour
                     GetComponent<Animator>().SetTrigger("isDamage");
                 }
             } 
-            else if (other.tag == "Wall") // if enemy got into a wall
-            {
-                // reset path
-                GetComponent<NavMeshAgent>().ResetPath();
-            }
+            //else if (other.tag == "Wall") // if enemy got into a wall
+            //{
+            //    // reset path
+            //    GetComponent<NavMeshAgent>().ResetPath();
+            //}
         }          
     }
 
