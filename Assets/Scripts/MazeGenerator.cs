@@ -36,13 +36,15 @@ public class MazeGenerator : MonoBehaviour
     private const int k_ObstaclesLevelEasy = 1;
     private const int k_ObstaclesLevelMedium = 2;
     private const int k_ObstaclesLevelHard = 3;
-    List<string> m_NotIncludedLayersInNavMeshSurface = new List<string>{ "Enemy", "Interactable" };
+    List<string> m_NotIncludedLayersInNavMeshSurface = new List<string>{ "Enemy", "Interactable", "SliceableWood", "SliceableRock" };
     private List<MazeNode> m_Nodes;
     private List<MazeNode> m_ObstaclesNodes;
     private List<MazeNode> m_CurrentPath;
     private List<MazeNode> m_CompletedNodes;
     private List<MazeNode> m_LongestPath;
     private int m_MaxPathLength;
+    public Transform PointToSpawnEnemies { get; private set; }
+
 
     public MazeNode StartNode { get; private set; }
     public MazeNode EndNode { get; private set; }
@@ -79,7 +81,12 @@ public class MazeGenerator : MonoBehaviour
         replaceNodeWithStartNodePrefab();
         replaceNodeWithEndNodePrefab();
 
-        if(i_Level.Name == "Medium" || i_Level.Name == "Hard")
+        // Adding obstacles to the maze
+        addObstacles(i_Level);
+
+        PointToSpawnEnemies = getStarterPointForEnemiesOnMaze();
+
+        if (i_Level.Name == "Medium" || i_Level.Name == "Hard")
         {           
             // Adding enemies to the maze
             addNavMeshAgentToEnemies(i_Level);
@@ -87,9 +94,6 @@ public class MazeGenerator : MonoBehaviour
             // Add navMesh
             buildNavMeshSurfacesThatOnMazeNodes();
         }
-
-        // Adding obstacles to the maze
-        addObstacles(i_Level);
     }
 
     private Transform getStarterPointForEnemiesOnMaze()
@@ -459,17 +463,17 @@ public class MazeGenerator : MonoBehaviour
     private void addNavMeshAgentToEnemies(GameLevel i_Level)
     {
         EnemiesSpawnerManager enemiesSpawnerManagerScript = GameObject.Find("Enemies And Obsticles Manager").GetComponentInChildren<EnemiesSpawnerManager>();        
-        Transform pointToSpawnEnemies = getStarterPointForEnemiesOnMaze();
+        //Transform pointToSpawnEnemies = getStarterPointForEnemiesOnMaze();
         NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
 
-        enemiesSpawnerManagerScript.PrepareToSpawnEnemies(pointToSpawnEnemies);
+        //enemiesSpawnerManagerScript.PrepareToSpawnEnemies(pointToSpawnEnemies);
         if (i_Level.Name == "Medium")
         {
-            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, PointToSpawnEnemies);
         }
         else if (i_Level.Name == "Hard")
         {
-            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, pointToSpawnEnemies);
+            navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.AdvancedEnemiesToSpawnStorage, PointToSpawnEnemies);
         }
         else
         {
