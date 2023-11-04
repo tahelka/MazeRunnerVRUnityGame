@@ -39,9 +39,6 @@ public class AttackHandler : MonoBehaviour
             }
             else if (other.tag == "Weapon") // if weapon got into enemy's collider
             {
-                // do the taking damage animation of enemy
-                GetComponent<Animator>().SetTrigger("isDamage");
-
                 HealthManager healthManagerComponent = GetComponent<HealthManager>();
                 // take off health points from the enemy
                 healthManagerComponent.TakeDamage(m_DamagePoints);
@@ -52,9 +49,13 @@ public class AttackHandler : MonoBehaviour
                     // do the death animation of enemy
                     GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawnerManager>().MakeEnemyDead(gameObject);
                 }
+                else
+                {
+                    // do the taking damage animation of enemy
+                    GetComponent<Animator>().SetTrigger("isDamage");
+                }
             }
-        }
-           
+        }          
     }
 
     private void doSpiderAttackAnimation()
