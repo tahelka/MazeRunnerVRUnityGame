@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - Ground
   - Wall
+  - Obsticle
   layers:
   - Default
   - TransparentFX

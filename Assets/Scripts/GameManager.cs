@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private void activatePauseAndQuitBands()
     {
         GameObject.Find("LeftHand Controller").transform.Find("Quit Band").gameObject.SetActive(true);

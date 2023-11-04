@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class EnemiesSpawnerManager : MonoBehaviour
 {
-    [SerializeField] private int m_EnemyDuplicationCount = 3;
+    [SerializeField] private int m_EnemyDuplicationCount;
     [SerializeField] private List<GameObject> m_EasyEnemiesToSpawn;
     [SerializeField] private List<GameObject> m_AdvancedEnemiesToSpawn;
-    [SerializeField] private int m_MaxEnemyCount = 1;
-    [SerializeField] private float m_SecondsToWaitBetweenSpawningEnemies = 5;
+    [SerializeField] private int m_MaxEnemyCount;
+    [SerializeField] private float m_SecondsToWaitBetweenSpawningEnemies;
     private int m_CurrEnemyCount;
     private float m_NextSpawnTime;
     private List<GameObject> m_EasyEnemiesToSpawnStorage = new List<GameObject>();
@@ -24,14 +24,17 @@ public class EnemiesSpawnerManager : MonoBehaviour
     void Start()
     {
         m_MazeManager = GameObject.Find("Maze Manager").GetComponent<MazeManager>();
-        GameManager.OnPlayModeStart += UpdateBeginTimeToSpawnEnemies;
+        GameManager.OnPlayModeStart += InitializeSpawnSettings;
+        GameManager.OnPlayModeStart += SetEnemiesSpawnerSettings;
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
     }
 
-    public void UpdateBeginTimeToSpawnEnemies()
+    public void InitializeSpawnSettings()
     {
         m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+        m_CurrEnemyCount = 0;
+        m_PointToSpawnEnemies = m_MazeManager.transform.Find("Maze Generator").GetComponent<MazeGenerator>().PointToSpawnEnemies;
     }
 
     void Update()
@@ -70,10 +73,32 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }                 
     }
 
-    public void PrepareToSpawnEnemies(Transform i_PointToSpawnEnemies)
+    public void SetEnemiesSpawnerSettings()
     {
-        m_PointToSpawnEnemies = i_PointToSpawnEnemies;
+        switch (m_MazeManager.CurrentGameLevel.Name)
+        {
+            case "Medium":
+                m_EnemyDuplicationCount = 3;
+                m_MaxEnemyCount = 2;
+                m_SecondsToWaitBetweenSpawningEnemies = 7;
+                break;
+
+            case "Hard":
+                m_EnemyDuplicationCount = 3;
+                m_MaxEnemyCount = 3;
+                m_SecondsToWaitBetweenSpawningEnemies = 5;
+                break;
+
+            default:
+                break;
+        }
+       
     }
+
+    //public void PrepareToSpawnEnemies(Transform i_PointToSpawnEnemies)
+    //{
+    //    m_PointToSpawnEnemies = i_PointToSpawnEnemies;
+    //}
 
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
@@ -104,7 +129,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
     public void DecreaseEnemyCountByOneAndUpdateSpawnTimeNextEnemy()
     {
         m_CurrEnemyCount--;
-        UpdateBeginTimeToSpawnEnemies();
+        InitializeSpawnSettings();
     }
 
 

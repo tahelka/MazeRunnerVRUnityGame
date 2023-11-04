@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NavMeshBaker : MonoBehaviour
 {
-    public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
+    //public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
 
     public void BuildNavMeshSurfaces(Transform i_ParentOfNodeMazes)
     {
@@ -23,7 +23,9 @@ public class NavMeshBaker : MonoBehaviour
                 {
                     // NavMeshSurface component found
                     navMeshSurfaceComponent.BuildNavMesh();
-                    m_NavMeshSurfaces.Add(navMeshSurfaceComponent);
+
+
+                    //m_NavMeshSurfaces.Add(navMeshSurfaceComponent);
                 }
                 else
                 {
