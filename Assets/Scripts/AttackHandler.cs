@@ -1,18 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AttackHandler : MonoBehaviour
 {
     [SerializeField] private int m_DamagePoints;
-    private List<string> m_AttacksAnimations = new List<string>();
-    // [SerializeField] private GameObject m_HitParticle;
+
+    private List<string> m_AttacksAnimations;
 
     private void Awake()
     {
-        m_AttacksAnimations.Add("Attack1");
-        m_AttacksAnimations.Add("Attack2");
+        m_AttacksAnimations = new List<string> { "Attack1", "Attack2" };
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,16 +23,6 @@ public class AttackHandler : MonoBehaviour
                 other.GetComponent<HealthManager>().TakeDamage(m_DamagePoints);
                 Debug.Log($"{other.name} got hit ({m_DamagePoints} Damage)");
                 doSpiderAttackAnimation();
-
-                // Instantiate blood particles
-                /*Instantiate(
-                    m_HitParticle,
-                    new Vector3(
-                        other.transform.position.x,
-                        transform.position.y,
-                        other.transform.position.z),
-                        other.transform.rotation);*/
-
             }
             else if (other.tag == "Weapon") // if weapon got into enemy's collider
             {

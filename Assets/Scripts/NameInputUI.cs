@@ -4,6 +4,7 @@ using UnityEngine;
 public class NameInputUI : MonoBehaviour
 {
     [SerializeField] private TMP_InputField m_InputField;
+
     public TMP_InputField InputField
     {
         get { return m_InputField; }

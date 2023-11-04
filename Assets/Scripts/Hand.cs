@@ -1,59 +1,56 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class Hand : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] private float m_Speed;
 
-    Animator animator;
-    SkinnedMeshRenderer mesh;
-    private float gripTarget;
-    private float triggerTarget;
-    private float gripCurrent;
-    private float triggerCurrent;
-    private string animatorGripParam = "Grip";
-    private string animatorTriggerParam = "Trigger";
+    Animator m_Animator;
+    SkinnedMeshRenderer m_Mesh;
+    private float m_GripTarget;
+    private float m_TriggerTarget;
+    private float m_GripCurrent;
+    private float m_TriggerCurrent;
+    private readonly string r_AnimatorGripParam = "Grip";
+    private readonly string r_AnimatorTriggerParam = "Trigger";
 
-    void Start()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-        mesh = GetComponentInChildren<SkinnedMeshRenderer>();
+        m_Animator = GetComponent<Animator>();
+        m_Mesh = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
-        AnimateHand();
+        animateHand();
     }
 
     internal void SetGrip(float v)
     {
-        gripTarget = v;
+        m_GripTarget = v;
     }
 
     internal void SetTrigger(float v)
     {
-        triggerTarget = v;
+        m_TriggerTarget = v;
     }
 
-    void AnimateHand()
+    private void animateHand()
     {
-        if (gripCurrent != gripTarget)
+        if (m_GripCurrent != m_GripTarget)
         {
-            gripCurrent = Mathf.MoveTowards(gripCurrent, gripTarget, Time.deltaTime * speed);
-            animator.SetFloat(animatorGripParam, gripCurrent);
+            m_GripCurrent = Mathf.MoveTowards(m_GripCurrent, m_GripTarget, Time.deltaTime * m_Speed);
+            m_Animator.SetFloat(r_AnimatorGripParam, m_GripCurrent);
         }
-        if (triggerCurrent != triggerTarget)
+        if (m_TriggerCurrent != m_TriggerTarget)
         {
-            triggerCurrent = Mathf.MoveTowards(triggerCurrent, triggerTarget, Time.deltaTime * speed);
-            animator.SetFloat(animatorTriggerParam, triggerCurrent);
+            m_TriggerCurrent = Mathf.MoveTowards(m_TriggerCurrent, m_TriggerTarget, Time.deltaTime * m_Speed);
+            m_Animator.SetFloat(r_AnimatorTriggerParam, m_TriggerCurrent);
         }
     }
 
     public void ToggleVisibility()
     {
-        mesh.enabled = !mesh.enabled;
+        m_Mesh.enabled = !m_Mesh.enabled;
     }
 }

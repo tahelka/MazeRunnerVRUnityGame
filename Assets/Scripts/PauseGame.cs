@@ -3,12 +3,13 @@ using TMPro;
 
 public class PauseGame : MonoBehaviour
 {
-    private bool isPaused = false;
     [SerializeField] private TextMeshProUGUI m_PauseButtonText;
+
+    private bool m_IsPaused = false;
 
     public void PauseButtonPressed()
     {
-        if (isPaused)
+        if (m_IsPaused)
         {
             ResumeGame();
         }
@@ -21,14 +22,14 @@ public class PauseGame : MonoBehaviour
     void Pause()
     {
         Time.timeScale = 0;
-        isPaused = true;
+        m_IsPaused = true;
         m_PauseButtonText.text = "Resume";
     }
 
     void ResumeGame()
     {
         Time.timeScale = 1;
-        isPaused = false;
+        m_IsPaused = false;
         m_PauseButtonText.text = "Pause";
     }
 }

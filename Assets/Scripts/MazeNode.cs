@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum eNodeState
@@ -16,6 +15,7 @@ public class MazeNode : MonoBehaviour
 {
     [SerializeField] private GameObject[] m_Walls;
     [SerializeField] private MeshRenderer m_Floor;
+
     private bool[] m_RemovedWalls = new bool[4]; // [false,false,false,false]
     private eNodeState m_NodeState = eNodeState.Normal;
 

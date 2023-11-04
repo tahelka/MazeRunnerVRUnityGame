@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b521dc317b77e6a4880f05ceba515a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityAverageFrames: 5
-  angularVelocityAverageFrames: 11
-  estimateOnAwake: 1
+  m_VelocityAverageFrames: 5
+  m_AngularVelocityAverageFrames: 11
+  m_EstimateOnAwake: 1
 --- !u!1 &1793280866580038178
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d2974fda85c82246b32152bf386d97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tipTransform: {fileID: 5580372884665047072}
+  m_TipTransform: {fileID: 5580372884665047072}
   m_AudioClip: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
   m_UseVelocity: 1
   m_VelocityThreshold: 15

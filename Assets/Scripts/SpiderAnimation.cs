@@ -1,39 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpiderAnimation : MonoBehaviour
 {
-    string m_CurrentState;
-    const string k_SpiderIdle = "Idle";
-    const string k_HardSpiderAttack = "Attack_1";
-    const string k_MediumSpiderAttack = "Attack_2";
-    const string k_SpiderDead = "Death";
-    const string k_SpiderDamage = "TakeDamage";
-    // Start is called before the first frame update
-    void Start()
+    private const string k_SpiderIdle = "Idle";
+    private const string k_HardSpiderAttack = "Attack_1";
+    private const string k_MediumSpiderAttack = "Attack_2";
+    private const string k_SpiderDead = "Death";
+    private const string k_SpiderDamage = "TakeDamage";
+    private string m_CurrentState;
+
+    public void ChangeAnimationState(Animator i_Animator, string i_NewState)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
-    public void ChangeAnimationState(Animator i_Animator, string newState)
-    {
-        if (newState == m_CurrentState)
+        if (i_NewState == m_CurrentState)
         {
             return;
         }
 
-        i_Animator.Play(newState);
-
-        m_CurrentState = newState;
+        i_Animator.Play(i_NewState);
+        m_CurrentState = i_NewState;
     }
 
     private bool isAnimationPlaying(Animator i_Animator, string i_StateName)

@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class LeaderboardScore : MonoBehaviour
 {
     [SerializeField] private LeaderboardRow m_Row;
+
     private const int k_MaximumPlayersOnLeaderBoard = 3;
     private LeaderboardManager m_LeaderboardManager;
     private GameObject m_EasyLeaderboardContent;
@@ -25,7 +24,6 @@ public class LeaderboardScore : MonoBehaviour
         getMembersComponents();
     }
 
-    // this method gets components of members
     private void getMembersComponents()
     {
         m_LeaderboardManager = GameObject.Find("Leaderboard Manager").GetComponent<LeaderboardManager> ();
@@ -53,7 +51,6 @@ public class LeaderboardScore : MonoBehaviour
         }
     }
 
-    // this method sort highScore leaderBoard and present it in a table format
     public void PresentSortedLeaderBoard(ScoreData i_ScoresData, GameLevel i_CurrentGameLevel)
     {
         removeContentRows(i_CurrentGameLevel);
@@ -63,7 +60,6 @@ public class LeaderboardScore : MonoBehaviour
         Debug.Log("Presented the leaderboard");
     }
 
-    // this method adds content object rows to leaderboard
     private void addContentRows(Score[] scores, GameLevel i_CurrentGameLevel)
     {
         for (int i = 0; i < scores.Length && i < k_MaximumPlayersOnLeaderBoard; i++)
@@ -87,14 +83,12 @@ public class LeaderboardScore : MonoBehaviour
         }
     }
 
-    // this method resets the leaderboard.
     public void ResetLeaderboard()
     {
         GameObject.Find("Leaderboard Manager").GetComponent< LeaderboardManager > ()?.ResetScoreLeaderBoard();
         //removeContentRows();
     }
 
-    // Clear the content object by destroying all its child objects
     private void removeContentRows(GameLevel i_CurrentGameLevel)
     {
         if(i_CurrentGameLevel.Name == "Easy")
