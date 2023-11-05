@@ -18,7 +18,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
     private Transform m_PointToSpawnEnemies;
     private bool m_IsFunctionRunning = false;
     private bool m_IsUpdating = false;
-
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
 
@@ -201,17 +200,10 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }
     }
 
-    private void updateEnemyAgentDestinationToMainCamera(GameObject enemy)
-    {
-        enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
-        //foreach (GameObject enemy in i_Enemies)
-        //{
-        //    if (enemy.active)
-        //    {
-        //        enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
-        //    }
-        //}   
-    }
+    //private void updateEnemyAgentDestinationToMainCamera(GameObject enemy)
+    //{
+    //    enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position; 
+    //}
 
     private void setStorageOfEasyEnemiesToSpawn()
     {
