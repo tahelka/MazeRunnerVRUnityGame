@@ -459,10 +459,8 @@ public class MazeGenerator : MonoBehaviour
     private void addNavMeshAgentToEnemies(GameLevel i_Level)
     {
         EnemiesSpawnerManager enemiesSpawnerManagerScript = GameObject.Find("Enemies And Obsticles Manager").GetComponentInChildren<EnemiesSpawnerManager>();        
-        //Transform pointToSpawnEnemies = getStarterPointForEnemiesOnMaze();
         NavMeshBaker navMeshBakerScript = GameObject.Find("NavMeshBaker").GetComponent<NavMeshBaker>();
 
-        //enemiesSpawnerManagerScript.PrepareToSpawnEnemies(pointToSpawnEnemies);
         if (i_Level.Name == "Medium")
         {
             navMeshBakerScript.AddNavMeshAgent(enemiesSpawnerManagerScript.EasyEnemiesToSpawnStorage, PointToSpawnEnemies);
