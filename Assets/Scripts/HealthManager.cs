@@ -60,6 +60,6 @@ public class HealthManager : MonoBehaviour
 
     private void die()
     {
-        OnDeath?.Invoke(); // Player lost
+        OnDeath?.Invoke();
     }
 }
