@@ -104,12 +104,12 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             case "Medium":
                 m_MaxEnemyCount = 2;
-                m_SecondsToWaitBetweenSpawningEnemies = 7;
+                m_SecondsToWaitBetweenSpawningEnemies = 15;
                 break;
 
             case "Hard":
                 m_MaxEnemyCount = 3;
-                m_SecondsToWaitBetweenSpawningEnemies = 5;
+                m_SecondsToWaitBetweenSpawningEnemies = 10;
                 break;
         }
        
@@ -182,8 +182,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             if (enemy.activeSelf)
             {
-                updateEnemyAgentDestinationToMainCamera(enemy);
-                //enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+                //updateEnemyAgentDestinationToMainCamera(enemy);
+                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
