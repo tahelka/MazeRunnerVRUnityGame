@@ -44,7 +44,7 @@ public class MazeManager : MonoBehaviour
         Debug.Log("No matching game level found for name: " + i_Name);
     }
 
-    // Not in use right now
+    // Not in use right now, in case we will want to add in the future custom level option
     public void SetCustomGameLevel(string i_Name, int i_Rows, int i_Cols)
     {
         bool isProperLevel = true;
