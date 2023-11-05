@@ -120,7 +120,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
             i_EnemyStorage[randomIndex].SetActive(true);
-            updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
+            //updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
             m_CurrentEnemyCount++;
         }    
     }
@@ -179,8 +179,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             if (enemy.activeSelf)
             {
-                updateEnemyAgentDestinationToMainCamera(enemy);
-                //enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+                //updateEnemyAgentDestinationToMainCamera(enemy);
+                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
