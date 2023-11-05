@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
             setGameStateToPlaying();
             activatePauseAndQuitBands();
             m_Timer.StartTimer();
+
         }
 
         // Trigger the action when play mode starts
@@ -102,23 +103,26 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(eGameOver i_EndGameReason)
     {
-        setGameStateToGameOver();
-        deactivatePauseAndQuitBands();
-        m_MazeManager.ExitMaze();
-        m_Timer.StopTimer();
-
-        if(i_EndGameReason == eGameOver.Win)
+        if(CurrentGameState == eGameState.Playing)
         {
-            m_LeaderboardManager.SetPlayerScore();
-            m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.GetPlayerScore()), m_MazeManager.CurrentGameLevel);
-        }
+            setGameStateToGameOver();
+            deactivatePauseAndQuitBands();
+            m_MazeManager.ExitMaze();
+            m_Timer.StopTimer();
 
-        m_GameOver.DisplayGameOverMenu(i_EndGameReason);
+            if (i_EndGameReason == eGameOver.Win)
+            {
+                m_LeaderboardManager.SetPlayerScore();
+                m_LeaderboardManager.AddScoreToLeaderBoard(new Score(PlayerName, m_LeaderboardManager.GetPlayerScore()), m_MazeManager.CurrentGameLevel);
+            }
 
-        // Trigger the action when play mode ends
-        if (OnPlayModeEnd != null)
-        {
-            OnPlayModeEnd.Invoke();
+            m_GameOver.DisplayGameOverMenu(i_EndGameReason);
+
+            // Trigger the action when play mode ends
+            if (OnPlayModeEnd != null)
+            {
+                OnPlayModeEnd.Invoke();
+            }
         }
     }
 
