@@ -29,7 +29,7 @@ public class HealthManager : MonoBehaviour
         }
 
         m_HealthBar.SetHealth(m_CurrentHealth);
-        if(m_CurrentHealth == 0)
+        if (m_CurrentHealth == 0)
         {
             die();
         }
