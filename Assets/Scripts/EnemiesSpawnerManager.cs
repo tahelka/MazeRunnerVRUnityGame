@@ -2,6 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum eEnemiesSettings
+{
+    MediumMaxEnemyCount = 2,
+    HardMaxEnemyCount = 3,
+    MediumSecondsToWaitBetweenSpawningEnemies = 45,
+    HardSecondsToWaitBetweenSpawningEnemies = 30
+}
+
 public class EnemiesSpawnerManager : MonoBehaviour
 {
     [SerializeField] private int m_EnemyDuplicationCount = 3;
@@ -115,13 +123,13 @@ public class EnemiesSpawnerManager : MonoBehaviour
         switch (m_MazeManager.CurrentGameLevel.Name)
         {
             case "Medium":
-                m_MaxEnemyCount = 2;
-                m_SecondsToWaitBetweenSpawningEnemies = 15;
+                m_MaxEnemyCount = ((int)eEnemiesSettings.MediumMaxEnemyCount);
+                m_SecondsToWaitBetweenSpawningEnemies = ((int)eEnemiesSettings.MediumSecondsToWaitBetweenSpawningEnemies);
                 break;
 
             case "Hard":
-                m_MaxEnemyCount = 3;
-                m_SecondsToWaitBetweenSpawningEnemies = 10;
+                m_MaxEnemyCount = ((int)eEnemiesSettings.HardMaxEnemyCount);
+                m_SecondsToWaitBetweenSpawningEnemies = ((int)eEnemiesSettings.HardSecondsToWaitBetweenSpawningEnemies);
                 break;
         }
        
