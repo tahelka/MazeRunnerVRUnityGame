@@ -15,7 +15,6 @@ public class AttackHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (tag == "Enemy" && !GetComponent<Animator>().GetBool("isDead")) // if its the enemy's collider and enemy isnt dead
-
         {
             if (other.tag is "Player") // if player got into the enemy's collider
             {
@@ -41,12 +40,7 @@ public class AttackHandler : MonoBehaviour
                     // do the taking damage animation of enemy
                     GetComponent<Animator>().SetTrigger("isDamage");
                 }
-            } 
-            //else if (other.tag == "Wall") // if enemy got into a wall
-            //{
-            //    // reset path
-            //    GetComponent<NavMeshAgent>().ResetPath();
-            //}
+            }            
         }          
     }
 
