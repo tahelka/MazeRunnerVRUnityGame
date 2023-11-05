@@ -14,8 +14,13 @@ public class EnemyManager : MonoBehaviour
     {
         if (tag == "Enemy" && !GetComponent<Animator>().GetBool("isDead") && other.tag == "Wall") // if its the enemy's collider and enemy isnt dead that gets into a wall
         {
-            // reset path
-            GetComponent<NavMeshAgent>().ResetPath();
+            NavMeshAgent navMeshAgentComponent = GetComponent<NavMeshAgent>();
+
+            if (navMeshAgentComponent != null)
+            {
+                // reset path
+                navMeshAgentComponent.ResetPath();
+            }
         }
     }
 
