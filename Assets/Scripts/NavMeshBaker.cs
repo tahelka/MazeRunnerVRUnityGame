@@ -4,8 +4,6 @@ using UnityEngine.AI;
 
 public class NavMeshBaker : MonoBehaviour
 {
-    //public List<NavMeshSurface> m_NavMeshSurfaces = new List<NavMeshSurface>();
-
     public void BuildNavMeshSurfaces(Transform i_ParentOfNodeMazes)
     {
         for (int i = 0; i < i_ParentOfNodeMazes.childCount; i++)
@@ -22,9 +20,6 @@ public class NavMeshBaker : MonoBehaviour
                 {
                     // NavMeshSurface component found
                     navMeshSurfaceComponent.BuildNavMesh();
-
-
-                    //m_NavMeshSurfaces.Add(navMeshSurfaceComponent);
                 }
                 else
                 {
@@ -47,11 +42,7 @@ public class NavMeshBaker : MonoBehaviour
                 // Place agent on the navMeshSurface and add to it navMeshAgent
                 enemy.transform.SetPositionAndRotation(i_PointToSpawnEnemiesOnSurface.position, i_PointToSpawnEnemiesOnSurface.rotation);
                 NavMeshAgent navMeshAgentComponent = enemy.AddComponent<NavMeshAgent>();
-                //navMeshAgentComponent.autoBraking = false;
-                //avMeshAgentComponent.autoRepath = true;
-                //navMeshAgentComponent.destination = GameObject.Find("Main Camera").transform.position;
                 navMeshAgentComponent.speed = 2.5f;
-                //navMeshAgentComponent.radius = 2.5f;
             }
         }
     }
