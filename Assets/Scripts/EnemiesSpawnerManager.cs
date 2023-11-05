@@ -26,10 +26,26 @@ public class EnemiesSpawnerManager : MonoBehaviour
         m_MazeManager = GameObject.Find("Maze Manager").GetComponent<MazeManager>();
         GameManager.OnPlayModeStart += InitializeSpawnSettings;
         GameManager.OnPlayModeStart += SetEnemiesSpawnerSettings;
+        GameManager.OnPlayModeEnd += DeactivateEasyOrAdvancedEnemies;
+
         m_EasyEnemiesToSpawnStorage = new List<GameObject>();
         m_AdvancedEnemiesToSpawnStorage = new List<GameObject>();
         setStorageOfEasyEnemiesToSpawn();
         setStorageOfAdvancedEnemiesToSpawn();
+    }
+
+    public void DeactivateEasyOrAdvancedEnemies()
+    {
+        switch (m_MazeManager.CurrentGameLevel.Name)
+        {
+            case "Medium":
+                deactivateEnemies(m_EasyEnemiesToSpawnStorage);
+                break;
+
+            case "Hard":
+                deactivateEnemies(m_AdvancedEnemiesToSpawnStorage);              
+                break;
+        }
     }
 
     public void InitializeSpawnSettings()
@@ -37,8 +53,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
         m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
         m_CurrentEnemyCount = 0;
         m_PointToSpawnEnemies = m_MazeManager.transform.Find("Maze Generator").GetComponent<MazeGenerator>().PointToSpawnEnemies;
-        unactivateEnemies(m_EasyEnemiesToSpawnStorage);
-        unactivateEnemies(m_AdvancedEnemiesToSpawnStorage);
     }
 
     void Update()
@@ -73,7 +87,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }                 
     }
 
-    private void unactivateEnemies(List<GameObject> i_Enemies)
+    private void deactivateEnemies(List<GameObject> i_Enemies)
     {
         foreach (GameObject enemy in i_Enemies)
         {
