@@ -1,3 +1,6 @@
+// This script and the Legs gameobject (under the Player gameobject) are not in use.
+// It's kept for future use.
+
 using UnityEngine;
 
 public class LegsHandler : MonoBehaviour
