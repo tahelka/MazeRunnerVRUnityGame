@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class EnemiesSpawnerManager : MonoBehaviour
 {
-    [SerializeField] private int m_EnemyDuplicationCount;
+    [SerializeField] private int m_EnemyDuplicationCount = 3;
     [SerializeField] private List<GameObject> m_EasyEnemiesToSpawn;
     [SerializeField] private List<GameObject> m_AdvancedEnemiesToSpawn;
     [SerializeField] private int m_MaxEnemyCount;
@@ -37,6 +37,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
         m_CurrentEnemyCount = 0;
         m_PointToSpawnEnemies = m_MazeManager.transform.Find("Maze Generator").GetComponent<MazeGenerator>().PointToSpawnEnemies;
+        unactivateEnemies(m_EasyEnemiesToSpawnStorage);
+        unactivateEnemies(m_AdvancedEnemiesToSpawnStorage);
     }
 
     void Update()
@@ -71,18 +73,27 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }                 
     }
 
+    private void unactivateEnemies(List<GameObject> i_Enemies)
+    {
+        foreach (GameObject enemy in i_Enemies)
+        {
+            if (enemy.activeSelf)
+            {
+                enemy.SetActive(false);
+            }
+        }
+    }
+
     public void SetEnemiesSpawnerSettings()
     {
         switch (m_MazeManager.CurrentGameLevel.Name)
         {
             case "Medium":
-                m_EnemyDuplicationCount = 3;
                 m_MaxEnemyCount = 2;
                 m_SecondsToWaitBetweenSpawningEnemies = 7;
                 break;
 
             case "Hard":
-                m_EnemyDuplicationCount = 3;
                 m_MaxEnemyCount = 3;
                 m_SecondsToWaitBetweenSpawningEnemies = 5;
                 break;
@@ -135,7 +146,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     private void setStorageOfEnemiesToSpawn(List<GameObject> i_EnemyToSpawnList, List<GameObject> i_EnemyToSpawnListStorage, string i_NameOfStorage)
     {
-        // Create a new empty GameObject
+         // Create a new empty GameObject
         GameObject StorageOfEnemiesToSpawn = new GameObject(i_NameOfStorage);
 
         // Find the GameObject with the name "EnemiesSpawner"
