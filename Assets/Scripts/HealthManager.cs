@@ -9,6 +9,11 @@ public class HealthManager : MonoBehaviour
     private int m_CurrentHealth;
     public event Action OnDeath;
 
+    private void Start()
+    {
+        GameManager.OnPlayModeStart += ResetHealth;
+    }
+
     private void Awake()
     {
         m_HealthBar.SetMaxHealth(m_MaxHealth);

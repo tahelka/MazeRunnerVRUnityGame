@@ -143,8 +143,13 @@ public class EnemiesSpawnerManager : MonoBehaviour
     public void MakeEnemyDead(GameObject enemy)
     {
         enemy.GetComponent<Animator>().SetBool("isDead", true);
-        // stop enemy to run after the player
-        enemy.GetComponent<NavMeshAgent>().isStopped = true;
+
+        NavMeshAgent navMeshAgentComponent = enemy.GetComponent<NavMeshAgent>();
+        if(navMeshAgentComponent != null)
+        {
+            // stop enemy to run after the player
+            navMeshAgentComponent.isStopped = true;
+        }
     }
 
     public void DecreaseEnemyCountByOneAndUpdateSpawnTimeNextEnemy()
