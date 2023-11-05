@@ -34,20 +34,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
         setStorageOfAdvancedEnemiesToSpawn();
     }
 
-    public void DeactivateEasyOrAdvancedEnemies()
-    {
-        switch (m_MazeManager.CurrentGameLevel.Name)
-        {
-            case "Medium":
-                deactivateEnemies(m_EasyEnemiesToSpawnStorage);
-                break;
-
-            case "Hard":
-                deactivateEnemies(m_AdvancedEnemiesToSpawnStorage);              
-                break;
-        }
-    }
-
     void Update()
     {
         if (GameManager.Instance.CurrentGameState == eGameState.Playing)
@@ -88,6 +74,20 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
             }                  
         }                 
+    }
+
+    public void DeactivateEasyOrAdvancedEnemies()
+    {
+        switch (m_MazeManager.CurrentGameLevel.Name)
+        {
+            case "Medium":
+                deactivateEnemies(m_EasyEnemiesToSpawnStorage);
+                break;
+
+            case "Hard":
+                deactivateEnemies(m_AdvancedEnemiesToSpawnStorage);
+                break;
+        }
     }
 
     public void InitializeSpawnSettings()
@@ -194,16 +194,10 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             if (enemy.activeSelf)
             {
-                //updateEnemyAgentDestinationToMainCamera(enemy);
                 enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
-
-    //private void updateEnemyAgentDestinationToMainCamera(GameObject enemy)
-    //{
-    //    enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position; 
-    //}
 
     private void setStorageOfEasyEnemiesToSpawn()
     {
