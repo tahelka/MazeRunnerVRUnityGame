@@ -17,6 +17,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
     private MazeManager m_MazeManager;
     private Transform m_PointToSpawnEnemies;
     private bool m_IsFunctionRunning = false;
+    private bool m_IsUpdating = false;
 
     public List<GameObject> EasyEnemiesToSpawnStorage { get { return m_EasyEnemiesToSpawnStorage; } }
     public List<GameObject> AdvancedEnemiesToSpawnStorage { get { return m_AdvancedEnemiesToSpawnStorage; } }
@@ -48,13 +49,6 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }
     }
 
-    public void InitializeSpawnSettings()
-    {
-        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
-        m_CurrentEnemyCount = 0;
-        m_PointToSpawnEnemies = m_MazeManager.transform.Find("Maze Generator").GetComponent<MazeGenerator>().PointToSpawnEnemies;
-    }
-
     void Update()
     {
         if (GameManager.Instance.CurrentGameState == eGameState.Playing)
@@ -63,7 +57,12 @@ public class EnemiesSpawnerManager : MonoBehaviour
             switch (m_MazeManager.CurrentGameLevel.Name)
             {
                 case "Medium":
-                    updateEnemiesAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
+                    if (!m_IsUpdating)
+                    {
+                        m_IsUpdating = true;
+                        updateEnemiesAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
+                        m_IsUpdating = false;
+                    }
                     if (!m_IsFunctionRunning && m_CurrentEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         m_IsFunctionRunning = true;
@@ -74,7 +73,12 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
 
                 case "Hard":
-                    updateEnemiesAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                    if (!m_IsUpdating)
+                    {
+                        m_IsUpdating = true;
+                        updateEnemiesAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                        m_IsUpdating = false;
+                    }                 
                     if (!m_IsFunctionRunning && m_CurrentEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         m_IsFunctionRunning = true;
@@ -85,6 +89,15 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
             }                  
         }                 
+    }
+
+    public void InitializeSpawnSettings()
+    {
+        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+        m_CurrentEnemyCount = 0;
+        m_PointToSpawnEnemies = m_MazeManager.transform.Find("Maze Generator").GetComponent<MazeGenerator>().PointToSpawnEnemies;
+        m_IsFunctionRunning = false;
+        m_IsUpdating = false;
     }
 
     private void deactivateEnemies(List<GameObject> i_Enemies)
