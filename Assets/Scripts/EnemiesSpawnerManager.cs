@@ -190,11 +190,19 @@ public class EnemiesSpawnerManager : MonoBehaviour
 
     private void updateEnemiesAgentDestinationToMainCamera(List<GameObject> i_Enemies)
     {
+        NavMeshAgent navMeshAgentComponent;
+
         foreach (GameObject enemy in i_Enemies)
         {
-            if (enemy.activeSelf)
+            if (enemy.activeSelf && !enemy.GetComponent<Animator>().GetBool("isDead"))
             {
-                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+                navMeshAgentComponent = enemy.GetComponent<NavMeshAgent>();
+                if (navMeshAgentComponent.isStopped)
+                {
+                    navMeshAgentComponent.ResetPath();
+                }
+                // update destination of enemy's NavMeshAgent
+                navMeshAgentComponent.destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
