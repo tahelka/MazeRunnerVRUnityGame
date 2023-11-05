@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour
 {
-    [SerializeField] private int m_DamagePoints;
+    [SerializeField] private float m_DamagePoints;
 
     private List<string> m_AttacksAnimations;
 
@@ -12,7 +12,7 @@ public class AttackHandler : MonoBehaviour
         m_AttacksAnimations = new List<string> { "Attack1", "Attack2" };
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (tag == "Enemy" && !GetComponent<Animator>().GetBool("isDead")) // if its the enemy's collider and enemy isnt dead
         {
@@ -40,8 +40,8 @@ public class AttackHandler : MonoBehaviour
                     // do the taking damage animation of enemy
                     GetComponent<Animator>().SetTrigger("isDamage");
                 }
-            }            
-        }          
+            }
+        }
     }
 
     private void doSpiderAttackAnimation()

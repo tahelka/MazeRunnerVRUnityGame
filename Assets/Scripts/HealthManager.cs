@@ -4,9 +4,9 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour
 {
     [SerializeField] private HealthBar m_HealthBar;
-    [SerializeField] private int m_MaxHealth;
+    [SerializeField] private float m_MaxHealth;
 
-    private int m_CurrentHealth;
+    private float m_CurrentHealth;
     public event Action OnDeath;
 
     private void Start()
@@ -20,12 +20,12 @@ public class HealthManager : MonoBehaviour
         m_CurrentHealth = m_MaxHealth;
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return m_CurrentHealth;
     }
 
-    public void TakeDamage(int i_DamagePoints)
+    public void TakeDamage(float i_DamagePoints)
     {
         m_CurrentHealth -= i_DamagePoints;
         if (m_CurrentHealth < 0)

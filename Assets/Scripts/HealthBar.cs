@@ -5,15 +5,15 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider m_Slider;
 
-    private int m_MaxHealth;
+    private float m_MaxHealth;
 
-    public void SetMaxHealth(int i_MaxHealth)
+    public void SetMaxHealth(float i_MaxHealth)
     {
         m_MaxHealth = i_MaxHealth;
     }
 
-    public void SetHealth(int i_Health)
+    public void SetHealth(float i_Health)
     {
-        m_Slider.value = (float)i_Health/m_MaxHealth;
+        m_Slider.value = i_Health/m_MaxHealth;
     }
 }
