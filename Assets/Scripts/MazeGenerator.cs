@@ -96,12 +96,13 @@ public class MazeGenerator : MonoBehaviour
     private Transform getStarterPointForEnemiesOnMaze()
     {
         MazeNode firstNode = null;
+        int IndexThatMightIndicateTheFirstNode = 1;
 
-        foreach (MazeNode node in m_Nodes)
+        for (int i = IndexThatMightIndicateTheFirstNode; i < m_LongestPath.Count; i++)
         {
-            if (node != null)
+            if (m_LongestPath[i] != null && m_LongestPath[i].GetNodeState() == eNodeState.Normal)
             {
-                firstNode = node;
+                firstNode = m_LongestPath[i];
                 break;
             }
         }
