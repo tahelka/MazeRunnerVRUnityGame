@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 3349877065939717964}
   m_Layer: 8
   m_Name: Sand Spider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,9 +466,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.8810477
-  m_Height: 2.719545
+  m_Height: 2.890501
   m_Direction: 2
-  m_Center: {x: 0.023935676, y: 0.8063389, z: 0.26601553}
+  m_Center: {x: 0.023935676, y: 0.8063389, z: 0.18053746}
 --- !u!114 &754606130053453486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,8 +1967,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.04060713, y: 0.029680233, z: 0.019289711}
-  m_Center: {x: -0.00028172255, y: -0.0023528386, z: -0.007959548}
+  m_Size: {x: 0.036182813, y: 0.021916056, z: 0.019289711}
+  m_Center: {x: -0.00057534216, y: 0.0015292534, z: -0.007959554}
 --- !u!1 &5691776673759120749
 GameObject:
   m_ObjectHideFlags: 0
