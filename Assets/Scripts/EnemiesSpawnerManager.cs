@@ -49,7 +49,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             switch (m_MazeManager.CurrentGameLevel.Name)
             {
                 case "Medium":
-                    //UpdateEnemyAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
+                    updateEnemiesAgentDestinationToMainCamera(m_EasyEnemiesToSpawnStorage);
                     if (!m_IsFunctionRunning && m_CurrentEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         m_IsFunctionRunning = true;
@@ -60,7 +60,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
                     break;
 
                 case "Hard":
-                    //UpdateEnemyAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
+                    updateEnemiesAgentDestinationToMainCamera(m_AdvancedEnemiesToSpawnStorage);
                     if (!m_IsFunctionRunning && m_CurrentEnemyCount < m_MaxEnemyCount && Time.time > m_NextSpawnTime)
                     {
                         m_IsFunctionRunning = true;
@@ -120,7 +120,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
             i_EnemyStorage[randomIndex].SetActive(true);
-            UpdateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
+            //updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
             m_CurrentEnemyCount++;
         }    
     }
@@ -173,7 +173,19 @@ public class EnemiesSpawnerManager : MonoBehaviour
         }
     }
 
-    public void UpdateEnemyAgentDestinationToMainCamera(GameObject enemy)
+    private void updateEnemiesAgentDestinationToMainCamera(List<GameObject> i_Enemies)
+    {
+        foreach (GameObject enemy in i_Enemies)
+        {
+            if (enemy.activeSelf)
+            {
+                updateEnemyAgentDestinationToMainCamera(enemy);
+                //enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+            }
+        }
+    }
+
+    private void updateEnemyAgentDestinationToMainCamera(GameObject enemy)
     {
         enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
         //foreach (GameObject enemy in i_Enemies)
