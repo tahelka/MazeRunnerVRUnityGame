@@ -1,4 +1,4 @@
-# VR Game for Oculus Quest 2
+# Maze Runner VR for Oculus Quest 2
 
 This is a VR game developed for the Oculus Quest 2 using Unity. To play the game on your Oculus Quest 2 or in XR Device Simulator on your PC, follow the steps below.
 
