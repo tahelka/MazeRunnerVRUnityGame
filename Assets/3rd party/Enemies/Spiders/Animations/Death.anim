@@ -84440,7 +84440,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 5.5666666
-    functionName: MakeEnemyUnactive
+    functionName: MakeEnemyDeactivate
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -179,8 +179,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             if (enemy.activeSelf)
             {
-                updateEnemyAgentDestinationToMainCamera(enemy);
-                //enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+                //updateEnemyAgentDestinationToMainCamera(enemy);
+                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
