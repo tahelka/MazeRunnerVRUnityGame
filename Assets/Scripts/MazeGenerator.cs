@@ -409,6 +409,7 @@ public class MazeGenerator : MonoBehaviour
 
             // Remove the current node from the list of nodes and destroy it
             m_Nodes.Remove(i_ChosenObstacleNode);
+            m_LongestPath.Remove(i_ChosenObstacleNode);
             Destroy(i_ChosenObstacleNode.gameObject);
 
             // Add the new obstacle node to the obstacle node list
