@@ -4,7 +4,8 @@ This is a VR game developed for the Oculus Quest 2 using Unity. To play the game
 
 ### Playing on Oculus Quest 2
 
-1. **Oculus Desktop App**: Open the Oculus desktop app on your PC.
+1. **Oculus Desktop App**: 
+   - Open the Oculus desktop app on your PC.
 
 2. **Connect Your Oculus Quest 2**:
    - Via Air Link: Ensure your Oculus Quest 2 and your PC are on the same Wi-Fi network. Use Air Link to connect your Quest 2 to your PC wirelessly.
@@ -21,13 +22,15 @@ This is a VR game developed for the Oculus Quest 2 using Unity. To play the game
 
 ### Playing in XR Device Simulator (PC)
 
-1. **Unity**: Open the Unity project.
+1. **Unity**: 
+   - Open the Unity project.
 
 2. **XR Device Simulator GameObject**:
    - To play the game in XR Device Simulator on your PC, ensure that the `XR Device Simulator` GameObject is **enabled**. You can find this GameObject in your 
      Unity hierarchy.
 
-3. **Start the Game**: Start the game within the Unity editor.
+3. **Start the Game**: 
+   - Start the game within the Unity editor.
 
 
 Have fun playing the game and enjoy your VR experience! If you encounter any issues or have feedback, feel free to reach out for support.
