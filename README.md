@@ -28,6 +28,7 @@ This is a VR game developed for the Oculus Quest 2 using Unity. To play the game
 2. **XR Device Simulator GameObject**:
    - To play the game in XR Device Simulator on your PC, ensure that the `XR Device Simulator` GameObject is **enabled**. You can find this GameObject in your 
      Unity hierarchy.
+   - The controls will be shown in the game on the bottom left side of the screen.
 
 3. **Start the Game**: 
    - Start the game within the Unity editor.
