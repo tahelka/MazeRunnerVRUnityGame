@@ -20,7 +20,7 @@ This is a VR game developed for the Oculus Quest 2 using Unity. To play the game
    - Put on your Oculus Quest 2 headset and play the game.
 
 
-### Playing in XR Device Simulator (PC)
+### Playing with XR Device Simulator (PC)
 
 1. **Unity**: 
    - Open the Unity project.
