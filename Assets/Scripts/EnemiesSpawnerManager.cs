@@ -120,7 +120,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
             //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
             i_EnemyStorage[randomIndex].SetActive(true);
-            //updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
+            updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
             m_CurrentEnemyCount++;
         }    
     }
