@@ -11,6 +11,7 @@ public enum eGameState
 public class GameManager : MonoBehaviour
 {
     public static event System.Action OnPlayModeStart;
+    public static event System.Action OnPlayModeEnd;
     [SerializeField] private MazeManager m_MazeManager;
     [SerializeField] private GameObject m_EnemiesAndObsticlesManager;
     [SerializeField] private Timer m_Timer;
@@ -113,6 +114,12 @@ public class GameManager : MonoBehaviour
         }
 
         m_GameOver.DisplayGameOverMenu(i_EndGameReason);
+
+        // Trigger the action when play mode ends
+        if (OnPlayModeEnd != null)
+        {
+            OnPlayModeEnd.Invoke();
+        }
     }
 
     private IEnumerator executeAfterDelay(float delay)
