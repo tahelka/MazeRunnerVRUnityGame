@@ -101,28 +101,17 @@ public class EnemiesSpawnerManager : MonoBehaviour
        
     }
 
-    //public void PrepareToSpawnEnemies(Transform i_PointToSpawnEnemies)
-    //{
-    //    m_PointToSpawnEnemies = i_PointToSpawnEnemies;
-    //}
-
     public void SpawnEnemyOnStartMaze(List<GameObject> i_EnemyStorage)
     {
         // Get a random integer between 0 (inclusive) and i_EnemyStorage.Count (exclusive).
         int randomIndex = Random.Range(0, i_EnemyStorage.Count);
         if (!i_EnemyStorage[randomIndex].activeSelf) // if enemy is not active
         {
-            //Debug.Log(i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"));
-            //if (i_EnemyStorage[randomIndex].GetComponent<Animator>().GetBool("isDead"))
-            //{
-            //    Debug.Log("enemy was dead");
-            //    // enemy was in the game already and died
-            //}
             initEnemySettings(i_EnemyStorage[randomIndex]);
             i_EnemyStorage[randomIndex].SetActive(true);
-            //updateEnemyAgentDestinationToMainCamera(i_EnemyStorage[randomIndex]);
             m_CurrentEnemyCount++;
-        }    
+            m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
+        }
     }
 
     public void MakeEnemyDead(GameObject enemy)
@@ -135,7 +124,7 @@ public class EnemiesSpawnerManager : MonoBehaviour
     public void DecreaseEnemyCountByOneAndUpdateSpawnTimeNextEnemy()
     {
         m_CurrentEnemyCount--;
-        InitializeSpawnSettings();
+        m_NextSpawnTime = Time.time + m_SecondsToWaitBetweenSpawningEnemies;
     }
 
     private void initEnemySettings(GameObject enemy)
@@ -179,8 +168,8 @@ public class EnemiesSpawnerManager : MonoBehaviour
         {
             if (enemy.activeSelf)
             {
-                //updateEnemyAgentDestinationToMainCamera(enemy);
-                enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
+                updateEnemyAgentDestinationToMainCamera(enemy);
+                //enemy.GetComponent<NavMeshAgent>().destination = GameObject.Find("Main Camera").transform.position;
             }
         }
     }
