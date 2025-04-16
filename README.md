@@ -1,6 +1,46 @@
 # Maze Runner VR for Oculus Quest 2
+# VR Maze Explorer
 
-This is a VR game developed for the Oculus Quest 2 using Unity. To play the game on your Oculus Quest 2 or in XR Device Simulator on your PC, follow the steps below.
+## About
+**VR Maze Explorer** is a fully immersive virtual reality game built with Unity. It challenges players to navigate procedurally generated mazes, avoid or defeat dynamic enemies, and make it to the end as fast as possible. It features difficulty scaling, dynamic obstacle placement, and an in-game leaderboard system to keep track of top performers.
+
+## Features
+- 🧩 Procedurally generated 3D mazes using DFS algorithm
+- 🕷️ Dynamic enemy spawning with NavMesh pathfinding
+- ⚔️ Combat system with hit detection, slicing mechanics, and damage animations
+- 🧠 AI-controlled enemies that seek the player
+- 🕒 In-game timer and health systems
+- 🥇 Score-based leaderboard for Easy, Medium, and Hard levels
+- 🎮 VR integration with hand animation, gripping, and locomotion settings
+- 🔇 Audio and sound effects triggered by user interactions and physics
+- ⛳ Different maze endings with win/loss/quit outcomes
+
+## Technology Stack
+- **Unity** (URP, XR Interaction Toolkit)
+- **C#** for game logic
+- **NavMesh** for AI pathfinding
+- **TextMeshPro** for UI text rendering
+- **EzySlice** for in-game slicing mechanics
+- **XR Toolkit** for VR interactions (Oculus, etc.)
+
+## Structure
+- `GameManager.cs` – Handles game state and flow
+- `MazeGenerator.cs` – Builds maze logic, nodes, and obstacles
+- `EnemiesSpawnerManager.cs` – Controls enemy pool and spawn behavior
+- `HealthManager.cs`, `Timer.cs` – Handles player health and game timing
+- `LeaderboardManager.cs` – Stores and displays scores
+- `SliceObject.cs`, `ToolSoundController.cs` – Adds physics-based slicing and sound interaction
+- `NavMeshBaker.cs` – Dynamically bakes NavMeshes on runtime-generated maze tiles
+
+## Getting Started
+1. Clone the repository into your Unity project directory.
+2. Open in Unity (recommended Unity version: 2022.3+ with XR Toolkit support).
+3. Connect and configure your VR headset.
+4. Play the scene and select a difficulty level.
+5. Navigate through the maze and reach the goal before the enemies do!
+
+To play the game on your Oculus Quest 2 or in XR Device Simulator on your PC, follow the steps below.
+
 
 ### Playing on Oculus Quest 2
 
@@ -33,6 +73,11 @@ This is a VR game developed for the Oculus Quest 2 using Unity. To play the game
 3. **Start the Game**: 
    - Start the game within the Unity editor.
 
-
-
 Have fun playing the game and enjoy your VR experience! If you encounter any issues or have feedback, feel free to reach out for support.
+
+## License
+This project is provided for educational and prototyping purposes. Commercial use is not permitted without explicit permission from the authors.
+
+---
+
+Made with ❤️ and a bit of frustration while debugging Unity NavMesh.
