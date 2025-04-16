@@ -1,5 +1,4 @@
 # Maze Runner VR for Oculus Quest 2
-# VR Maze Explorer
 
 ## About
 **VR Maze Explorer** is a fully immersive virtual reality game built with Unity. It challenges players to navigate procedurally generated mazes, avoid or defeat dynamic enemies, and make it to the end as fast as possible. It features difficulty scaling, dynamic obstacle placement, and an in-game leaderboard system to keep track of top performers.
